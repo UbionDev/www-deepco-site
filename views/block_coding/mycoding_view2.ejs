@@ -1,0 +1,858 @@
+
+<input type="hidden" id="projectId" data-project_name="<%=project_name %>" value="<%=project_id %>">
+<input type="hidden" id="contentId" value="<%=content_id %>">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <!-- Topbar -->
+    <nav class="navbar navbar-dark navbar-expand-lg topbar static-top">
+        <h1 class="navbar-brand">
+          <a href="/home" class="rounded-circle text-white ms-3">
+            <i class="logo"></i>
+            <span class="visually-hidden">CODE AI</span>
+          </a>
+          <span class="navbar-brand-text changetitle" data-bs-toggle="tooltip" data-bs-placement="left" title="클릭하여 수정">
+            <input type="text" id="inProjectName" value="<%=project_name %>" minlength="1" maxlength="20">
+          </span>
+        </h1>
+        <div class="container-fluid bg-transparent">
+        </div>
+    </nav>
+    <!-- //Topbar -->
+
+    <div id="split-wrapper">
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="container-fluid p-0 ">
+            <%
+            let contentCnt = 0;
+            if(content_desc_list && content_desc_list.length > 0) { contentCnt = content_desc_list.length; }
+            %>
+            <button type="button" class="btn btn-sm" id="add-tab" data-bs-toggle="tooltip" data-bs-placement="right" title="탭 추가" tabcnt="<%=contentCnt %>">
+                <i class="bi bi-plus-lg"></i>
+                <span class="visually-hidden">Tab 추가</span>
+            </button>
+
+            <select id="folderList" style="display: none;">
+                <option value="empty">Empty</option>
+            </select>
+
+            <!-- 블록코딩 영역 -->
+            <div class="nav nav-tabs border-0" id="titleTabList" role="tablist">
+                <%
+                if(content_desc_list && content_desc_list.length > 0) {
+                    for( let idx in content_desc_list ){
+                        let contentItem = content_desc_list[idx];
+                        let tabClass = "nav-link";
+                        if(idx == 0) { tabClass += " active"; }
+                %>
+                <a class="<%=tabClass %>" href="#tab<%=idx %>-panel" id="tab<%=idx %>" navindex="<%=idx %>" data-bs-toggle="tab" data-bs-target="#tab<%=idx %>-panel" role="tab" aria-controls="tab<%=idx %>-panel" title="제목없음 선택됨">
+                    <span class="changetitle">
+                        <input type="text" id="subtitle<%=idx %>" value="제목없음" minlength="1" maxlength="20">
+                    </span>
+                    <button type="button" class="border-0 cls_rm_tab" id="btnRemoveTab<%=idx %>" tabindex="<%=idx %>" title="제목없음 탭 삭제 "><i class="bi bi-x"></i></button>
+                </a>
+                <%
+                    }
+                } else {
+                %>
+                <a class="nav-link active" href="#tab0-panel" id="tab0" navindex="0" data-bs-toggle="tab" data-bs-target="#tab0-panel" role="tab" aria-controls="tab0-panel" title="제목없음 선택됨">
+                    <span class="changetitle">
+                        <input type="text" id="subtitle0" value="제목없음" minlength="1" maxlength="20">
+                    </span>
+                    <button type="button" class="border-0 cls_rm_tab" id="btnRemoveTab0" tabindex="0" title="제목없음 탭 삭제 "><i class="bi bi-x"></i></button>
+                </a>
+                <%
+                }
+                %>
+            </div>
+            <div class="tab-content px-0" id="contentTabList">
+                <%
+                if(content_desc_list && content_desc_list.length > 0) {
+                    for( let idx in content_desc_list ){
+                        let contentItem = content_desc_list[idx];
+                        let tabClass = "tab-pane";
+                        if(idx == 0) { tabClass += " text-white fade show active"; }
+                %>
+                <div class="<%=tabClass %>" id="tab<%=idx %>-panel" aria-labelledby="tab<%=idx %>" role="tabpanel">
+                    <!-- 코딩실습 영역 -->
+                    <section class="codingview" id="editor<%=idx %>">
+
+                        <div class="editor_wrap">
+                            <article class="explain-zone">
+                                <iframe src="/mycoding/workspace2?index=<%=idx %>" width="100%" height="100%" frameborder="0"></iframe>
+                            </article>
+                            <article class="run-zone" style="display:none;">
+                                <textarea id="code<%=idx %>" name="code<%=idx %>"></textarea>
+                            </article>
+                        </div>
+                        
+                    </section>
+                    <!-- //코딩실습 영역 -->
+                </div>
+                <input type="hidden" id="content_sub<%=idx %>" name="content_sub" contindex="<%=idx %>" 
+                    data-sub-seq="<%=contentItem.sub_seq %>" 
+                    data-sub-title="<%=contentItem.sub_title %>"
+                    value="<%=contentItem.sub_content_desc %>" />
+                <%
+                    }
+                } else {
+                %>
+                <div class="tab-pane text-white fade show active" id="tab0-panel" aria-labelledby="tab0" role="tabpanel">
+                    <!-- 코딩실습 영역 -->
+                    <section class="codingview" id="editor0">
+        
+                        <div class="editor_wrap">
+                            <article class="explain-zone">
+                                <iframe src="/mycoding/workspace2?index=0" width="100%" height="100%" frameborder="0"></iframe>
+                            </article>
+                            <article class="run-zone" style="display:none;">
+                                <textarea id="code0" name="code0"></textarea>
+                            </article>
+                        </div>
+                        
+                    </section>
+                    <!-- //코딩실습 영역 -->
+                </div>
+                <input type="hidden" id="content_sub0" name="content_sub" contindex="0" 
+                    data-sub-seq="1" 
+                    data-sub-title="제목없음" 
+                    value="" />
+                <%
+                }
+                %>
+            </div>
+            <!--// 블록코딩 영역 -->
+
+        </div>
+        <!-- //Content Wrapper -->
+
+        <!-- 콘솔 영역 -->
+        <div id="consolSection" class="container-fluid p-0">
+            <div class="btn-group d-block text-right">
+                <button type="button" class="reset btn btn-sm text-white" id="initShellBtn" title="콘솔초기화"><i class="bi bi-arrow-repeat"></i><span class="visually-hidden">초기화</span></button>
+                <!--<button type="button" class="fix btn btn-sm text-white" title="콘솔고정"><i class="bi bi-pin-angle"></i><span class="visually-hidden">고정</span></button>-->
+                <button type="button" class="open btn btn-sm text-white" id="openShellBtn" title="콘솔열림"><i class="bi bi-chevron-up"></i><span class="visually-hidden">콘솔영역</span></button>
+            </div>
+            <div class="iframeWrap type_webssh">
+                <iframe id="termFrm0" src="http://192.168.215.22:2222/ssh/host/192.168.215.22?index=0&referer=<%=host_protocol %>://<%=host_domain %>/" width="100%" height="100%" frameborder="0"></iframe>
+            </div>
+        </div>
+        <!-- //콘솔 영역 -->
+
+    </div>
+
+</div>
+<!-- //Page Wrapper -->
+
+
+
+<input type="hidden" id="take_picture_yn" value="N" />
+<input type="hidden" id="driving_picture_yn" value="N" />
+<input type="hidden" id="save_npz_yn" value="N" />
+<input type="hidden" id="save_model_yn" value="N" />
+<input type="hidden" id="save_pltshow_yn" value="N" />
+
+<!--tempLayer Popup Wrapper-->
+<div class="tempLayerPopWrap" style="position: fixed;top: 0; left: 0;z-index: 999999;width: 100%;height: 100%;padding: 50px;background: rgba(0, 0, 0, 0.7);display: none;">
+    <iframe id="termFrmTemp" src="http://192.168.215.22:2222/ssh/host/192.168.215.22?referer=<%=host_protocol %>://<%=host_domain %>/" width="100%" height="100%" frameborder="0"></iframe>
+    <iframe id="kitFrmApi" src="http://192.168.215.22/projects/callApi" style="display: none;" width="100%" height="100%" frameborder="0"></iframe>
+</div>
+<!--//tempLayer Popup Wrapper-->
+
+<script> 
+
+    var projectDescList = [];
+
+    // 어드민페이지에서 생성한 블록 화면에 추가
+    var blocksToCode = function (editIndex, wrCode, xmlDom) {
+        $("#code" + editIndex).val(wrCode);
+        var xmlDomElem = $(xmlDom);
+        var xmlText = '<xml xmlns="https://developers.google.com/blockly/xml" id="coding_block_'+editIndex+'" style="display: none">';
+            xmlText += xmlDomElem.html() + '</xml>';
+            //console.log( xmlText );
+        //$("#xml_block_" + editIndex).remove();
+        $("#coding_block_" + editIndex).remove();
+        $('div.editor_wrap').eq(editIndex).find('article.explain-zone').append( xmlText );
+    }
+
+    var setCameraPictures = function(editIndex, cameraYN) {
+        //var cameraTagText = '<input type="hidden" id="camera_'+editIndex+'" value="'+cameraYN+'" />';
+        $('#take_picture_yn').val(cameraYN);
+    }
+
+    var setDrivingPictures = function(editIndex, recordYN) {
+        //var drivingTagText = '<input type="hidden" id="driving_'+editIndex+'" value="'+recordYN+'" />';
+        $('#driving_picture_yn').val(recordYN);
+    }
+
+    var setSaveNpz = function(editIndex, saveNpzYN, saveNpzName) {
+        //var saveNpzTagText = '<input type="hidden" id="save_npz_'+editIndex+'" value="'+saveNpzYN+'" />';
+        //console.log(editIndex, saveNpzYN, saveNpzName);
+        $('#save_npz_yn').val(saveNpzYN).data('save_name', saveNpzName);
+    }
+
+    var setSaveModel = function(editIndex, saveModelYN, saveModelName) {
+        //var saveModelTagText = '<input type="hidden" id="save_model_'+editIndex+'" value="'+saveModelYN+'" />';
+        //console.log(editIndex, saveModelYN, saveModelName);
+        $('#save_model_yn').val(saveModelYN).data('save_name', saveModelName);
+    }
+
+
+    var childKit;
+    var projectMngPopupShow = function() {
+
+        var kitPop = window.open("http://kit.ubion.co.kr/project/manageview", "kitPop", "_blank");
+
+        childKit = new ByPassCORS(kitPop);
+        childKit = getEventListener(childKit);
+        
+    }
+
+    var imageUploadPopupShow = function() {
+        var url = "http://kit.ubion.co.kr/common/img/uploadview";		
+        var title = "imgUpload";
+        var status = "toolbar=no,scrollbars=no,resizable=yes,status=no,menubar=no,width=800, height=700, top=0,left=0"; 
+        var imgPop = window.open(url, title, "_blank");
+
+        childKit = new ByPassCORS(imgPop);
+        childKit = getEventListener(childKit);
+        
+    }
+
+    var copyCodeToClipBoard = function(editIndex) {
+        var copyElem = document.getElementById('code' + editIndex);
+        var tempTextArea = document.createElement("textarea");
+        document.body.appendChild(tempTextArea);
+        tempTextArea.value = copyElem.value;
+        tempTextArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempTextArea);
+        alert('Code Copied.');
+    }
+
+    var msgData = {};
+
+    /*
+        ssh2 서버 호출 흐름
+
+        - 실행시킬 명령을 coding_view.ejs 에서 약속된 메세지로 webssh2-main/app/client/src/js/index.ts에 전송함
+        - index.ts 에 window.addEventListener('message', function(e) 부분에서 메세지를 전송받음
+        - 받은 메세지 내용을 가지고 index.ts에서 구분된 함수 실행
+        - 실행된 함수는 webssh2-main/app/server/socket.js 에 실행시킬 메세지를 socket.emit 을 통해 전송
+        - socket.js에서 socket.on('control', (controlData) =>  부분에서 실행시킬 메세지를 전송받음 
+        - 받은 메세지 내용으로 분기된 내용을 ssh2 콘솔창에 입력 후 실행
+
+        - 리턴받아야 하는 결과값이 없으면 상황종료 
+        - 리턴받아야 하는 결과값이 있으면 콘솔창에 찍혀있는 텍스트를 
+          webssh2-main/app/client/src/js/index.ts 파일의 socket.on('data', (data: string | Uint8Array) => 부분에서 
+          결과값으로 전달받아 분기시켜 해당 텍스트에 맞는 함수를 실행해 coding_view.ejs에 메세지 전송
+        - coding_view.ejs 의 window.addEventListener('message', function(e) 부분에서 메세지를 전송받아 해당 메세지에 맞는 함수 실행
+
+    
+    */
+    // ssh2 연결
+    var connectToTerminal = function(index) {
+        msgData.Cmd = 'clearConsole';
+        var termFrm = document.getElementById('termFrm0').contentWindow;
+         // webssh2 쪽 client/index.ts에 clearConsole 전송
+        termFrm.postMessage('clearConsole', '<%=_prop.Api.WebSSH2Domain.RootUrl%>:<%=_prop.Api.WebSSH2Domain.Port%>');
+        //$('div.tempLayerPopWrap').show();
+    }
+
+    // flask web 실행
+    var flaskrunToTerminal = function(index) {
+        msgData.Cmd = 'flaskRunPy';
+        var termFrm = document.getElementById('termFrmTemp').contentWindow;
+        // webssh2 쪽 client/index.ts에 flaskRunPy 전송
+        termFrm.postMessage('flaskRunPy', '<%=_prop.Api.WebSSH2Domain.RootUrl%>:<%=_prop.Api.WebSSH2Domain.Port%>');
+        
+    }
+
+    // flask web 종료
+    var flaskstopToTerminal = function(index) {
+        msgData.Cmd = 'stopPy';
+        var termFrm = document.getElementById('termFrmTemp').contentWindow;
+        // webssh2 쪽 client/index.ts에 stopPy 전송
+        termFrm.postMessage('stopPy', '<%=_prop.Api.WebSSH2Domain.RootUrl%>:<%=_prop.Api.WebSSH2Domain.Port%>');
+    }
+
+    var sendMainPyToTerminal = function(index, jsonStr) {
+        msgData.Cmd = 'buildPy';
+        var termFrm = document.getElementById('termFrm0').contentWindow;
+        termFrm.postMessage('buildPy|'+index+'|'+jsonStr, '<%=_prop.Api.WebSSH2Domain.RootUrl%>:<%=_prop.Api.WebSSH2Domain.Port%>');
+    }
+    
+
+    var runToTerminal = function(index) {
+        msgData.Cmd = 'runPy';
+        var termFrm = document.getElementById('termFrm0').contentWindow;
+        // webssh2 쪽 client/index.ts에 runPy 전송
+        termFrm.postMessage('runPy', '<%=_prop.Api.WebSSH2Domain.RootUrl%>:<%=_prop.Api.WebSSH2Domain.Port%>');
+        //$('div.tempLayerPopWrap').show();
+    }
+
+    /// ssh2 동작 중지
+    var stopToTerminal = function(index) {
+        msgData.Cmd = 'stopPy';
+        var termFrm = document.getElementById('termFrm0').contentWindow;
+        // webssh2 쪽 client/index.ts에 stopPy 전송
+        termFrm.postMessage('stopPy', '<%=_prop.Api.WebSSH2Domain.RootUrl%>:<%=_prop.Api.WebSSH2Domain.Port%>');
+    }
+
+    /// ssh2 동작 중지
+    var initializeToTerminal = function(index) {
+        msgData.Cmd = 'killPy';
+        var termFrm = document.getElementById('termFrmTemp').contentWindow;
+        // webssh2 쪽 client/index.ts에 killPy 전송
+        termFrm.postMessage('killPy', '<%=_prop.Api.WebSSH2Domain.RootUrl%>:<%=_prop.Api.WebSSH2Domain.Port%>');
+    }
+
+    var getProjectJsonList = function() {
+        //var termFrm = document.getElementById('termFrmTemp').contentWindow;
+        //termFrm.postMessage('getProjectJsonList', '<%=_prop.Api.WebSSH2Domain.RootUrl%>:<%=_prop.Api.WebSSH2Domain.Port%>');
+    }
+
+    var buildPythonCode = function(index) {
+        //console.log('buildPy Called..'+index);
+        var code = $("#code"+index).val();
+            code = code.replace("\n", "\r\n");
+
+        //var keyboardYN = $("#keyboard_"+index).val();
+        //var cameraYN = $("#camera_"+index).val();
+        //var recordYN = $("#driving_"+index).val();
+        //var pltImShowYN = $("#imshow_"+index).val();
+        var cameraYN = $('#take_picture_yn').val();
+        var recordYN = $('#driving_picture_yn').val();
+        var saveNpzYN = $('#save_npz_yn').val();
+        var saveModelYN = $('#save_model_yn').val();
+
+        var param = {
+            code: code,
+            keyboard_yn: 'N',
+            camera_yn: cameraYN,
+            record_yn: recordYN,
+            save_npz_yn: saveNpzYN,
+            save_model_yn: saveModelYN,
+            pltimshow_yn: 'N'
+        }
+
+        $.ajax({
+            url: "/blocks/runcoding",
+            type: "GET",
+            dataType: 'json',
+            data: param,
+            success: function (data) {
+                connectToTerminal(index);
+                sendMainPyToTerminal(index, JSON.stringify(data));
+                //runToTerminal(index);
+            }
+        })
+    }
+
+    
+
+    var getPicturesOfCamera = function(index, pictureFolderName, jsonText) {
+
+        var sendInfoObj = {};
+
+        if(pictureFolderName == 'cam') {
+            sendInfoObj = {
+                fullpath: "/home/pi/autonomousCar/block/cam/",
+                relpath: "cam/",
+                filename: ""
+            };
+            
+        }
+        if(pictureFolderName == 'training') {
+            sendInfoObj = {
+                fullpath: "/home/pi/autonomousCar/block/data/training/",
+                relpath: "data/training/",
+                filename: ""
+            };
+            
+        }
+
+        var tabIdx = $('a.nav-link.active').attr('navindex');
+        var curWorkspace = $('#editor'+tabIdx).find('article.explain-zone iframe').get(0).contentWindow;
+        curWorkspace.viewDataAfterRunCoding(sendInfoObj);
+        
+    }
+
+    var getSavedDataAfterRun = function(index, dataName) {
+
+        var sendInfoObj = {};
+
+        if(dataName == 'npz') {
+            sendInfoObj = {
+                fullpath: "/home/pi/autonomousCar/block/project/"+$('#projectId').data('project_name')+"/",
+                relpath: "project/"+$('#projectId').data('project_name')+"/",
+                filename: $('#save_npz_yn').data('save_name')
+            };
+            
+        }
+        if(dataName == 'model') {
+            sendInfoObj = {
+                fullpath: "/home/pi/autonomousCar/block/project/"+$('#projectId').data('project_name')+"/model/",
+                relpath: "project/"+$('#projectId').data('project_name')+"/model/",
+                filename: $('#save_model_yn').data('save_name')
+            };
+            
+        }
+        if(dataName == 'pltimg') {
+            sendInfoObj = {
+                fullpath: "/home/pi/autonomousCar/block/project/"+$('#projectId').data('project_name')+"/train_history/",
+                relpath: "project/"+$('#projectId').data('project_name')+"/train_history/",
+                filename: $('#save_pltshow_yn').data('save_name')
+            };
+
+        }
+
+        var tabIdx = $('a.nav-link.active').attr('navindex');
+        var curWorkspace = $('#editor'+tabIdx).find('article.explain-zone iframe').get(0).contentWindow;
+        curWorkspace.viewDataAfterRunCoding(sendInfoObj);
+        
+    }
+
+    var getUploadPopupData = function(dataName, dataParam) {
+
+        var sendInfoObj = {};
+
+        if(dataName == 'names') {
+            sendInfoObj = {
+                fullpath: "/home/pi/autonomousCar/block/project/"+$('#projectId').data('project_name')+"/",
+                relpath: "project/"+$('#projectId').data('project_name')+"/",
+                filename: "names.json"
+            };
+            
+        }
+        if(dataName == 'images') {
+            sendInfoObj = {
+                fullpath: "/home/pi/autonomousCar/block/project/"+$('#projectId').data('project_name')+"/result/",
+                relpath: "project/"+$('#projectId').data('project_name')+"/result/",
+                filename: dataParam.img_name
+            };
+
+        }
+        if(dataName == 'pictures') {
+            sendInfoObj = {
+                fullpath: "/home/pi/autonomousCar/block/project/"+$('#projectId').data('project_name')+"/data/"+dataParam.class_name+"/",
+                relpath: "project/"+$('#projectId').data('project_name')+"/data/"+dataParam.class_name+"/",
+                filename: dataParam.img_name
+            };
+
+        }
+
+        var tabIdx = $('a.nav-link.active').attr('navindex');
+        var curWorkspace = $('#editor'+tabIdx).find('article.explain-zone iframe').get(0).contentWindow;
+        curWorkspace.viewDataAfterRunCoding(sendInfoObj);
+        
+    }
+    
+
+    // webssh2 서버에서 보내는 메시지 수신용
+    // 해당 서버에서 넘어오는 메시지를 확인해 해당 함수 실행
+    window.addEventListener('message', function(e) {
+        //console.log(e.data);
+        var splitDataArr = e.data.split('|');
+        var termCmd = '', termIdx = '', imgRootFolderName = '', jsonText = '';
+        if( splitDataArr && splitDataArr.length > 1 ) {
+            termCmd = splitDataArr[0];
+            termIdx = splitDataArr[1];
+            imgRootFolderName = splitDataArr[2];
+            jsonText = splitDataArr[3];
+        }
+        if( termCmd == 'takePictures' ) {
+            getPicturesOfCamera(termIdx, 'cam');
+        }
+        if( termCmd == 'dataPictures' ) {
+            getPicturesOfCamera(termIdx, 'training', jsonText);
+        }
+        if( termCmd == 'savedNpzData' ) {
+            getSavedDataAfterRun(termIdx, 'npz');
+        }
+        if( termCmd == 'savedTensorFlowModel' ) {
+            getSavedDataAfterRun(termIdx, 'model');
+        }
+
+    });
+
+    var toggleRunButton = function() {
+        $('#runBtn').removeClass('active');
+        $('#stopBtn').removeClass('active');
+        $('#runBtn').addClass('active');
+    }
+
+    var tabPaneResultTrigger = function() {
+        $('#tab-mark').removeClass('active').removeClass('ms-1').addClass('me-1');
+        $('#tab-list').removeClass('me-1').addClass('ms-1').addClass('active');
+        $('#pane-mark').removeClass('active').removeClass('show');
+        $('#pane-list').addClass('active');
+    }
+
+    var addTabContents = function(tabIndex) {
+        // active
+        $('a.nav-link').removeClass('active');
+        $('div.tab-pane').removeClass('active').removeClass('show');
+        // title tab append
+        var titleTabText = `
+        <a class="nav-link active" href="#tab${tabIndex}-panel" id="tab${tabIndex}" navindex="${tabIndex}" data-bs-toggle="tab" data-bs-target="#tab${tabIndex}-panel" role="tab" aria-controls="tab${tabIndex}-panel" title="제목없음 선택됨">
+            <span class="changetitle">
+                <input type="text" id="subtitle${tabIndex}" value="제목없음${tabIndex}" minlength="1" maxlength="20">
+            </span>
+            <button type="button" class="border-0 cls_rm_tab" tabindex="${tabIndex}" title="제목없음 탭 삭제 "><i class="bi bi-x"></i></button>
+        </a>
+        `
+        $('#titleTabList').append(titleTabText);
+        // content append
+        var contentTabText = `
+        <div class="tab-pane text-white fade show active" id="tab${tabIndex}-panel" aria-labelledby="tab${tabIndex}" role="tabpanel">
+            <section class="codingview" id="editor${tabIndex}">
+                <div class="editor_wrap">
+                    <article class="explain-zone">
+                        <iframe src="/mycoding/workspace?index=${tabIndex}" width="100%" height="100%" frameborder="0"></iframe>
+                    </article>
+                    <article class="run-zone" style="display:none;">
+                        <textarea id="code${tabIndex}" name="code${tabIndex}"></textarea>
+                    </article>
+                </div>
+            </section>
+        </div>
+        <input type="hidden" id="content_sub${tabIndex}" name="content_sub" contindex="${tabIndex}" 
+                data-sub-seq="${tabIndex+1}" 
+                data-sub-title="제목없음${tabIndex}" 
+                value="" />
+        `
+        $('#contentTabList').append(contentTabText);
+    }
+
+    var removeTabContents = function(tabIndex) {
+        // active
+        $('#tab'+tabIndex).prev().addClass('active');
+        $('#tab'+tabIndex+'-panel').prev().prev().addClass('active').addClass('show');
+        // title tab remove
+        $('#tab'+tabIndex).remove();
+        // content remove
+        $('#tab'+tabIndex+'-panel').remove();
+        $('#content_sub'+tabIndex).remove();
+    }
+
+    var openConsole = function() {
+        var contentHeight = $('#content-wrapper').height();
+        var height2 = contentHeight / 2 - 10;
+        $('#content-wrapper').css('height', height2);
+        $('div.k-splitbar').css('top', height2);
+        $('#consolSection').css('top', height2+10);
+        $('#consolSection').css('height', height2+57);
+        $('#consolSection').addClass('stateopen');
+        $('#openShellBtn > i').removeClass('bi-chevron-up').addClass('bi-chevron-down');
+        $('div.type_webssh').show();
+    }
+
+    var closeConsole = function() {
+        var contentHeight = $('#content-wrapper').height();
+        var height2 = contentHeight * 2 + 17;
+        $('#content-wrapper').css('height', height2);
+        $('div.k-splitbar').css('top', height2);
+        $('#consolSection').css('top', height2+10);
+        $('#consolSection').css('height', 40);
+        $('#openShellBtn > i').removeClass('bi-chevron-down').addClass('bi-chevron-up');
+        $('div.type_webssh').hide();
+    }
+
+    var runCodingShell = function(tabIndex) {
+        console.log('Run python', tabIndex);
+        if( $('#consolSection').hasClass('stateopen') ) { closeConsole(); }
+        buildPythonCode(tabIndex);
+        openConsole();
+    }
+
+    var stopCodingShell = function(tabIndex) {
+        console.log('Stop python');
+        stopToTerminal(0);
+    }
+
+    //* cors api view
+    var callApiFrameData =  function() {
+
+        var kitApiFrame = document.getElementById("kitFrmApi").contentWindow;//window.frames[0];
+        childKit = new ByPassCORS(kitApiFrame);
+        childKit = getEventListener(childKit);
+
+        childKit.sendMessage("getProjectJsonList", "");
+        childKit.sendMessage("getProjectFolderList", "");
+
+    };
+    //*/
+
+    //* Kir Dir Frame view
+    var initDirView = false;
+    var callDirFrameData = function() {
+        if(!initDirView) {  console.log('callDirFrameData');
+            var curTabIdx = $('a.nav-link.active').attr('navindex');
+            $('#editor'+curTabIdx).find('article.explain-zone iframe').get(0).contentWindow.viewDirFrameData();
+        }
+        initDirView = true;
+    };
+    //*/
+
+    var autoSaveTimer;
+
+    $(document).ready(function(){        
+
+        //* Add Tab
+        $(document).on("click", "#add-tab", function() {
+            var tabCnt = parseInt( $(this).attr('tabcnt') );
+            console.log('Add Tab', tabCnt);
+            if( $('a.nav-link').length <= 6 ) {
+                addTabContents(tabCnt);
+                tabCnt = tabCnt + 1;
+                $(this).attr('tabcnt', tabCnt);
+            }
+        });
+        //*/
+
+        //* Select Tab
+        $(document).on("click", "a.nav-link", function(e) {
+            //console.log(e.target, $(e.target).hasClass('bi-x'));
+            var tabIdx = parseInt( $(this).attr('navindex') );
+            if( $(e.target).hasClass('bi-x') ) {
+                console.log('Remove Tab', tabIdx);
+                if( $('a.nav-link').length > 1 ) {
+                    removeTabContents(tabIdx);
+                }
+
+            } else {
+                console.log('Select Tab', tabIdx);
+                getSubContents(tabIdx);
+            }
+            
+        });
+        //*/
+
+        /* Save Coding
+        $(document).on("click", "#savecoding", function() {
+            
+        });
+        //*/
+
+        /* Remove Coding
+        $(document).on("click", "#rmcoding", function() {
+            
+        });
+        //*/
+
+        /* Build py and Run ps
+        $(document).on("click", "#runBtn", function() {
+            var slide_index = $('button.carousel-num.active').data('bsSlideTo');
+            console.log('Run python', slide_index);
+            tabPaneResultTrigger();
+            //buildPythonCode(slide_index);
+        });
+        //*/
+
+        /* Stop py ps
+        $(document).on("click", "#stopBtn", function() {
+            console.log('Stop python');
+            stopToTerminal(0);
+        });
+        //*/
+
+        //* Kill py ps
+        $(document).on("click", "#initShellBtn", function() {
+            console.log('Init terminal');
+            initializeToTerminal(0);
+            connectToTerminal(0);
+            //toggleRunButton();
+        });
+        //*/
+
+        //* Open webssh console
+        $(document).on("click", "#openShellBtn", function() {
+            console.log('Show terminal', $('#consolSection').hasClass('stateopen'));
+            if( !$('#consolSection').hasClass('stateopen') ) {
+                closeConsole();
+            } else {
+                openConsole();
+            }
+        });
+        //*/
+
+        /* Auto Save Timer
+        var setAutoSaveTimer = function() {
+            if(autoSaveTimer) { clearInterval(autoSaveTimer); }
+            autoSaveTimer = setInterval(function(){
+                var curTabIdx = $('a.nav-link.active').attr('navindex');
+                saveProjectContents(curTabIdx);
+            }, 30000);
+        }
+        setAutoSaveTimer();
+        //*/
+
+        // Tab Title
+        $('a.nav-link').each(function(){
+            var tabIdx = $(this).attr('navindex');
+            $('#subtitle'+tabIdx).val( $('#content_sub'+tabIdx).data('subTitle') );
+        });
+        // Tab Contents
+        //getSubContents(0);
+
+        setTimeout(function(){ 
+            callApiFrameData(); 
+            callDirFrameData();
+        }, 1000);
+        
+    });
+    // document ready */
+    
+
+    //* 실습 프레임 조회
+    var getSubContents = function(tabIndex){
+        var content_sub_title = $('#content_sub'+tabIndex).data('subTitle');
+        var content_sub_desc = Base64.decode( $('#content_sub'+tabIndex).val() );
+
+        // current tab title
+        $('#subtitle'+tabIndex).val(content_sub_title);
+
+        // current tab contents desc
+        var div_temp = $('<div>').css('display', 'none').html(content_sub_desc);
+        var coding_zone = $('#editor'+tabIndex).find('div.editor_wrap article.explain-zone');
+        if(content_sub_desc != '') {
+            coding_zone.empty();
+            coding_zone.append(div_temp.find('article.explain-zone').html());
+            var defaultXmlText = '<xml xmlns="https://developers.google.com/blockly/xml" id="default_xml_block_'+tabIndex+'" style="display: none">';
+            defaultXmlText += coding_zone.find("#coding_block_" + tabIndex).html();
+            defaultXmlText += '</xml>';
+            coding_zone.append(defaultXmlText);
+        }
+        div_temp.remove();
+    }
+    //*/
+
+    //* 프로젝트 실습 코딩 저장
+    var saveProjectContents = function(tabIndex) {
+        var contentDescList = setTabDataList(tabIndex, 'Save');
+        console.log('Save', contentDescList);
+
+        var saveurl = '', savetype;
+        if($('#contentId').val() == 0) { 
+            saveurl = '<%=_prop.Api.CodingContentUrl%>/projects/'+$('#projectId').val()+'/contents';
+            savetype = "POST"; 
+        } else { 
+            saveurl = '<%=_prop.Api.CodingContentUrl%>/projects/'+$('#projectId').val()+'/contents/'+$('#contentId').val();
+            savetype = "PATCH"; 
+        }
+        
+        $.ajax({
+            url: saveurl,
+            type: savetype,
+            dataType: 'json',
+            data: { 
+                content_desc_list: JSON.stringify(contentDescList),
+                content_len:  contentDescList.length,
+                coding_desc_list: JSON.stringify(projectDescList)
+            },
+            success: function (data) {
+                console.log('Save', data);
+                if(data && data.affectedRows > 0) {
+                    if(savetype == "POST") { $('#contentId').val(data.id); }
+                                            
+                }
+            }
+        });
+    }
+    //*/
+
+    //* 프로젝트 실습 코딩 초기화
+    var removeProjectContents = function(tabIndex) {
+        var contentDescList = setTabDataList(tabIndex, 'Remove');
+        console.log('Remove', contentDescList);
+        
+        var saveurl = '', savetype;
+        saveurl = '<%=_prop.Api.CodingContentUrl%>/projects/'+$('#projectId').val()+'/contents/'+$('#contentId').val();
+        savetype = "PATCH";
+            
+        $.ajax({
+            url: saveurl,
+            type: savetype,
+            dataType: 'json',
+            data: { 
+                content_desc_list: JSON.stringify(contentDescList),
+                content_len:  contentDescList.length, 
+                coding_desc_list: JSON.stringify(projectDescList)
+            },
+            success: function (data) {
+                console.log('Remove', data);
+                if(data && data.affectedRows > 0) { 
+                    //alert('Coding Initialized.'); 
+                    //getSubContents(slide_index);
+                }
+            }
+        });
+    }
+    //*/
+
+    //* 코딩 저장/초기화 dataset
+    var setTabDataList = function(tabIndex, procFlag) {
+        var curCodingZone = $('#editor'+tabIndex).find('div.editor_wrap article.explain-zone');
+        var curCodingHtml = curCodingZone.html();
+
+        var saveHtml = `<article class="explain-zone">
+            ${curCodingHtml}
+            </article>`;
+
+        var saveCodingDesc = '';
+        if(procFlag == 'Save') {
+            //console.log(saveHtml);
+            saveCodingDesc = Base64.encode(saveHtml);
+        }
+        $('#content_sub'+tabIndex).val(saveCodingDesc);
+
+        var contentDescList = [];
+        $('input[name=content_sub]').each(function(idx){
+            //console.log(idx, $(this).data('subSeq'));
+            var content_idx = $(this).attr('contindex');
+            var subContentObj = {};
+            subContentObj.sub_seq = $(this).data('subSeq');
+            subContentObj.sub_title = $('#subtitle'+content_idx).val();
+            if(content_idx == tabIndex) { subContentObj.sub_content_desc = saveCodingDesc; }
+            else { subContentObj.sub_content_desc = $(this).val(); }
+            contentDescList.push(subContentObj);
+        });
+        return contentDescList;
+    }
+    //*/
+
+    
+
+    var convertTime = function(seconds){
+        var mmssTime = "00:00";
+        var min = parseInt(seconds/60) < 10 ? '0' + parseInt(seconds/60) : parseInt(seconds/60);
+        var sec = seconds%60 < 10 ? '0' + seconds%60 : seconds%60;
+        mmssTime = min + ":" + sec;
+        return mmssTime;
+    }
+
+    var getDateTime = function(rtnType){
+        var rtnString = '';
+        var today = new Date();
+
+        var year = today.getFullYear();
+        var month = ('0' + (today.getMonth() + 1)).slice(-2);
+        var day = ('0' + today.getDate()).slice(-2);
+
+        var dateString = year + '-' + month  + '-' + day;
+
+        var hours = ('0' + today.getHours()).slice(-2); 
+        var minutes = ('0' + today.getMinutes()).slice(-2);
+        var seconds = ('0' + today.getSeconds()).slice(-2); 
+
+        var timeString = hours + ':' + minutes  + ':' + seconds;
+
+        if(rtnType == 'date') { rtnString = dateString; }
+        if(rtnType == 'time') { rtnString = timeString; }
+        return rtnString;
+    }
+
+</script>

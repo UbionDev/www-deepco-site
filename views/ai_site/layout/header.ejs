@@ -1,0 +1,47 @@
+<%
+  var langStr='한국어', optStr='없음', optDisStr='연결해제';
+  if(i18n.locale === 'en'){
+    langStr='ENGLISH';
+    optStr='None';
+    optDisStr='Disconnect';
+  }
+%>
+
+<header>
+  <!-- 글로벌 네비게이션 -->
+  <div class="container-lg ms-auto d-block text-end" id="gnb">
+    <div class="btn-group">
+      <button class="btn btn-sm d-inline-block dropdown-toggle" type="button" id="lang-dropdown" data-bs-toggle="dropdown" aria-expanded="false" title="언어변경"><i class="bi bi-globe2 me-2"></i><%=langStr%><i class="bi bi-chevron-down ms-1"></i></button>
+      <ul class="dropdown-menu" aria-labelledby="lang-dropdown">
+        <li><a class="dropdown-item" href="/lang/ko">한국어</a></li>
+        <li><a class="dropdown-item" href="/lang/en">ENGLISH</a></li>
+      </ul>
+      <!--<button class="btn btn-sm d-inline-block dropdown-toggle" type="button" id="coda-dropdown" data-bs-toggle="dropdown" aria-expanded="false" title="키트선택"><i class="bi bi-car me-2"></i><%=cookie_coda_name%><i class="bi bi-chevron-down ms-1"></i></button>-->
+      <ul class="dropdown-menu" aria-labelledby="coda-dropdown" style="display: none;">
+        <% 
+        if(locals.coda_list && locals.coda_list.length > 0) { 
+        %>
+        <li><a class="dropdown-item" href="javascript: setKitAddress('CodaCar', '192.168.50.1');"><%=optDisStr%></a></li>
+        <%
+             for(let i in locals.coda_list) {
+               let codaInfo = locals.coda_list[i];
+        %>
+        <li><a class="dropdown-item" href="javascript: setKitAddress('<%=codaInfo.kit_name%>', '<%=codaInfo.kit_address%>');"><%=codaInfo.kit_name%></a></li>
+        <%   } 
+        } else { %>
+        <li><a class="dropdown-item" href="#"><%=optStr%></a></li>
+        <% } %>  
+      </ul>
+    </div>
+    <!--<a class="btn btn-sm d-inline-block" href="http://<%=cookie_coda_addr%>" target="_blank" id="coda-site-link" title="페이지 이동(새창열림)">uCODA CAR<i class="bi bi-box-arrow-up-right ms-1"></i></a>-->
+    <% if(loginInfo.sub) {%>
+      <a class="btn btn-sm d-inline-block" href="javascript: keycloakLogout();" title="로그아웃합니다."><i class="bi bi-person-circle me-2"></i><!--로그아웃--><%-i18n.__("aisite.layout.header.logout")%></a>
+    <%} else {%>
+      <a class="btn btn-sm d-inline-block" href="/keycloack/login" title="로그인합니다."><i class="bi bi-person-circle me-2"></i><!--로그인--><%-i18n.__("aisite.layout.header.login")%></a>
+    <%}%>
+  </div>
+  <!-- //글로벌 네비게이션 -->
+
+  <%- include('menu') -%>
+
+</header>

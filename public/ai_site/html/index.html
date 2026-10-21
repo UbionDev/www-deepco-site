@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI makers</title>
+  <link rel="stylesheet" href="./assets/vender/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="./assets/css/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="./assets/css/aimakers.css"><!-- customize -->
+</head>
+
+<body>
+  <header>
+    <!-- 글로벌 네비게이션 -->
+    <div class="container-lg ms-auto d-block text-end" id="gnb">
+      <div class="btn-group">
+        <button class="btn btn-sm d-inline-block dropdown-toggle" type="button" id="lang-dropdown" data-bs-toggle="dropdown" aria-expanded="false" title="언어변경"><i class="bi bi-globe2 me-2"></i>한국어<i class="bi bi-chevron-down ms-1"></i></button>
+        <ul class="dropdown-menu" aria-labelledby="lang-dropdown">
+          <li><a class="dropdown-item" href="#">한국어</a></li>
+          <li><a class="dropdown-item" href="#">ENGLISH</a></li>
+        </ul>
+      </div>
+      <a class="btn btn-sm d-inline-block" href="http://wdr.ubion.co.kr/AiKit/codaCar/" target="_blank" title="페이지 이동(새창열림)"><i class="bi bi-car me-2"></i>CodaCar</a>
+      <a class="btn btn-sm d-inline-block" href="#" title="로그아웃합니다."><i class="bi bi-person-circle me-2"></i>로그아웃</a>
+    </div>
+    <!-- //글로벌 네비게이션 -->
+    <!-- 네비게이션 -->
+    <nav class="navbar navbar-light navbar-expand-lg d-flex flex-wrap justify-content-center bg-white border-bottom shadow-sm" aria-label="navbar">
+      <div class="container">
+        <!-- BI -->
+        <a href="index.html" class="navbar-brand my-lg-3">
+          <span class="visually-hidden">AI makers</span>
+          <img src="./assets/images/bi_AImakers.svg" alt="AImakers BI">
+        </a>
+        <!-- //BI -->
+        <!-- Toggle Button -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbars" aria-controls="navbars" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+      <!-- //Toggle Button -->
+      <div class="container my-lg-5">
+        <div class="navbar-collapse collapse justify-content-center" id="navbars">
+          <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link" href="introduce.html" title="페이지 이동">AI 학습소개</a></li>
+            <li class="nav-item"><a class="nav-link" href="lecture.html" title="페이지 이동">과정소개</a></li>
+            <li class="nav-item"><a class="nav-link" href="project.html" title="페이지 이동">내 작업실</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- //네비게이션 -->
+  </header>
+
+  <div class="home" role="main">
+    <section class="bg-white">
+      <div class="container-fluid p-0">
+        <!-- 슬라이더 -->
+        <div id="carousel-home-top" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carousel-home-top" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carousel-home-top" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          </div>
+          <div class="carousel-inner">
+            <div class="carousel-item bg-light-secondary active">
+              <div class="container-lg container-fluid mx-auto py-md-0 py-5 px-lg-0 px-md-10 px-5 row justify-content-md-start justify-content-center align-items-center slide-bg1">
+                <div class="col-lg-4 col-md-8  col-12">
+                  <h2 class="text-dark fs-3  pb-sm-3">블록코딩으로 배우는 인공지능</h2>
+                  <p class="d-grid gap-0 font-base text-dark fw-light">
+                    <span class="">블록코딩으로 인공지능 실습부터 나만의 모델 생성까지!</span>
+                    <span class="">SW 실습과 HW 키트가 만난, 완성형 커리큘럼으로 손쉬운 AI 교육을 지금 시작해보세요.</span>
+                  </p>
+                  <!-- <div class="py-4 py-sm-5"><a class="btn btn-sm btn-primary px-4 rounded-7 text-white" href="#" data-scroll="">자세히보기<i class="bi bi-chevron-right ms-2" role="img" aria-label="자세히보기"></i></a>
+                </div>-->
+                </div>
+              </div>
+              <!-- <img src="..." class="d-block w-100" alt="..."> -->
+            </div>
+            <div class="carousel-item bg-light-primary">
+              <div class="container-lg container-fluid mx-auto py-md-0 py-5 px-lg-0 px-md-10 px-5 row justify-content-md-start justify-content-center align-items-center slide-bg2">
+                <div class="col-lg-4 col-md-8  col-12">
+                  <h2 class="text-dark fs-3  pb-sm-3">인공지능 교육,<br> 어디서 시작할지 모르셨다면</h2>
+                  <p class="d-grid gap-0 font-base text-dark fw-light">
+                    <span class="">교재, 교구, 교안이 모두 제공되는 AI MAKERS가
+                      이론과 응용이 결합된 학습도구로 효율적인 학습을 도와드립니다.</span>
+                    <span class="">초·중등 교육 뿐만이 아니라 평생교육, 대학강의에서도
+                      다양한 레벨의 인공지능을 경험해보세요.</span>
+                  </p>
+                  <!-- <div class="py-4 py-sm-5"><a class="btn btn-sm btn-secondary px-4 rounded-7" href="#" data-scroll="">자세히보기<i class="bi bi-chevron-right ms-2" role="img" aria-label="자세히보기"></i></a>
+                </div> -->
+                </div>
+              </div>
+              <!-- <img src="..." class="d-block w-100" alt="..."> -->
+            </div>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carousel-home-top" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carousel-home-top" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+        <!-- //슬라이더 -->
+      </div>
+    </section>
+
+    <!-- AI MAKERS는? -->
+    <section class="bg-white">
+      <div class="container py-lg-10 py-md-7 py-5">
+        <div class="col-md-12 col-10 row mx-auto row justify-content-center align-items-center">
+          <div class="col-11 text-center">
+            <h3 class="text-dark"><strong class="text-primary">AI MAKERS</strong>는?</h3>
+            <p class="my-lg-3 my-2">다양한 교구를 활용하여 인공지능을 체험하고<br>
+              원리를 이해할 수 있도록 돕는 AI 학습 전문 플랫폼입니다. </p>
+          </div>
+          <div class="col-lg-10 col-12 text-center my-lg-5 my-3">
+            <ul class="d-md-flex d-grid gap-2 list-unstyled row p-5 bg-light-primary rounded-7">
+              <li class="col text-center fs-5">
+                <span class="d-inline-block py-lg-3"><i class="bi bi-check2-circle text-primary me-2"></i>인공지능 블록코딩 툴</span>
+                <img src="./assets/images/home-contents1.png" class="img-fluid" alt="">
+              </li>
+              <li class="col text-center fs-5">
+                <span class="d-inline-block py-lg-3"><i class="bi bi-check2-circle text-primary me-2"></i>딥러닝 자율주행자동차</span>
+                <img src="./assets/images/home-contents2.png" class="img-fluid" alt="">
+              </li>
+              <li class="col text-center fs-5">
+                <span class="d-inline-block py-lg-3"><i class="bi bi-check2-circle text-primary me-2"></i>AI 모델 생성· 편집 툴</span>
+                <img src="./assets/images/home-contents3.png" class="img-fluid" alt="">
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="container-fulid bg-dark-primary aboutai">
+        <div class="container mx-auto text-center">
+          <p class="py-md-10 py-5 text-light word-keep"><strong>인공지능</strong>,<br>
+            어떻게 공부할지 모르셨다면
+            블록코딩으로 쉽게 시작해보세요.<br>
+            입문부터 고급까지 다양한 난이도의 인공지능 학습을 지원합니다.</p>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row py-lg-12 py-md-8 py-5 justify-content-center">
+          <div class="col-lg-10 col-12 text-center">
+            <h3 class="">이런 분들께 <strong class="text-primary">추천드려요.</strong></h3>
+          </div>
+          <div class="col-lg-12  pt-lg-5 pt-3 row justify-content-center">
+            <div class="col-lg-3 col-md-8 col-11 px-lg-3 py-lg-0 py-2 text-center">
+              <div class="p-lg-6 p-3 shadow-sm border border-1 border-light-primary rounded-6 word-keep">
+                <img src="./assets/images/home-icon1.png" class="" alt="">
+                <span class="d-inline-block w-100 pt-lg-5 pt-3">인공지능에 관심있는
+                  비전공자 일반인</span>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-8 col-11 px-lg-3 py-lg-0 py-2 text-center">
+              <div class="p-lg-6 p-3 shadow-sm border border-1 border-light-primary rounded-6 word-keep">
+                <img src="./assets/images/home-icon2.png" class="" alt="">
+                <span class="d-inline-block w-100 pt-lg-5 pt-3">초중고, 대학생 등
+                  인공지능 수업을
+                  진행하고 싶은 기관</span>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-8 col-11 px-lg-3 py-lg-0 py-2 text-center">
+              <div class="p-lg-6 p-3 shadow-sm border border-1 border-light-primary rounded-6 word-keep">
+                <img src="./assets/images/home-icon3.png" class="" alt="">
+                <span class="d-inline-block w-100 pt-lg-5 pt-3">인공지능은 배웠지만
+                  실제로 응용해보고 싶으신 분</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- //AI MAKERS는? -->
+
+    <!-- 고객센터 -->
+    <section class="bg-light-primary">
+      <div class="container py-lg-8 py-5 bg-customer">
+        <div class="justify-content-md-end justify-content-center align-items-lg-center row ">
+          <div class="col-md-6 col-11 text-dark">
+            <h3 class="fs-5 font-base">고객센터</h3>
+            <div class="col display-5 fw-bold lh-sm">1577-0111</div>
+            <div class="d-grid gap-1 my-lg-3 my-2">
+              <span class="col">평일 오전 9시 ~ 오후 6시 │ 토·일·공휴일 휴무</span>
+              <span class="col">점심시간 오전 12시 ~ 오후 1시</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- //고객센터 -->
+
+  </div>
+
+  <div class="container-fulid bg-light">
+    <footer id="main-footer" class="container row row-cols-2 justify-content-center py-5 mx-auto">
+      <div class="col-md-3 col-12">
+        <!-- BI -->
+        <a href="../codaCar" class="navbar-brand d-flex align-items-center mb-3 link-dark text-decoration-none">
+          <span class="visually-hidden">AImakers</span>
+          <img src="./assets/images/bi_AImakers.svg" alt="AImakers BI">
+        </a>
+        <!-- //BI -->
+      </div>
+
+      <div class="col-md-8 col-12">
+        <p>
+          <button type="button" class="btn btn-sm px-0 me-lg-5 me-sm-2" title="개인정보처리방침 팝업열림">개인정보처리방침</button>
+          <button type="button" class="btn btn-sm px-0 me-lg-5 me-sm-2" title="서비스이용약관 팝업열림">서비스이용약관</button>
+          <a href="#" class="btn btn-sm px-0 me-lg-5 me-sm-2" title="제휴문의 페이지로 이동">제휴문의</a>
+          <a href="#" class="btn btn-sm px-0 me-lg-5 me-sm-2" title="서비스소개 페이지로 이동">서비스소개</a>
+          <a href="#" class="btn btn-sm px-0 me-lg-5 me-sm-2" title="고객센터 페이지로 이동">고객센터</a>
+        </p>
+
+        <h6>주식회사 유비온</h6>
+        <span class="text-muted">대표이사</span> 임재환 <adress class="ms-3"><span class="text-muted">주소</span> 08378 서울시 구로구 디지털로 34길 대륭포스트타워3차 6층 601호</adress>
+        <p>
+          <span class="d-md-inline-block d-block me-3"><span class="text-muted">사업자 등록번호</span> 119-81-34860</span>
+          <span class="d-md-inline-block d-block me-3"><span class="text-muted">통신판매업 신고번호</span> 구로 제 2005-02386호</span>
+        </p>
+        <p class="text-muted copyright">© COPYRIGHT 2022 주식회사 AI CAR Corp. ALL RIHGTS RESERVED.</p>
+      </div>
+    </footer>
+  </div>
+
+</body>
+
+<!-- jQuery Core plugin scripts-->
+<script src="./assets/vendor/jquery/jquery-2.1.1.min.js"></script>
+<script src="./assets/vendor/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+<script src="./assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Bootstrap core JavaScript-->
+<script src="./assets/vendor/bootstrap/bootstrap.bundle.min.js"></script>
+
+<script src="./assets/js/common.js"></script>
+
+</html>

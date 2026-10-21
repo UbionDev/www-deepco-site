@@ -1,0 +1,192 @@
+<div id="main-content" class="container lecture pb-lg-8 pb-5" role="main">
+    <section>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-12 py-xl-3">
+            <h1 class="text-dark text-center pb-sm-3"><!--작업목록--><%-i18n.__("aisite.project.work_list")%></h1>
+          </div>
+          <!-- 카드 리스트 -->
+          <div class="col-12 row card-project-wrap">
+            <div class="col-lg-4 col-md-6 px-2 py-3">
+              <div class="card-project new-project">
+                <button type="button" class="card-body-wrap text-decoration-none" data-bs-toggle="modal" data-bs-target="#projectModal" title="새 프로젝트 만들기">
+                  <div class="card-body text-center">
+                    <span class="my-2"><i class="bi bi-plus"></i></span>
+                    <h5 class=""><!--새 프로젝트 만들기--><%-i18n.__("aisite.project.new_project")%></h5>
+                  </div>
+                </button>
+              </div>
+            </div>
+
+            <%
+              for(let i in apiResponse.myProjectList){
+                let myProject = apiResponse.myProjectList[i];
+            %>
+              <div class="col-lg-4 col-md-6 px-2 py-3">
+                <div class="card-project" name="projCard">
+                  <a href="javascript:void(window.open('/blocks/mycoding?project_id=<%=myProject.id%>','_blank'));" class="card-body-wrap text-decoration-none" title="상세페이지로 이동">
+                    <div class="card-body">
+                      <h5 class="fw-bold text-dark" name="projTitle" ><%=myProject.project_name%></h5>
+                      <p class="text-muted fs-9" name="projNoti" ><%=myProject.project_desc%></p>
+                    </div>
+                    <div class="card-footer text-dark">
+                      <div class="d-flex justify-content-between px-2">
+                        <span class="fs-9 fw-normal mb-0"><%=myProject.reg_date%></span>
+                      </div>
+                    </div>
+                  </a>
+                  <button type="button" class="btn more my-2" title="프로젝트 수정,삭제"><i class="bi bi-three-dots-vertical"></i></button>
+                  <div class="speech-bubble btn-group p-0 rounded-2 bg-dark" name="projId" data-proj_id="<%=myProject.id%>" >
+                    <button type="button" class="btn btn-sm btn-dark" data-bs-toggle="modal" data-bs-target="#projectModal1" name="projModify" ><!--수정--><%-i18n.__("common.edit")%></button>
+                    <button type="button" class="btn btn-sm btn-dark" name="projDelete" ><!--삭제--><%-i18n.__("common.delete")%></button>
+                  </div>
+                </div>
+              </div>
+            <%}%>
+          </div>
+          <!-- //카드 리스트 -->
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+
+  <!-- 새 프로젝트 팝업 -->
+  <div class="modal fade" id="projectModal" tabindex="-1" aria-labelledby="projectModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content px-lg-5  pt-5">
+        <div class="modal-header border-0 p-0">
+          <h5 class="modal-title" id="projectModalLabel"><!--프로젝트 제목--><%-i18n.__("aisite.project.title")%></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body input-group input-group-sm px-0 py-1">
+          <input type="text" class="form-control" maxlength="20" placeholder="<%-i18n.__("aisite.project.title_placeholder")%>" id="projectTitle" >
+        </div>
+        <div class="modal-header border-0 p-0 pt-3">
+          <h5 class="modal-title" id="projectModalLabel"><!--프로젝트 설명--><%-i18n.__("aisite.project.description")%></h5>
+        </div>
+        <div class="modal-body form-floating px-0 py-1">
+          <textarea class="form-control" placeholder="<%-i18n.__("aisite.project.description_placeholder")%>" id="projectNoti" maxlength="50" style="height: 80px" ></textarea>
+          <label for="projectNoti"><!--프로젝트 설명을 입력하세요.(최대 50자)--><%-i18n.__("aisite.project.description_placeholder")%></label>
+        </div>
+        <div class="modal-footer py-3 border-0 justify-content-center">
+          <button type="button" class="btn btn-dark px-5 rounded-3" id="createProject" ><!--프로젝트 만들기--><%-i18n.__("aisite.project.create")%></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- //새 프로젝트 팝업 -->
+
+  <!-- 프로젝트 수정 팝업 -->
+  <div class="modal fade" id="projectModal1" tabindex="-1" aria-labelledby="projectModalLabel1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content px-lg-5  pt-5">
+        <div class="modal-header border-0 p-0">
+          <h5 class="modal-title" id="projectModalLabel1"><!--프로젝트 제목--><%-i18n.__("aisite.project.title")%></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body input-group input-group-sm px-0 py-1">
+          <input type="text" class="form-control" maxlength="20" placeholder="<%-i18n.__("aisite.project.title_placeholder")%>" id="projModifyTitle" >
+        </div>
+        <div class="modal-header border-0 p-0 pt-3">
+          <h5 class="modal-title" id="projectModalLabel1"><!--프로젝트 설명--><%-i18n.__("aisite.project.description")%></h5>
+        </div>
+        <div class="modal-body form-floating px-0 py-1">
+          <textarea class="form-control" placeholder="<%-i18n.__("aisite.project.description_placeholder")%>" id="projModifyNoti" maxlength="50" style="height: 80px" ></textarea>
+          <label for="projModifyNoti"><!--프로젝트 설명을 입력하세요.(최대 50자)--><%-i18n.__("aisite.project.description_placeholder")%></label>
+        </div>
+        <div class="modal-footer py-3 border-0 justify-content-center">
+          <button type="button" class="btn btn-dark px-5 rounded-3" id="modify" data-proj_id="" ><!--수정하기--><%-i18n.__("common.update_btn")%></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- //프로젝트 수정 팝업 -->
+
+  <script>
+    $(document).ready(function() {
+      //  새 프로젝트 만들기
+      $('#createProject').on('click', function() {
+        let title = $('#projectTitle').val();
+        let noti = $('#projectNoti').val();
+        let urlTxt = '/my-projects'
+  
+        if(!title || title == '') {
+          alert('<%-i18n.__("aisite.project.val_input_title")%>');
+          return;
+        }
+  
+        $('#projectTitle').val('');
+        $('#projectNoti').val('');
+        
+        body = {
+          title : title,
+          noti : noti,
+        }
+        
+        aiKitCommon.callTextCodingAjax(urlTxt, body, 'POST')
+        .done(function(res) {
+          location.reload();
+        });
+        
+      });
+
+      //  프로젝트 수정 버튼 클릭시
+      $('button[name="projModify"]').on('click', function() {
+        let projId = $(this).parents('div[name="projId"]').data('proj_id');
+        let title = $(this).parents('div[name="projCard"]').find('h5[name="projTitle"]').text();
+        let noti = $(this).parents('div[name="projCard"]').find('p[name="projNoti"]').text();
+  
+        $('#modify').val(projId);
+        $('#projModifyTitle').val(title);
+        $('#projModifyNoti').val(noti);
+  
+      });
+
+      //  프로젝트 수정하기
+      $('#modify').on('click', function() {
+        let projId = $('#modify').val();
+        let title = $('#projModifyTitle').val();
+        let noti = $('#projModifyNoti').val();
+        let urlTxt = '/my-projects/' + projId
+
+        if(!title || title == '') {
+          alert('<%-i18n.__("aisite.project.val_input_title")%>');
+          return;
+        }
+
+        $('#modify').val('');
+        $('#projModifyTitle').val('');
+        $('#projModifyNoti').val('');
+
+        body = {
+          projId : projId,
+          title : title,
+          noti : noti,
+        }
+
+        aiKitCommon.callTextCodingAjax(urlTxt, body, 'PUT')
+        .done(function(res) {
+          location.reload();
+        });
+      });
+
+      //  삭제 버튼 클릭시
+      $('button[name="projDelete"]').on('click', function() {
+        let projId = $(this).parents('div[name="projId"]').data('proj_id');
+        let urlTxt = '/my-projects/' + projId
+
+        if(confirm('<%-i18n.__("common.first_confirm_delete")%>')) {
+          let body = {}
+          aiKitCommon.callTextCodingAjax(urlTxt, body, 'DELETE')
+          .done(function(res) {
+            location.reload();
+          });
+        }
+      });
+
+    })
+    
+    
+  </script>

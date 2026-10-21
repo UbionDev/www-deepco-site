@@ -1,0 +1,52 @@
+{
+  "name": "webcoding-front",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "export ServiceType=dev || set ServiceType=dev&& node ./www",
+    "build": "tsc --build ./assets/tsconfig.json ./assets/plan/tsconfig.json",
+    "dev": "export ServiceType=dev || set ServiceType=dev&& nodemon ./www"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "public/*"
+    ]
+  },
+  "dependencies": {
+    "accept-language": "^3.0.18",
+    "blockly": "^7.20211209.4",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "csurf": "^1.11.0",
+    "debug": "~4.3.3",
+    "ejs": "~3.1.6",
+    "ejs-locals": "^1.0.2",
+    "express": "~4.17.3",
+    "express-csp-header": "^5.0.0",
+    "express-ejs-layouts": "^2.5.1",
+    "express-fileupload": "^1.3.1",
+    "helmet": "^5.0.2",
+    "http-errors": "~2.0.0",
+    "i18n": "^0.15.0",
+    "jquery-i18next": "^1.2.1",
+    "js-base64": "^3.7.2",
+    "log-timestamp": "^0.3.0",
+    "moment": "^2.29.1",
+    "moment-timezone": "^0.5.34",
+    "morgan": "^1.10.0",
+    "query-string": "^7.1.1",
+    "randomstring": "^1.2.2",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6",
+    "require-from-string": "^2.0.2",
+    "sanitize-html": "^2.7.0",
+    "tree-kill": "^1.2.2"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.2.3",
+    "babel-preset-es2015": "^6.24.1",
+    "lodash": "^4.17.21",
+    "nodemon": "^2.0.15"
+  }
+}

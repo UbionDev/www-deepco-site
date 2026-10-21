@@ -1,0 +1,65 @@
+<% layout('../common/layout') -%>
+
+<div id="wrapper" style="padding-top: 5px;">
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" >
+        
+        <div class="wrap codingview" style="width: 100%;">
+            <section class="container-fluid pt-3" id="editor" style="height: 100%;">
+                <article class="run-zone">
+                    <textarea id="code0" name="code0"><%=inCode %></textarea>
+                </article>                                
+            </section>
+        </div>
+        
+    </div>
+    
+</div>
+
+<script>
+    var editor;
+    $(function(){
+        $('head title').text('Blockly Code View');
+        //*
+        editor = CodeMirror.fromTextArea(document.getElementById("code0"), {
+                lineNumbers: true,
+                matchBrackets: true,
+                theme: 'material-palenight',
+                viewportMargin: 100
+            });
+            //*/
+
+            var Text = `
+            <div class='group-btn py-2'><button class='btn btn-danger submit' index='0' type='button'>실행</button></div>
+            <article class="result-zone">
+                        <h4>실행결과</h4>
+                            <pre id="result0">이 곳에 코드 결과가 출력됩니다.</pre>
+                    </article>
+            `
+            $("#code0").parent().after(Text);
+            
+    });
+
+    $(document).on("click", ".submit", function () {
+
+        var wr_code = editor.getValue();
+        wr_code = wr_code.replace("\n", "\r\n");
+        console.log(wr_code);
+        var param = {
+            code: wr_code
+        };
+
+        $.ajax({
+            url: "/raspberrycoding",
+            type: "GET",
+            dataType: 'json',
+            data: param,
+            success: function (data) {
+                $("#result0").html(data.text.replace(/\n/gi, "<br/>"));
+            }
+
+        });
+
+    });
+
+</script>

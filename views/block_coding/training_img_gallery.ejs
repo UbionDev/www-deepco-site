@@ -1,0 +1,68 @@
+<% layout('../common/layout') -%>
+
+<style>
+    .container { margin:30px auto; max-width:960px;position: relative;}
+</style>
+
+<div class="container">
+    <% 
+    if(file_list.length > 0) {
+        file_list.forEach(function(item){
+    %>
+    <div class="item">
+        <a href="#">
+            <img src="/common/images/training/<%=item %>" />
+        </a>
+    </div>
+    <!--<div class="item">
+        <a href="#">
+            <img src="/images/car/training/img_2021-10-14_17-00-00_1.jpg" />
+        </a>
+    </div>
+    <div class="item">
+        <a href="#">
+            <img src="/images/car/training/img_2021-10-14_17-00-00_2.jpg" />
+        </a>
+    </div>
+    <div class="item">
+        <a href="#">
+            <img src="/images/car/training/img_2021-10-14_17-00-00_3.jpg" />
+        </a>
+    </div>
+    <div class="item">
+        <a href="#">
+            <img src="/images/car/training/img_2021-10-14_17-00-00_4.jpg" />
+        </a>
+    </div>
+    <div class="item">
+        <a href="#">
+            <img src="/images/car/training/img_2021-10-14_17-00-00_5.jpg" />
+        </a>
+    </div>
+    <div class="item">
+        <a href="#">
+            <img src="/images/car/training/img_2021-10-14_17-00-00_6.jpg" />
+        </a>
+    </div>-->
+    <% 
+        });
+    }
+    %>
+</div>
+
+<script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+<script src="/js/GridHorizontal.js"></script>
+<script>
+    
+    $('body').imagesLoaded(function(){
+        //*
+        $('div.container').GridHorizontal({
+            item: '.item',
+            minWidth: 320,
+            maxRowHeight: 240,
+            gutter: 5,
+        });
+        //*/
+    });
+
+</script>

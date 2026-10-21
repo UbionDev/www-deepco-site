@@ -1,0 +1,237 @@
+<div id="main-content" class="container lecture pb-lg-8 pb-5" role="main">
+
+  <section>
+    <div class="container">
+      <div class="row justify-content-start">
+        <div class="col-12 py-xl-3">
+          <h1 class="text-dark text-center pb-sm-3"><!--과정목록--><%-i18n.__("aisite.lecture.course_list")%></h1>
+        </div>
+
+          <% 
+            let lec_idx = 0;
+            for(info_idx in studyInfo){
+
+              if( (info_idx % 6) == 0) { lec_idx = 0; }
+              lec_idx += 1;
+
+              // 과정 정보
+              var info = studyInfo[info_idx];
+          %>
+              <div class="col-lg-3 col-sm-6">
+                <div class="card-subject outline-blue mb-4 mb-lg-5">
+                  
+                  <% if(info.course.study.status == "ing"){ %>
+                    <div class="badge-state bg-danger"><span><!--수강중--><%-i18n.__("aisite.lecture.course_ing")%></span></div>
+                  <% } else if(info.course.study.status == "end") { %>
+                    <div class="badge-state bg-dark"><span><!--수강완료--><%-i18n.__("aisite.lecture.course_complete")%></span></div>
+                  <% } %>
+
+                  <div class="img-thumbnail bg-dark-blue">
+                    <img src="/ai_site/static/images/lecture<%=lec_idx %>.jpg" alt="사용법">
+                    <!-- <a href="http://wdr.ubion.co.kr/CodingExercise/form-codeeditor2_left.html"
+                      class="d-flex align-items-center justify-content-center position-absolute top-0 w-100 h-100"
+                      target="_blank" title="학습창으로 이동">
+                      <i class="bi bi-play-circle-fill text-blue fs-1" role="img" aria-label="play"></i>
+                    </a> -->
+                  </div>
+                  <a href="/lesson/<%=info.course.id%>" class="card-body-wrap text-decoration-none" title="상세페이지로 이동">
+                    <div class="card-body">
+                      <span class="badge bg-light-blue text-blue my-2"><%= info.course.course_type%></span>
+                      <h5 class="fw-normal text-dark"><%= info.course.course_name %></h5>
+                      <p class="text-muted fs-9"><!--수강기간--><%-i18n.__("aisite.lecture.course_period")%> : 2022. 03.31</p>
+                    </div>
+                    <div class="card-footer bg-white text-dark py-3">
+                      <div class="d-flex justify-content-between px-2">
+                        <span class="fs-9 fw-normal mb-0"><i class="bi bi-clock text-danger me-2" role="img"
+                            aria-label="time"></i><%=info.course.time_info.time_string%></span>
+                        <span class="fs-9 fw-normal mb-0"><i class="bi bi-table text-secondary me-2" role="img"
+                            aria-label="lectures"></i><%= info.course.lesson_count %> lectures</span>
+                      </div>
+                    </div>
+                    <button tyep="button" class="btn-blue"><!--상세보기--><%-i18n.__("aisite.lecture.view_details")%></button>
+                  </a>
+                </div>
+              </div>
+          <% 
+            } 
+          %>
+
+          <!-- 카드 리스트 -->
+          <!--
+          <div class="col-lg-3 col-sm-6">
+            <div class="card-subject outline-blue mb-4 mb-lg-5">
+              <div class="badge-state bg-danger"><span>수강중</span></div>
+              <div class="img-thumbnail bg-dark-blue">
+                <img src="/ai_site/static/images/lecture01.jpg" alt="사용법">
+                <a href="http://wdr.ubion.co.kr/CodingExercise/form-codeeditor2_left.html"
+                  class="d-flex align-items-center justify-content-center position-absolute top-0 w-100 h-100"
+                  target="_blank" title="학습창으로 이동">
+                  <i class="bi bi-play-circle-fill text-blue fs-1" role="img" aria-label="play"></i>
+                </a>
+              </div>
+              <a href="lecture_detail1.html" class="card-body-wrap text-decoration-none" title="상세페이지로 이동">
+                <div class="card-body">
+                  <span class="badge bg-light-blue text-blue my-2">Orientation</span>
+                  <h5 class="fw-normal text-dark">키트 사용법</h5>
+                  <p class="text-muted fs-9">수강기간 : 2022. 03.31</p>
+                </div>
+                <div class="card-footer bg-white text-dark py-3">
+                  <div class="d-flex justify-content-between px-2">
+                    <span class="fs-9 fw-normal mb-0"><i class="bi bi-clock text-danger me-2" role="img"
+                        aria-label="time"></i>10h 40m</span>
+                    <span class="fs-9 fw-normal mb-0"><i class="bi bi-table text-secondary me-2" role="img"
+                        aria-label="lectures"></i>10 lectures</span>
+                  </div>
+                </div>
+                <button tyep="button" class="btn-blue">상세보기</button>
+              </a>
+            </div>
+          </div>
+          <div class="col-lg-3 col-sm-6">
+            <div class="card-subject mb-4 mb-lg-5">
+              <div class="badge-state bg-dark"><span>수강<br>완료</span></div>
+              <div class="img-thumbnail bg-dark-indigo">
+                <img src="/ai_site/static/images/lecture02.jpg" alt="코딩 기초과정">
+                <a href="http://wdr.ubion.co.kr/CodingExercise/form-codeeditor2_left.html"
+                  class="d-flex align-items-center justify-content-center position-absolute top-0 w-100 h-100"
+                  target="_blank" title="학습창으로 이동">
+                  <i class="bi bi-play-circle-fill text-indigo fs-1" role="img" aria-label="play"></i>
+                </a>
+              </div>
+              <a href="lecture_detail2.html" class="card-body-wrap text-decoration-none" title="상세페이지로 이동">
+                <div class="card-body px-4 pt-2 pb-0 text-start word-keep">
+                  <span class="badge bg-light-indigo text-indigo my-2">Coding</span>
+                  <h5 class="fw-normal text-dark">블록코딩으로 배우는 코딩 기초과정</h5>
+                  <p class="text-muted fs-9">수강기간 : 2022. 03.31</p>
+                </div>
+                <div class="card-footer bg-white text-dark py-3">
+                  <div class="d-flex justify-content-between px-2">
+                    <span class="fs-9 fw-normal mb-0"><i class="bi bi-clock text-danger me-2" role="img"
+                        aria-label="time"></i>10h 40m</span>
+                    <span class="fs-9 fw-normal mb-0"><i class="bi bi-table text-secondary me-2" role="img"
+                        aria-label="lectures"></i>10 lectures</span>
+                  </div>
+                </div>
+                <button tyep="button" class="btn-indigo">상세보기</button>
+              </a>
+            </div>
+          </div>
+          <div class="col-lg-3 col-sm-6">
+            <div class="card-subject mb-4 mb-lg-5">
+              <div class="img-thumbnail bg-dark-cyan">
+                <img src="/ai_site/static/images/lecture03.jpg" alt="IoT과정">
+                <a href="http://wdr.ubion.co.kr/CodingExercise/form-codeeditor2_left.html"
+                  class="d-flex align-items-center justify-content-center position-absolute top-0 w-100 h-100"
+                  target="_blank" title="학습창으로 이동">
+                  <i class="bi bi-play-circle-fill text-cyan fs-1" role="img" aria-label="play"></i>
+                </a>
+              </div>
+              <a href="lecture_detail3.html" class="card-body-wrap text-decoration-none" title="상세페이지로 이동">
+                <div class="card-body">
+                  <span class="badge bg-light-cyan text-cyan my-2">IoT</span>
+                  <h5 class="fw-normal text-dark">블록코딩으로 배우는 IoT과정</h5>
+                  <p class="text-muted fs-9">수강기간 : 2022. 03.31</p>
+                </div>
+                <div class="card-footer bg-white text-dark py-3">
+                  <div class="d-flex justify-content-between px-2">
+                    <span class="fs-9 fw-normal mb-0"><i class="bi bi-clock text-danger me-2" role="img"
+                        aria-label="time"></i>10h 40m</span>
+                    <span class="fs-9 fw-normal mb-0"><i class="bi bi-table text-secondary me-2" role="img"
+                        aria-label="lectures"></i>10 lectures</span>
+                  </div>
+                </div>
+                <button tyep="button" class="btn-cyan">상세보기</button>
+              </a>
+            </div>
+          </div>
+          <div class="col-lg-3 col-sm-6">
+            <div class="card-subject mb-4 mb-lg-5">
+              <div class="img-thumbnail bg-dark-teal">
+                <img src="/ai_site/static/images/lecture04.jpg" alt="자율주행 자동차 만들기">
+                <a href="http://wdr.ubion.co.kr/CodingExercise/form-codeeditor2_left.html"
+                  class="d-flex align-items-center justify-content-center position-absolute top-0 w-100 h-100"
+                  target="_blank" title="학습창으로 이동">
+                  <i class="bi bi-play-circle-fill text-teal fs-1" role="img" aria-label="play"></i>
+                </a>
+              </div>
+              <a href="lecture_detail4.html" class="card-body-wrap text-decoration-none" title="상세페이지로 이동">
+                <div class="card-body">
+                  <span class="badge bg-light-teal text-teal my-2">AI</span>
+                  <h5 class="fw-normal text-dark">블록코딩으로 자율주행 자동차 만들기</h5>
+                  <p class="text-muted fs-9">수강기간 : 2022. 03.31</p>
+                </div>
+                <div class="card-footer bg-white text-dark py-3">
+                  <div class="d-flex justify-content-between px-2">
+                    <span class="fs-9 fw-normal mb-0"><i class="bi bi-clock text-danger me-2" role="img"
+                        aria-label="time"></i>10h 40m</span>
+                    <span class="fs-9 fw-normal mb-0"><i class="bi bi-table text-secondary me-2" role="img"
+                        aria-label="lectures"></i>10 lectures</span>
+                  </div>
+                </div>
+                <button tyep="button" class="btn-teal">상세보기</button>
+              </a>
+            </div>
+          </div>
+          <div class="col-lg-3 col-sm-6">
+            <div class="card-subject mb-4 mb-lg-5">
+              <div class="img-thumbnail bg-dark-yellow">
+                <img src="/ai_site/static/images/lecture05.jpg" alt="파이썬 배우기">
+                <a href="http://wdr.ubion.co.kr/CodingExercise/form-codeeditor2_left.html"
+                  class="d-flex align-items-center justify-content-center position-absolute top-0 w-100 h-100"
+                  target="_blank" title="학습창으로 이동">
+                  <i class="bi bi-play-circle-fill text-yellow fs-1" role="img" aria-label="play"></i>
+                </a>
+              </div>
+              <a href="lecture_detail5.html" class="card-body-wrap text-decoration-none" title="상세페이지로 이동">
+                <div class="card-body">
+                  <span class="badge bg-light-yellow text-yellow my-2">python</span>
+                  <h5 class="fw-normal text-dark">블록코딩으로 파이썬 배우기</h5>
+                  <p class="text-muted fs-9">수강기간 : 2022. 03.31</p>
+                </div>
+                <div class="card-footer bg-white text-dark py-3">
+                  <div class="d-flex justify-content-between px-2">
+                    <span class="fs-9 fw-normal mb-0"><i class="bi bi-clock text-danger me-2" role="img"
+                        aria-label="time"></i>10h 40m</span>
+                    <span class="fs-9 fw-normal mb-0"><i class="bi bi-table text-secondary me-2" role="img"
+                        aria-label="lectures"></i>10 lectures</span>
+                  </div>
+                </div>
+                <button tyep="button" class="btn-yellow">상세보기</button>
+              </a>
+            </div>
+          </div>
+          <div class="col-lg-3 col-sm-6">
+            <div class="card-subject mb-4 mb-lg-5">
+              <div class="img-thumbnail bg-dark-teal">
+                <img src="/ai_site/static/images/lecture06.jpg" alt="인공지능 이론 배우기">
+                <a href="http://wdr.ubion.co.kr/CodingExercise/form-codeeditor2_left.html"
+                  class="d-flex align-items-center justify-content-center position-absolute top-0 w-100 h-100"
+                  target="_blank" title="학습창으로 이동">
+                  <i class="bi bi-play-circle-fill text-teal fs-1" role="img" aria-label="play"></i>
+                </a>
+              </div>
+              <a href="lecture_detail6.html" class="card-body-wrap text-decoration-none" title="상세페이지로 이동">
+                <div class="card-body">
+                  <span class="badge bg-light-teal text-teal my-2">AI</span>
+                  <h5 class="fw-normal text-dark">블록코딩으로 인공지능 이론 배우기</h5>
+                  <p class="text-muted fs-9">수강기간 : 2022. 03.31</p>
+                </div>
+                <div class="card-footer bg-white text-dark py-3">
+                  <div class="d-flex justify-content-between px-2">
+                    <span class="fs-9 fw-normal mb-0"><i class="bi bi-clock text-danger me-2" role="img"
+                        aria-label="time"></i>10h 40m</span>
+                    <span class="fs-9 fw-normal mb-0"><i class="bi bi-table text-secondary me-2" role="img"
+                        aria-label="lectures"></i>10 lectures</span>
+                  </div>
+                </div>
+                <button tyep="button" class="btn-teal">상세보기</button>
+              </a>
+            </div>            
+          </div>
+          -->
+          <!-- //카드 리스트 -->
+        </div>
+      </div>
+    </section>
+
+  </div>

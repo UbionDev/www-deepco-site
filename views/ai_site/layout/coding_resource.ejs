@@ -1,0 +1,17 @@
+<script language="javascript">
+    var kitDomainRootUrl = "<%=_prop.Api.WebSSH2Domain.RootUrl%>";
+</script>
+<script src="/ai_site/static/vendor/jquery/jquery-2.1.1.min.js"></script>
+<script src="/ai_site/static/vendor/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+<script src="/ai_site/static/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="/ai_site/static/vendor/bootstrap/bootstrap.bundle.min.js"></script>
+<script src="/ai_site/static/vendor/kendo.splitter/kendo.ui.core.min.js"></script>
+<script src="/ai_site/static/js/main.js?version=20220223"></script>
+<script src="/ai_site/static/js/kit.check.js"></script>
+<script src="/ai_site/static/js/bypass_cors.js"></script>
+<script src="/ai_site/static/js/event_listener.js"></script>
+<script src="/js/base64.js"></script>
+
+<% if( locals.coding_type && locals.coding_type != "mycoding" ) { %>
+<script src='https://www.youtube.com/iframe_api'></script>
+<% } %>

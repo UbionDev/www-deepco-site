@@ -1,0 +1,272 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+  <title>와우내일배움카드 실습평가</title>
+  <meta name="description" content="UBION 와우내일배움카드 실습평가 학습창입니다.">
+  <meta name="keywords" content="실습,실습평가,학습창,와우내일배움카드,유비온" >
+
+	<!-- Favicons -->
+  <link rel="icon" href="http://wdr.ubion.co.kr/CodingExercise/img/favicons/favicon.ico" >
+  <link rel="apple-touch-icon" sizes="180x180" href="http://wdr.ubion.co.kr/CodingExercise/img/favicons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://wdr.ubion.co.kr/CodingExercise/img/favicons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://wdr.ubion.co.kr/CodingExercise/img/favicons/favicon-16x16.png">
+  <link rel="manifest" href="http://wdr.ubion.co.kr/CodingExercise/img/favicons/site.webmanifest">
+  <link rel="mask-icon" href="http://wdr.ubion.co.kr/CodingExercise/img/favicons/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="theme-color" content="#ffffff">
+
+	<link rel="stylesheet" href="https://codemirror.net/lib/codemirror.css">
+	<link rel="stylesheet" href="https://codemirror.net/theme/material-palenight.css">
+
+	<script src="https://codemirror.net/lib/codemirror.js"></script>
+	<script src="https://codemirror.net/mode/javascript/javascript.js"></script>
+	<script src="https://codemirror.net/addon/selection/active-line.js"></script>
+	<script src="https://codemirror.net/addon/edit/matchbrackets.js"></script>
+
+  <!-- fonts -->
+  <link href="http://wdr.ubion.co.kr/CodingExercise/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+  <!-- styles -->
+  <link href="http://wdr.ubion.co.kr/CodingExercise/vendor/jquery.splitter/jquery.splitter.css" rel="stylesheet" type="text/css">
+  <link href="http://wdr.ubion.co.kr/CodingExercise/css/main_wanaeca.min.css" rel="stylesheet">
+
+  <script>
+    $(document).ready(function(){
+
+      var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+          lineNumbers: true,
+          matchBrackets: true,
+          theme: 'material-palenight'
+      });
+
+      $("#codesubmit").click(function () {
+        var code = editor.getValue();
+
+        var usr_id = $("#usr_id").val();
+
+        code = code.replace("\n", "\r\n");
+
+        param = {
+          code: code,
+          usr_id : usr_id
+        }
+
+        $(this).text("실행중..");
+
+        $.ajax({
+          url: "<%=_prop.Api.CodeExecuteUrl%>/test",
+          type: "GET",
+          dataType: 'json',
+          data: param,
+          success: function (data) {
+            var type = data.type;
+            var text = data.text;
+            text = text.replace(/\>/gi, "&gt;")
+            text = text.replace(/\</gi, "&lt;")
+
+            if(type == "text"){
+              $("#result").html(text.replace(/\n/gi, "<br/>"));
+              $("#ANSWER_RESULT").val(text.replace(/\n/gi, "<br/>"));
+            }
+            else{
+              $("#result").html("<img src='"+text+"' />");
+              $("#ANSWER_RESULT").val("");
+            }
+            $("#codesubmit").text("실행");
+
+            
+          }
+
+        });
+      });
+
+
+      $("#btnsubmit").click(function () {
+        var answer = editor.getValue();
+        
+        resutlsubmit.ANSWER.value = answer;
+        resutlsubmit.submit();
+
+      });
+
+    });
+    
+  </script>
+</head>
+
+<body id="page-top">
+
+  <!-- 화면나가기 Modal -->
+  <div class="modal fade" id="outModal" tabindex="-1" aria-labelledby="outModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content ">
+        <div class="modal-header d-block  text-center py-5">
+        <h5 class="modal-title">
+            화면에서 나가면 실습 내역이 삭제됩니다.<br>
+            화면에서 나가시겠습니까?
+        </h5>
+        </div>
+        <div class="modal-footer d-block text-center">
+        <button type="button" class="btn btn-primary" onclick="window.close()" data-dismiss="modal">확인</button>
+        <button type="button" class="btn btn-light" data-dismiss="modal">취소</button>
+        </div>
+    </div>
+    </div>
+</div>
+<!-- //화면나가기 Modal -->
+
+<!-- 피드백 받기 Modal -->
+<div class="modal fade" id="submitModal" tabindex="-1" aria-labelledby="submitModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content ">
+        <div class="modal-header d-block  text-center py-5">
+        <h5 class="modal-title">
+            <!-- 실행 내역이 없습니다. -->
+            <strong><u>튜터 피드백은 1회에 한해서만 가능</u></strong>합니다.<br>
+            피드백 확인 후 <u>추가 궁금한 사항</u>은<br>
+            <u>1대1 게시판</u>에 남겨주세요.
+        </h5>
+        </div>
+        <div class="modal-footer d-block text-center">
+        <button type="button" class="btn btn-primary" id="btnsubmit" data-dismiss="modal">확인</button>
+        <button type="button" class="btn btn-light" data-dismiss="modal">취소</button>
+        </div>
+
+    </div>
+    </div>
+</div>
+<!-- //피드백 받기 Modal -->
+
+<!-- Topbar -->
+<nav class="navbar navbar-dark topbar static-top">
+    <h1 class="navbar-brand pt-0">
+    <i class="logo"></i><span class="ml-3 align-middle"><%=p_title%></span>
+    <!-- <span class="navbar-brand-text pl-1">01.실습 강의회차 제목</span> -->
+    </h1>
+    <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#outModal">화면 나가기</button>
+</nav>
+<!-- //Topbar -->
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+
+    <!-- Content Wrapper -->
+    <!--실습영역id="content-wrapper"가 우측일 경우 class="way_right"/좌측일 경우 class="way_left" -->
+    <div id="content-wrapper" class="way_right">
+       <!-- 강의 영역 -->
+       <div class="wrap d-flex flex-column">
+         <div class="lecview">
+          <input type="hidden" id="usr_id" value="<%=apply_id%>" />
+            <div class="wrap">
+              <div class="explain p-4">
+                <%-p_contents%>
+              </div>
+              <div class="hint On"> <!-- 기본 클래스:On / 숨기기 클래스:Off -->
+                <button class="d-inline-block btn-close" type="button"><i class="fas fa-angle-down"></i></button>
+                <h3 class="text-gray-800">유의사항</h3>
+                <ul class="mt-3">
+                  <li><i class="fas fa-check"></i>실습평가는 필수활동이 아닙니다. 참여·제출 여부 및 점수와 상관없이 진도 80% 이상 시 수료할 수 있습니다.</li>
+                  <li><i class="fas fa-check"></i>실습평가는 학습기간 내에 제출이 가능하며, 제출 시 모든 학습이 끝난 후에 개별피드백을 확인할 수 있습니다.</li>
+                  <li><i class="fas fa-check"></i> ‘피드백 받기’ 버튼은 튜터에게 피드백 받기를 원하시는 회원에 한하여 클릭 해 주세요. 학습질의 및 실습 관련 문의 사항은 1대1 게시판에 남겨주세요.</li>
+                </ul>
+              </div>
+            </div>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div id="content">
+
+        <!-- 코딩 입력 영역  -->
+        <section class="container-fluid run-zone" >
+          <h3 class="text-hide">실습내용입력</h3>
+          <!-- Page Heading -->
+          <div class="wrap-tab">
+            <ul class="flex-column" id="run-tab">
+              <li class="dir"><button class="d-inline-block" type="button" onclick="javascript:;alert('준비중');"><i class="far fa-folder"></i></li>
+              <li class="active">
+                <a href="#run-01" class="d-inline-block nav-link active" data-toggle="tab">ubion_exercise.py</a>
+                <button class="d-inline-block" type="button"><i class="fas fa-times"></i></button>
+              </li>
+            </ul>
+          </div>
+          <div class="wrap-tabpanel">
+            <article class="tab-pane fade show active" id="run-01" >
+              <h4 class="text-hide">실습내용01</h4>
+              <textarea id="code" name="code"><%=answer%></textarea>
+            </article>
+          </div>
+        </section>
+        <!-- //코딩 입력 영역 -->
+
+        <!-- 실행 영역  -->
+        <section class="container-fluid result-zone">
+          <h3 class="text-hide">실행결과</h3>
+          <!-- Page Heading -->
+          <div class="group-btn pt-3">
+            <button class="ml-2 btn btn-info" id ="codesubmit" type="button">실행</button>
+            <% if(p_type == "0"){ %>
+            <button class="float-right mr-2 btn btn-light" type="button" data-toggle="modal" data-target="#submitModal">피드백 받기</button>
+            <% } if(p_type == "1") { %>
+            <button class="float-right mr-2 btn btn-secondary " type="button" disabled>피드백 대기<i class="far fa-clock ml-2"></i></button>
+            <% } if(p_type == "2") { %>
+            <button class="float-right mr-2 btn btn-secondary " type="button" disabled>피드백 완료<i class="far fa-check-circle ml-2"></i></button>
+            <% } %>
+            <p class="info_feed text-white text-right py-2 pr-2"><i class="fas fa-info-circle mr-1"></i> 피드백 받기는 실습창 입력내용의 이상유무만 피드백 됩니다.</p>
+
+          </div>
+          <article class="result-zone-out p-3">
+            <h4>실행결과</h4>
+            <pre id="result">이 곳에 코드 결과가 출력됩니다.</pre>
+
+            <% if(p_type == "2"){ %>
+            <div class="feedback-text pt-2">
+              <h4 class="my-2" >피드백</h4>
+              <%=tutor_feedback%>
+            </div>
+            <% } %>
+          </article>
+
+
+        </section>
+        <!-- //실행 영역 -->
+      </div>
+      <!-- //Main Content -->
+
+    </div>
+    <!-- //Content Wrapper -->
+  </div>
+  <!-- //Page Wrapper -->
+
+  <form name="resutlsubmit" action="<%-returnUrl%>" method="POST">
+    <input type="hidden" id="APPLY_ID" name="APPLY_ID" value="<%=apply_id%>" />
+    <input type="hidden" id="PID" name="PID" value="<%=pid%>" />
+    <input type="hidden" id="ANSWER" name="ANSWER" value="" />
+    <input type="hidden" id="ANSWER_RESULT" name="ANSWER_RESULT" value="" />
+
+  </form>
+
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="http://wdr.ubion.co.kr/CodingExercise/vendor/jquery/jquery.min.js"></script>
+  <script src="http://wdr.ubion.co.kr/CodingExercise/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- Core plugin JavaScript-->
+  <script src="http://wdr.ubion.co.kr/CodingExercise/vendor/jquery-easing/jquery.easing.min.js"></script>
+  <!-- splitter scripts-->
+  <script src="http://wdr.ubion.co.kr/CodingExercise/vendor/jquery.splitter/jquery.splitter.js"></script>
+  <!-- Custom scripts -->
+  <script src="http://wdr.ubion.co.kr/CodingExercise/js/main_wanaeca.js"></script>
+</body>
+
+</html>

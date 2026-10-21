@@ -1,0 +1,7 @@
+<variables>
+    <variable>gpioInput</variable>
+</variables>
+<block type="gpio_by_num"><field name="gpio_setup">IN</field><value name="gpio_number"><block type="math_number"><field name="NUM">123</field></block></value></block>
+<block type="gpio_in_signal"><value name="obj_gpio"><block type="variables_get"><field name="VAR">gpioInput</field></block></value><value name="pin_number"><block type="math_number"><field name="NUM">123</field></block></value></block>
+<block type="gpio_out_signal"><value name="pin_number"><block type="math_number"><field name="NUM">123</field></block></value></block>
+<block type="gpio_cleanup"></block>

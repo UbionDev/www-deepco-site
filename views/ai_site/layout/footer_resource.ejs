@@ -1,0 +1,43 @@
+<script language=javascript>
+    var kitDomainRootUrl = "<%=_prop.Api.WebSSH2Domain.RootUrl%>";
+</script>
+
+<!-- jQuery Core plugin scripts-->
+<script src="/ai_site/assets/vendor/jquery/jquery-2.1.1.min.js"></script>
+<script src="/ai_site/assets/vendor/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+<script src="/ai_site/assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Bootstrap core JavaScript-->
+<script src="/ai_site/assets/vendor/bootstrap/bootstrap.bundle.min.js"></script>
+
+<script src="/ai_site/assets/js/common.js"></script>
+
+<script>
+    $(function(){
+        $('#btnLoginProc').click(function(){
+            $('input[name=loginId]').val($('#inputloginId').val());
+            $('input[name=loginPwd]').val($('#inputloginPwd').val());
+            document.getElementById('formSignIn').submit();
+        });
+    });
+    function tempLoginPopup() {
+        $('#btnModalLogin').trigger('click');
+    }
+
+    function keycloakLogout() {
+        if(confirm('<%-i18n.__("aisite.layout.header.logout_alert")%>')){
+            aiKitCommon.callAjax('/keycloack/logout', {}, 'POST')
+            .done(function(res) {
+                location.href='/';
+            })
+        }
+    }
+
+    function setKitAddress(kitName, kitAddress) {
+        //console.log('setKitAddress', kitAddress);
+        aiKitCommon.setCookie('aikit_name', kitName);
+        aiKitCommon.setCookie('aikit_addr', kitAddress);
+        $('#coda-dropdown').html(`<i class="bi bi-car me-2"></i>${kitName}<i class="bi bi-chevron-down ms-1"></i>`);
+        $('#coda-site-link').attr('href', `http://${kitAddress}`);
+    }
+</script>

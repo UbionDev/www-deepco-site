@@ -1,0 +1,97 @@
+  <div id="main-content" class="lecture_detail" role="main">
+
+    <section class="pb-5 pb-lg-8">
+      <div class="pt-lg-8 pb-lg-12 pt-5 pb-8 bg-blue position-relative overflow-hidden">
+        <div class="bg-cover" style="background-image: url('/ai_site/assets/images/lecture01.jpg'); "></div>
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-8 mx-auto align-items-center">
+              <h1 class="text-white my-3"><%= studyInfo.course.course_name %></h1>
+              <p class="text-light mb-5 lead"><%= studyInfo.course.course_desc %></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="row">
+          <!-- 커리큘럼 -->
+          <article class="col-lg-8 mx-auto mt-n11">
+            <div class="card rounded-7 border-0 shadow pt-3 px-0  mb-3">
+              <ul class="nav nav-tabs px-0 px-lg-3 " id="detail-tab">
+                <li class="nav-item">
+                  <h5 class="mb-sm-3 mb-md-0 nav-link
+                  active"><!--커리큘럼--><%-i18n.__("aisite.lesson.curriculum")%></h5>
+                </li>
+              </ul>
+              <div class="card-body p-3 p-lg-5 word-keep">
+                  <ul class="lecture_list">
+
+                    <% 
+                        // 회차 목록 만들기
+                        for(les_idx in studyInfo.course.lessons) {
+                            var lesson = studyInfo.course.lessons[les_idx];
+                            var les_title = (lesson.id < 10 ? "0" + lesson.id : lesson.id) + " " + lesson.lesson_name;
+                            
+                            // 과정 수강 정보 중 회차별 정보 보기
+                            //console.log("이거 되나", studyInfo.course.study.GetLesson(lesson.id));
+                    %> 
+                    <li>
+                      <a class="d-flex justify-content-between align-items-center"
+                        href="/blocks/coding2?course_id=<%=lesson.course_id %>&lesson_id=<%=lesson.id %>" target="_blank"
+                        title="학습창 실행(새창)">
+                        <p class="m-0 d-inline-block w-90">
+                          <% if(lesson.les_type == "vod"){ %>
+                            <i class="bi bi-play-circle fs-5 me-2 align-middle" role="img" aria-label="vod"></i>
+                          <% } else if(lesson.les_type=="code"){ %>
+                            <i class="bi bi-code-square fs-5 me-2 align-middle" role="img" aria-label="code"></i>
+                          <% } %> 
+                          <span class="align-middle d-inline-block w-90"><%=les_title%></span>
+                        </p>
+                        <p class="fs-9 text-opacity-75 m-0"><i class="bi bi-clock d-none d-md-inline-block me-1"
+                            role="img" aria-label="time"></i><%=lesson.time_info.time_string%></p>
+                      </a>
+                    </li>
+                    <%
+                        }
+                    %>
+                    
+                    <!--
+                    <li>
+                      <a class="d-flex justify-content-between align-items-center"
+                        href="http://wdr.ubion.co.kr/CodingExercise/form-codeeditor2_left.html" target="_blank"
+                        title="학습창 실행(새창)">
+                        <p class="m-0 d-inline-block w-90">
+                          <i class="bi bi-play-circle fs-5 me-2 align-middle" role="img" aria-label="vod"></i>
+                          <span class="w-75 align-middle d-inline-block w-90">02실습강의회차 제목</span>
+                        </p>
+                        <p class="fs-9 text-opacity-75 m-0"><i class="bi bi-clock d-none d-md-inline-block me-1"
+                            role="img" aria-label="time"></i>09:23
+                        </p>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a class="d-flex justify-content-between align-items-center"
+                        href="http://wdr.ubion.co.kr/CodingExercise/form-codeeditor2_left.html" target="_blank"
+                        title="학습창 실행(새창)">
+                        <p class="m-0 d-inline-block w-90">
+                          <i class="bi bi-code-square fs-5 me-2 align-middle" role="img" aria-label="code"></i>
+                          <span class="w-75 align-middle d-inline-block w-90">04실습강의회차 제목</span>
+                        </p>
+                        <p class="fs-9 text-opacity-75 m-0"><i class="bi bi-clock d-none d-md-inline-block me-1"
+                            role="img" aria-label="time"></i>18:56
+                        </p>
+                      </a>
+                    </li>
+                    -->
+                  </ul>
+              </div>
+            </div>
+          </article>
+          <!-- //커리큘럼 -->
+        </div>
+      </div>
+    </section>
+
+  </div>

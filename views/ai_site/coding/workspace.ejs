@@ -1,0 +1,604 @@
+
+<head>
+    <meta charset="utf-8">
+    <title>Blockly Workspace</title>
+    <!-- 추가&수정  -->
+    <link rel="stylesheet" href="/ai_site/static/vendor/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="/ai_site/static/css/workspace.min.css?version=2">
+    <!-- //추가&수정  -->
+</head>
+
+<body>
+
+    <form name="frm">
+        <input type="hidden" name="edit_index" value="<%=index %>" />
+        <input type="hidden" name="in_code" value="" />
+        <input type="hidden" id="projectname"  />
+        <input type="hidden" id="kit_servo_middle" value="0" />
+    </form>
+
+    <div class="app-container">
+        <div id="blocklyDiv" class="blockly-panel"></div>
+        <div id="codeDiv" class="output-panel" style="right: -500px; width: 500px;">
+            <!-- 추가&수정  -->
+            <button type="button" class="openclose btn btn-sm btn-dark rounded-circle opacity-75"><i
+                    class="fas fa-code"></i></button>
+            <!-- //추가&수정  -->
+            <textarea name="output" disabled="disabled"
+                style="display: inline-block; width: 100%; height: 90%;"></textarea>
+            <!-- Copy Button  -->
+            <button type="button" id="btnCopy" class="btn btn-sm btn-outline-light ms-3 rounded-2">
+                <span>
+                    <i class="fas fa-copy me-2"></i>코드복사
+                </span>
+            </button>
+            <!-- //Copy Button  -->
+        </div>
+    </div>
+
+    <!--<div class="button-div" style="display: none;">
+        <button class="button" id="btn_run">Run</button>
+    </div>-->
+
+    <!--<table>
+        <tr>
+            <td id="blocklyArea"></td>
+        </tr>
+    </table>-->
+
+    <!--<div id="blocklyDiv" style="position: absolute"></div>-->
+
+    <div id="toolbox" style="display: none"></div>
+    <!--<xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
+    </xml>-->
+
+</body>
+
+<script src="/ai_site/static/js/blockly/blockly_compressed.js"></script>
+<script src="/ai_site/static/js/blockly/blocks_compressed.js"></script>
+<script src="/ai_site/static/js/blockly/msg/en.js"></script>
+<script src="/ai_site/static/js/blockly/javascript_compressed.js"></script>
+<script src="/ai_site/static/js/blockly/python_compressed.js"></script>
+<script src="/ai_site/static/vendor/jquery/jquery-2.1.1.min.js"></script>
+
+    <script>
+        $(function() {
+            //* 블록코딩 코드보기
+            var toggled = false;
+            $(".output-panel").bind('click touch', function(){
+                $(this).css('right', '-500px');
+                $(this).toggleClass("show");
+                toggled = !toggled;
+                if(toggled) { $(this).css('right', '0px'); }
+                $(this).children('.openclose').children('i').attr('class', toggled ? 'fas fa-times': 'fas fa-code');
+            });
+            // 블록코딩 코드보기 */
+            //* 블록코딩 코드복사
+            $("#btnCopy").bind('click touch', function(){
+                var editIndex = $("input[name=edit_index]").val();
+                parent.copyCodeToClipBoard(editIndex);
+            });
+            // 블록코딩 코드복사 */
+
+            $("#projectname").val(parent.$("#folderList > option").eq(0).val());
+        });
+    </script>
+    <!-- //추가&수정  -->
+
+  <!-- Custom Block scripts -->
+  <script src="/js/custom_block/iot_block.js"></script>
+  <script src="/js/custom_block/driving_block.js"></script>
+  <script src="/js/custom_block/tensorflow_block.js"></script>
+  <script src="/js/custom_block/dnn_block.js"></script>
+  <script src="/js/custom_block/cnn_block.js"></script>
+  <script src="/js/custom_block/tts_block.js"></script>
+  <script src="/js/custom_block/etc_block.js"></script>
+  <script src="/js/custom_block/ai_block.js"></script>
+  <!-- //Custom Block scripts -->
+
+  <script>
+
+    //* Servo Middle
+    var setServoMiddleValue = function(servoMiddleVal) {
+      $('#kit_servo_middle').val(servoMiddleVal);
+      testCodeGenerator();
+    }
+    //*/
+
+    var blocklyArea = document.getElementById('blocklyArea');
+    var blocklyDiv = document.getElementById('blocklyDiv');
+    var workspace;
+    /*
+    var workspace = Blockly.inject(blocklyDiv,
+        {
+          toolbox: document.getElementById('toolbox')
+        });
+    //*/
+
+    //* workspace event listener
+    var testCodeGenerator = function(e) {
+        var defaultImportModule = getDefaultImportModule();
+        var code = Blockly.Python.workspaceToCode(workspace);
+        code = indentBlockCode(code);
+        code += '\n';
+        code += 'if __name__ == \'__main__\':\n';
+        code += '  try:\n';
+        code += '    RunCode()\n';
+        code += '  except KeyboardInterrupt:\n';
+        code += '    print(\'Exit.\')';
+        document.querySelector("#codeDiv textarea[name=output]").value = defaultImportModule + code;
+        var editIndex = document.querySelector("input[name=edit_index]").value;
+        var keyboardYN = "N", cameraYN = "N", recordYN = "N", pltImShowYN = "N";
+        if(parent) {
+          var xmlText = '<xml xmlns="https://developers.google.com/blockly/xml" id="xml_block_"'+editIndex+' style="display: none">';
+          var xmlDom = Blockly.Xml.workspaceToDom(workspace);
+
+          parent.blocksToCode(editIndex, defaultImportModule + code, xmlDom, keyboardYN);
+
+          if(workspace.getBlocksByType('camera_picture').length > 0) { cameraYN = "Y"; }
+          parent.setCameraPictures(editIndex, cameraYN);
+
+          if(workspace.getBlocksByType('save_data').length > 0) { recordYN = "Y"; }
+          parent.setDrivingPictures(editIndex, recordYN);
+
+          if(workspace.getBlocksByType('DNN_imshow_arr').length > 0
+            || workspace.getBlocksByType('DNN_imshow').length > 0
+            || workspace.getBlocksByType('DNN_img_upload_pc').length > 0
+            || workspace.getBlocksByType('DNN_img_upload_drive').length > 0) {
+              pltImShowYN = "Y";
+          }
+          parent.setPltImShow(editIndex, pltImShowYN);
+
+        }
+        //console.log(e.type, e);
+
+        /*
+        if ( e.type == 'click' && e.targetType == 'block' )
+        {
+            //console.log('block event click!');
+            var clickedBlock = workspace.getBlockById(e.blockId);
+            if( clickedBlock.type == 'image_upload' ) { 
+              parent.imageUploadPopupShow(); 
+              //window.open("http://kit.ubion.co.kr/common/img/uploadview", "imgUpload", "_blank");
+            }
+
+            if( clickedBlock.type == 'create_project' ) { 
+              parent.projectMngPopupShow(); 
+              //window.open("http://kit.ubion.co.kr/project/manageview", "imgUpload", "_blank");
+            }
+        }
+
+        if(e.type == 'selected'){
+          var clickedBlock = workspace.getBlockById(e.newElementId);
+          //console.log('get project update', clickedBlock);
+          // 블럭 구성이 현재와 달라지게 되면 스크립트도 변경 되어야 함.
+          if(clickedBlock.type == 'GetProject'){
+            var getProjectFieldRows = clickedBlock.inputList[0].fieldRow;
+            //console.log(getProjectFieldRows);
+            for(var row in getProjectFieldRows) {
+              if(getProjectFieldRows[row].name == "projectName") {
+                getProjectFieldRows[row].setValue(parent.$("#folderList").val());
+              }
+            }
+          }
+        }
+
+        if(e.type == 'change'){
+          var clickedBlock = workspace.getBlockById(e.blockId);
+          if(clickedBlock.type == 'GetProject'){
+            $("#projectname").val(e.newValue);
+          }
+        }
+
+        if(e.type == 'drag'){
+          // 블럭 구성이 현재와 달라지게 되면 스크립트도 변경 되어야 함.
+          if(workspace.getBlocksByType('model_save').length > 0) {
+             
+            //console.log(workspace.getBlocksByType('model_save')[0].id);
+            var saveModelBlock = workspace.getBlockById(workspace.getBlocksByType('model_save')[0].id);
+            //console.log(saveModelBlock.childBlocks_[0].inputList);
+            var saveModelFieldRows = saveModelBlock.childBlocks_[0].inputList[0].fieldRow;
+            //console.log(saveModelFieldRows.length, saveModelFieldRows);
+            for(var row in saveModelFieldRows) {
+              if(saveModelFieldRows[row].name == "TEXT") {
+                saveModelFieldRows[row].setValue( $("#projectname").val() );
+                
+              }
+            }
+          }
+          // 블럭 구성이 현재와 달라지게 되면 스크립트도 변경 되어야 함.
+          if(workspace.getBlocksByType('image_resize2').length > 0) {
+             
+             //console.log(workspace.getBlocksByType('image_resize2'));
+             var resize2Block = workspace.getBlockById(workspace.getBlocksByType('image_resize2')[0].id);
+             //console.log(resize2Block.childBlocks_[2].inputList);
+             var resize2FieldRows = resize2Block.childBlocks_[2].inputList[0].fieldRow;
+             //console.log(resize2FieldRows.length, resize2FieldRows);
+             for(var row in resize2FieldRows) {
+              if(resize2FieldRows[row].name == "TEXT") {
+                resize2FieldRows[row].setValue( $("#projectname").val() );
+                
+              }
+            }
+             
+           }
+           // 블럭 구성이 현재와 달라지게 되면 스크립트도 변경 되어야 함.
+           if(workspace.getBlocksByType('load_data').length > 0) {
+             
+             //console.log(workspace.getBlocksByType('load_data'));
+             var loadDataBlock = workspace.getBlockById(workspace.getBlocksByType('load_data')[0].id);
+             //console.log(loadDataBlock.childBlocks_[2].inputList);
+             var loadDataFieldRows = loadDataBlock.childBlocks_[2].inputList[0].fieldRow;
+             //console.log(loadDataFieldRows.length, loadDataFieldRows);
+             for(var row in loadDataFieldRows) {
+              if(loadDataFieldRows[row].name == "TEXT") {
+                loadDataFieldRows[row].setValue( $("#projectname").val() );
+                
+              }
+            }
+
+           }
+           // 블럭 구성이 현재와 달라지게 되면 스크립트도 변경 되어야 함.
+           if(workspace.getBlocksByType('model_load').length > 0) {
+             
+             //console.log(workspace.getBlocksByType('model_load'));
+             var loadModelBlock = workspace.getBlockById(workspace.getBlocksByType('model_load')[0].id);
+             var loadModelFieldRows = loadModelBlock.childBlocks_[0].inputList[0].fieldRow;
+             //console.log(loadModelFieldRows.length, loadModelFieldRows);
+              for(var row in loadModelFieldRows) {
+                if(loadModelFieldRows[row].name == "TEXT") {
+                  loadModelFieldRows[row].setValue( $("#projectname").val() );
+                  
+                }
+              }
+           }
+           
+           
+        }
+        //*/
+
+    }
+    //workspace.addChangeListener(testCodeGenerator);
+    //*/
+
+    //* check import module
+    var getDefaultImportModule = function() {
+        var defaultImportModule = "";
+        if(workspace.getBlocksByType('led_check').length > 0
+         || workspace.getBlocksByType('led_ready').length > 0
+         || workspace.getBlocksByType('led_by_pin').length > 0
+         || workspace.getBlocksByType('led_select_on').length > 0
+         || workspace.getBlocksByType('led_select_off').length > 0
+         || workspace.getBlocksByType('led_blink_advance').length > 0
+        ) { 
+          defaultImportModule += "from gpiozero import LED \r\n";
+          defaultImportModule += "led17 = None\r\nled10 = None\r\nled9 = None\r\nled11 = None\r\n";
+          defaultImportModule += "led17 = LED(17)\r\nled10 = LED(10)\r\nled9 = LED(9)\r\nled11 = LED(11)\r\n";
+        }
+        if(workspace.getBlocksByType('PWMled_ready').length > 0
+          || workspace.getBlocksByType('PWMled_blink_advance').length > 0)
+        { 
+          defaultImportModule += "from gpiozero import PWMLED \r\n";
+          defaultImportModule += "led17 = None\r\nled10 = None\r\nled9 = None\r\nled11 = None\r\n";
+          defaultImportModule += "led17 = PWMLED(17, frequency=100)\r\nled10 = PWMLED(10, frequency=100)\r\nled9 = PWMLED(9, frequency=100)\r\nled11 = PWMLED(11, frequency=100)\r\n";
+        }
+        if(workspace.getBlocksByType('RGBled_on').length > 0
+          || workspace.getBlocksByType('RGBled_off').length > 0
+          || workspace.getBlocksByType('RGBled_blink_advance').length > 0)
+        { 
+          defaultImportModule += "from gpiozero import RGBLED \r\n";
+          defaultImportModule += "led = None\r\n";
+          defaultImportModule += "led = RGBLED(2, 3, 4)\r\n";
+        }
+        if(workspace.getBlocksByType('button_ready').length > 0
+        || workspace.getBlocksByType('button_ispressed').length > 0)
+        { 
+          defaultImportModule += "from gpiozero import Button \r\n";
+          defaultImportModule += "button = None\r\n"; 
+          defaultImportModule += "button = Button(15)\r\n";
+        }
+        if(workspace.getBlocksByType('buzzer_ready').length > 0
+          || workspace.getBlocksByType('buzzer_on').length > 0
+          || workspace.getBlocksByType('buzzer_off').length > 0
+          || workspace.getBlocksByType('buzzer_beep_advance').length > 0)
+        { 
+          defaultImportModule += "from gpiozero import Buzzer \r\n"; 
+          defaultImportModule += "buzzer = None\r\n"; 
+          defaultImportModule += "buzzer = Buzzer(18)\r\n"; 
+        }
+        if(workspace.getBlocksByType('dcsensor_ready').length > 0
+          ||workspace.getBlocksByType('distance').length > 0)
+        { 
+          defaultImportModule += "from gpiozero import DistanceSensor \r\n"; 
+          defaultImportModule += "from gpiozero.pins.pigpio import PiGPIOFactory \r\n";
+          defaultImportModule += 'factory = None\r\n';
+          defaultImportModule += 'factory = PiGPIOFactory()\r\n';
+          defaultImportModule += 'ds = None\r\n';
+          defaultImportModule += 'ds = DistanceSensor(27,22, pin_factory=factory)\r\n';
+        }
+        if(workspace.getBlocksByType('gpio_by_num').length > 0)
+        {   defaultImportModule += "import RPi.GPIO as GPIO \r\n";
+            defaultImportModule += "GPIO.setmode(GPIO.BCM) \r\n\n"; }
+        if(workspace.getBlocksByType('keyboard_control').length > 0)
+        { defaultImportModule += "import curses \r\n"; }
+        if(workspace.getBlocksByType('motor_ready').length > 0
+          || workspace.getBlocksByType('motor_ready_advance').length > 0 
+         || workspace.getBlocksByType('motor_speed').length > 0
+         || workspace.getBlocksByType('set_motor_forward').length > 0
+         || workspace.getBlocksByType('set_motor_backward').length > 0
+         || workspace.getBlocksByType('set_motor_stop').length > 0
+         || workspace.getBlocksByType('set_motor_forward_advenced').length > 0
+         || workspace.getBlocksByType('set_motor_backward_advenced').length > 0)
+        { 
+          defaultImportModule += "from gpiozero import Motor \r\n";
+          defaultImportModule += 'motor = None\r\n';
+          defaultImportModule += "motor = Motor(forward=19, backward=13)\r\n"; 
+        }
+        if(workspace.getBlocksByType('servo_ready').length > 0
+          || workspace.getBlocksByType('servo_ready_advance').length > 0
+         || workspace.getBlocksByType('set_servo_left').length > 0 
+         || workspace.getBlocksByType('set_servo_right').length > 0 
+         || workspace.getBlocksByType('set_servo_middle').length > 0 
+         || workspace.getBlocksByType('set_servo_left_advance').length > 0  
+         || workspace.getBlocksByType('set_servo_right_advance').length > 0)
+        { 
+          defaultImportModule += "from gpiozero import AngularServo \r\n";
+          defaultImportModule += "from gpiozero.pins.pigpio import PiGPIOFactory \r\n";
+          defaultImportModule += 'factory = None\r\n';
+          defaultImportModule += "factory = PiGPIOFactory()\r\n";
+          defaultImportModule += 'servo = None\r\n';
+          defaultImportModule += "servo = AngularServo(12, pin_factory=factory)\r\n"; 
+        }
+        if(workspace.getBlocksByType('tts_ready').length > 0
+          || workspace.getBlocksByType('set_tts_text_speed').length > 0)
+        { 
+          defaultImportModule += "import ttsHelper as tts \r\n";
+          defaultImportModule += "soundCtrl = tts.SoundController()\r\n";
+        }
+        if(workspace.getBlocksByType('set_curses_ready').length > 0)
+        { defaultImportModule += "import curses \r\n"; }
+        if(workspace.getBlocksByType('camera_ready').length > 0
+          || workspace.getBlocksByType('set_image_take_picture').length > 0
+          || workspace.getBlocksByType('save_image_to_file').length > 0
+          || workspace.getBlocksByType('save_image_to_project_file').length > 0
+          || workspace.getBlocksByType('camera_end').length > 0)
+        { 
+          defaultImportModule += "import cameralib as camera \r\n"; 
+          defaultImportModule += "import cv2 \r\n"
+          defaultImportModule += "import os \r\n"
+          defaultImportModule += "cam = camera.Camera()\r\n";
+        }
+        if(workspace.getBlocksByType('image_resize').length > 0
+          || workspace.getBlocksByType('load_data_labeling').length > 0
+          ) { defaultImportModule += "import ai_data_lib as dataLib \r\n" }
+          if(workspace.getBlocksByType('model_set_with_input').length > 0
+          || workspace.getBlocksByType('model_add_conv2d').length > 0
+          || workspace.getBlocksByType('model_add_dense').length > 0
+          || workspace.getBlocksByType('model_add_flatten').length > 0
+          || workspace.getBlocksByType('model_compile_fn').length > 0
+          || workspace.getBlocksByType('model_fit_fn').length > 0
+          ) { defaultImportModule += "import tensorflow as tf \r\n" 
+            defaultImportModule += "from tensorflow.keras.layers import * \r\n" }
+              if(workspace.getBlocksByType('x_train_img_fn').length > 0
+          ) { defaultImportModule += "import matplotlib.pyplot as plt \r\n" 
+          }
+              if(workspace.getBlocksByType('model_predict_fn').length > 0
+              || workspace.getBlocksByType('model_predict_fn2').length > 0
+              || workspace.getBlocksByType('model_predict_fn3').length > 0
+          ) { defaultImportModule += "import numpy as np \r\n"
+                  //defaultImportModule += "from keras.preprocessing import image \r\n" 
+                  defaultImportModule += "import matplotlib.pyplot as plt \r\n"
+          }
+          if(workspace.getBlocksByType('shuffle').length > 0
+          ) { defaultImportModule += "import numpy as np \r\n"
+                  defaultImportModule += "import random \r\n" 
+          }
+          if(workspace.getBlocksByType('model_load').length > 0
+          ) { defaultImportModule += "import ai_data_lib2 as dataLib2 \r\n"
+            defaultImportModule += "import tensorflow as tf \r\n" 
+            defaultImportModule += "from tensorflow.keras.layers import * \r\n"
+          }
+          if(workspace.getBlocksByType('load_model_predict').length > 0){
+            defaultImportModule += "import numpy as np \r\n"
+            defaultImportModule += "import ai_data_lib as dataLib \r\n"
+          }
+          if(workspace.getBlocksByType('wait').length > 0){
+            defaultImportModule += "import time \r\n"
+          }
+          if(workspace.getBlocksByType('image_resize2').length > 0 
+          || workspace.getBlocksByType('load_data').length > 0 
+          || workspace.getBlocksByType('shuffle_data').length > 0 
+          || workspace.getBlocksByType('model_save').length > 0 
+          ){
+            defaultImportModule += "import ai_data_lib2 as dataLib2 \r\n"
+          }
+          if(workspace.getBlocksByType('Keyboard_input').length > 0){
+            defaultImportModule += "import curses \r\n"
+            defaultImportModule += "from curses import wrapper \r\n"
+          }
+
+          if(workspace.getBlocksByType('servo_ready').length > 0
+          || workspace.getBlocksByType('set_servo_left').length > 0 
+          || workspace.getBlocksByType('set_servo_right').length > 0 
+          || workspace.getBlocksByType('set_servo_middle').length > 0 
+          || workspace.getBlocksByType('set_servo_left_advance').length > 0  
+          || workspace.getBlocksByType('set_servo_right_advance').length > 0) 
+          {
+            //defaultImportModule += "middle = "+parseInt( $('#kit_servo_middle').val() )+" \r\n";
+            defaultImportModule += "import json \r\n"
+            defaultImportModule += "kit_middle = 0 \r\n";
+            defaultImportModule += 'jsonfile = open(\'/home/pi/wifi-scan/kitinfo.json\') \n';
+            defaultImportModule += 'jsonstr = json.load(jsonfile) \n';
+            defaultImportModule += 'kit_middle = jsonstr.get(\'servo_angle\') \n';
+            defaultImportModule += 'kit_middle = int(kit_middle) \n';
+          }
+          defaultImportModule += 'def RunCode(): \n';
+         
+        return defaultImportModule;
+    }
+    //*/
+
+    //*
+    var indentBlockCode = function(code) {
+        var indentCode = '';
+        var splitCodeLines = code.split('\n');
+        for(var lineNum in splitCodeLines) {
+          indentCode += '  '+ splitCodeLines[lineNum] +'\n';
+        }
+        return indentCode;
+    }
+    //*/
+
+    //* Add Blocks to workspace after create workspace
+    var setWorkspaceBlocks = function() {
+        var editIndex = document.querySelector("input[name=edit_index]").value;
+        var loadXmlDom = parent.document.getElementById('default_xml_block_' + editIndex);
+        var codingXmlDom = parent.document.getElementById('coding_block_' + editIndex);
+        if(loadXmlDom) {
+            //Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(loadXmlDom.outerHTML), workspace);
+            document.querySelector("#toolbox").innerHTML = loadXmlDom.outerHTML;
+            loadXmlDom.remove();
+
+            workspace = Blockly.inject(blocklyDiv,
+                {
+                    toolbox: document.getElementById('default_xml_block_' + editIndex),
+                    renderer: 'zelos',
+                    zoom: {
+                        controls: true,
+                        wheel: true,
+                        startScale: 1.0,
+                        maxScale: 3,
+                        minScale: 0.3,
+                        scaleSpeed: 1.2,
+                        pinch: true
+                    }
+                });
+            workspace.addChangeListener(testCodeGenerator);
+
+            // Add Coding Desc Blocks to workspace
+            if(codingXmlDom) {
+                Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(codingXmlDom.outerHTML), workspace);
+            }
+        }
+    }
+    //*/
+    window.onload = setWorkspaceBlocks;
+
+    var updateCategoryCallBack2 = function(){
+        var editIndex = document.querySelector("input[name=edit_index]").value;
+        var updateToolboxText = '<xml xmlns="https://developers.google.com/blockly/xml" id="xml_img_block_'+editIndex+'" style="display: none">';
+            updateToolboxText += $('#default_xml_block_' + editIndex).html();
+            updateToolboxText += '<category name="IMAGE" id="IMAGE" colour="210">';
+            updateToolboxText += '      <block type="text"><field name="TEXT">sample.jpg</field></block>';
+            updateToolboxText += '  </category>';
+            updateToolboxText += '</xml>';
+
+        var updateToolboxXml = Blockly.Xml.textToDom(updateToolboxText);
+        workspace.updateToolbox(updateToolboxXml);
+        
+
+    }
+
+    //* 동적으로 생성될 AI 카테고리 정의
+    var updateCategoryCallBack = function() {
+        var editIndex = document.querySelector("input[name=edit_index]").value;
+        var loadXmlDom = parent.document.getElementById('xml_block_' + editIndex);
+
+        var updateToolboxText = '<xml xmlns="https://developers.google.com/blockly/xml" id="xml_block_'+editIndex+'" style="display: none">';
+            updateToolboxText += $('#default_xml_block_' + editIndex).html();
+            updateToolboxText += '<category name="AI" colour="230">';
+            updateToolboxText += '  <variables><variable>imgSize</variable>';
+            updateToolboxText += '  <variable>x_train</variable>';
+            updateToolboxText += '  <variable>y_train</variable>';
+            updateToolboxText += '  <variable>x_test</variable>';
+            updateToolboxText += '  <variable>y_test</variable>';   
+            updateToolboxText += '  <variable>n_channel</variable>'; 
+            updateToolboxText += '  <variable>n_dense</variable>'; 
+            updateToolboxText += '  <variable>n_train_epoch</variable></variables>'; 
+            updateToolboxText += '  <category name="Preprocessing">';
+            updateToolboxText += '  <block type="variables_set">';
+            updateToolboxText += '      <field name="VAR">imgSize</field>';
+            updateToolboxText += '      <value name="VALUE"><block type="math_number"><field name="NUM">100</field></block></value>';
+            updateToolboxText += '      <next>';
+            updateToolboxText += '      <block type="image_resize">';
+            updateToolboxText += '          <value name="img_size">';
+            updateToolboxText += '          <block type="variables_get"><field name="VAR">imgSize</field></block>';
+            updateToolboxText += '          </value>';
+            updateToolboxText += '      </block>';
+            updateToolboxText += '      </next>';
+            updateToolboxText += '  </block>';
+            updateToolboxText += '  <block type="load_data_labeling">';
+            updateToolboxText += '      <value name="x_train"><block type="variables_get"><field name="VAR">x_train</field></block></value>';
+            updateToolboxText += '      <value name="y_train"><block type="variables_get"><field name="VAR">y_train</field></block></value>';
+            updateToolboxText += '      <value name="x_test"><block type="variables_get"><field name="VAR">x_test</field></block></value>';
+            updateToolboxText += '      <value name="y_test"><block type="variables_get"><field name="VAR">y_test</field></block></value>';
+            updateToolboxText += '  </block>';
+            updateToolboxText += '  <block type="shuffle">';
+            updateToolboxText += '      <value name="x_train"><block type="variables_get"><field name="VAR">x_train</field></block></value>';
+            updateToolboxText += '      <value name="y_train"><block type="variables_get"><field name="VAR">y_train</field></block></value>';
+            updateToolboxText += '  </block>';
+            updateToolboxText += '  </category>';
+            updateToolboxText += '  <category name="Model">';
+            updateToolboxText += '  <block type="model_set_with_input">';
+            updateToolboxText += '      <value name="shape_size"><block type="variables_get"><field name="VAR">imgSize</field></block></value>';
+            updateToolboxText += '  </block>';
+            updateToolboxText += '  <block type="variables_set">';
+            updateToolboxText += '      <field name="VAR">n_channel</field>';
+            updateToolboxText += '      <value name="VALUE"><block type="math_number"><field name="NUM">32</field></block></value>';
+            updateToolboxText += '      <next>';
+            updateToolboxText += '      <block type="model_add_conv2d">';
+            updateToolboxText += '          <field name="opt_activation">relu</field>';
+            updateToolboxText += '          <value name="channel_num"><block type="variables_get"><field name="VAR">n_channel</field></block></value>';
+            updateToolboxText += '      </block>';
+            updateToolboxText += '      </next>';
+            updateToolboxText += '  </block>';
+            updateToolboxText += '  <block type="model_add_flatten"></block>';
+            updateToolboxText += '  <block type="variables_set">';
+            updateToolboxText += '      <field name="VAR">n_dense</field>';
+            updateToolboxText += '      <value name="VALUE"><block type="math_number"><field name="NUM">128</field></block></value>';
+            updateToolboxText += '      <next>';
+            updateToolboxText += '      <block type="model_add_dense">';
+            updateToolboxText += '          <field name="opt_activation">relu</field>';
+            updateToolboxText += '          <value name="dense_num"><block type="variables_get"><field name="VAR">n_dense</field></block></value>';
+            updateToolboxText += '      </block>';
+            updateToolboxText += '      </next>';
+            updateToolboxText += '  </block>';
+            updateToolboxText += '  <block type="model_summary"></block>';
+            updateToolboxText += '  </category>';
+            updateToolboxText += '  <category name="Training">';
+            updateToolboxText += '  <block type="model_compile_fn"></block>';
+            updateToolboxText += '  <block type="variables_set">';
+            updateToolboxText += '      <field name="VAR">n_train_epoch</field>';
+            updateToolboxText += '      <value name="VALUE"><block type="math_number"><field name="NUM">5</field></block></value>';
+            updateToolboxText += '      <next>';
+            updateToolboxText += '      <block type="model_fit_fn">';
+            updateToolboxText += '          <value name="x_train"><block type="variables_get"><field name="VAR">x_train</field></block></value>';
+            updateToolboxText += '          <value name="y_train"><block type="variables_get"><field name="VAR">y_train</field></block></value>';
+            updateToolboxText += '          <value name="epoch_num"><block type="variables_get"><field name="VAR">n_train_epoch</field></block></value>';
+            updateToolboxText += '      </block>';
+            updateToolboxText += '      </next>';
+            updateToolboxText += '  </block>';
+            updateToolboxText += '  </category>';
+            updateToolboxText += '  <category name="Evaluation">';
+            updateToolboxText += '      <block type="model_Evaluation_fn">';
+            updateToolboxText += '          <value name="x_test"><block type="variables_get"><field name="VAR">x_test</field></block></value>';
+            updateToolboxText += '          <value name="y_test"><block type="variables_get"><field name="VAR">y_test</field></block></value>';
+            updateToolboxText += '      </block>';
+            updateToolboxText += '      <block type="x_train_img_fn">';
+            updateToolboxText += '          <value name="index"><block type="math_number"><field name="NUM">1</field></block></value>';
+            updateToolboxText += '      </block>';
+            updateToolboxText += '  </category>';
+            updateToolboxText += '  <category name="Prediction">';
+            updateToolboxText += '      <block type="model_predict_fn2">';
+            updateToolboxText += '      <value name="path"><block type="text"><field name="TEXT">sample.jpg</field></block></value>';
+            updateToolboxText += '      </block>';
+            updateToolboxText += '  </category>';
+            updateToolboxText += '</category>';
+            updateToolboxText += '</xml>';
+
+        
+        var updateToolboxXml = Blockly.Xml.textToDom(updateToolboxText);
+        workspace.updateToolbox(updateToolboxXml);
+    }
+    //*/
+</script>

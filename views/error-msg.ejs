@@ -1,0 +1,17 @@
+<script>
+    alert('<%=message%>');
+
+    var isParent = window.opener;
+    var locationUrl = location.href;
+
+    if(isParent){
+        window.close();
+    } else {
+        if(locationUrl == '<%=backURL%>') {
+            location.href = '/';
+        } else {
+            location.href = '<%=backURL%>';
+        }
+    }
+
+</script>

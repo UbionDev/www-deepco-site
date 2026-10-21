@@ -1,0 +1,96 @@
+<variables>
+    <variable>key</variable>
+    <variable>cursesOrd</variable>
+    <!--<variable>cursesKeyUp</variable>
+    <variable>cursesKeyLeft</variable>
+    <variable>cursesKeyRight</variable>
+    <variable>cursesKeyDown</variable>-->
+</variables>
+<!-- <block type="keyboard_control"></block> -->
+<!-- <block type="def_curses_ready_func"></block> -->
+<!-- <block type="def_curses_end_func"></block> -->
+<!--<block type="set_curses_ready"></block>-->
+<!--<block type="set_curses_end"></block>-->
+
+<block type="Keyboard_input">
+    <statement name="quit_statement">
+        <block type="set_screen_text">
+            <value name="obj_text">
+                <block type="text">
+                    <field name="TEXT">abc</field>
+                </block>
+            </value>
+            <next>
+                <block type="controls_whileUntil">
+                    <value name="BOOL">
+                        <block type="logic_boolean">
+                            <field name="BOOL">TRUE</field>
+                        </block>
+                    </value>
+                    <statement name="DO">
+                        <block type="get_key_input">
+                            <value name="obj_char">
+                                <block type="variables_get">
+                                    <field name="VAR">key</field>
+                                </block>
+                            </value>
+                            <next>
+                                <block type="controls_if">
+                                    <value name="IF0">
+                                        <block type="logic_compare">
+                                            <field name="OP">EQ</field>
+                                            <value name="A">
+                                                <block type="variables_get">
+                                                    <field name="VAR">key</field>
+                                                </block>
+                                            </value>
+                                            <value name="B">
+                                                <block type="curses_ord_output">
+                                                    <value name="obj_text_field">
+                                                        <block type="text">
+                                                            <field name="TEXT">q</field>
+                                                        </block>
+                                                    </value>
+                                                </block>
+                                            </value>
+                                        </block>
+                                    </value>
+                                    <next>
+                                        <block type="controls_if">
+                                            <value name="IF0">
+                                                <block type="logic_compare">
+                                                    <field name="OP">EQ</field>
+                                                    <value name="A">
+                                                        <block type="variables_get">
+                                                            <field name="VAR">key</field>
+                                                        </block>
+                                                    </value>
+                                                    <value name="B">
+                                                        <block type="curses_key_option_output"></block>
+                                                    </value>
+                                                </block>
+                                            </value>
+                                        </block>
+                                    </next>
+                                </block>
+                            </next>
+                        </block>
+                    </statement>
+                </block>
+            </next>
+        </block>
+    </statement>
+</block>
+
+<!-- <block type="call_curses_ready_func"></block> -->
+<!-- <block type="call_curses_end_func"></block> -->
+<block type="set_screen_text"><value name="obj_text"><block type="text"><field name="TEXT">abc</field></block></value></block>
+<block type="get_key_input"><value name="obj_char"><block type="variables_get"><field name="VAR">key</field></block></value></block>
+<block type="controls_if"><value name="IF0"><block type="logic_compare"><field name="OP">EQ</field><value name="A"><block type="variables_get"><field name="VAR">key</field></block></value><value name="B"><block type="curses_ord_output"><value name="obj_text_field"><block type="text"><field name="TEXT">q</field></block></value></block></value></block></value></block>
+<block type="controls_if"><value name="IF0"><block type="logic_compare"><field name="OP">EQ</field><value name="A"><block type="variables_get"><field name="VAR">key</field></block></value><value name="B"><block type="curses_key_option_output"></block></value></block></value></block>
+<!--<block type="if_quit"></block>-->
+<!--<block type="if_up"></block>-->
+<!--<block type="if_left"></block>-->
+<!--<block type="if_right"></block>-->
+<!--<block type="if_down"></block>-->
+<!--<block type="set_quit_keyboard"></block>-->

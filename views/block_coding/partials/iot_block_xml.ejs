@@ -1,0 +1,73 @@
+<category name="LED" css-icon="customIcon bi bi-lightbulb" colour="%{BKY_LOOPS_HUE}" css-container="blocklyToolboxCategory depth2">
+    <label text="Basic"></label>
+    <sep></sep>
+    <!--<block type="led_check"></block>-->
+    <!--<block type="led_ready"></block>-->
+    <block type="led_select_on"></block>
+    <block type="led_select_off"></block>
+    <!--<block type="led_blink"></block>-->
+    <!--<block type="led_blink_advance"></block>-->
+    <!--<block type="led_by_pin"></block>-->
+    <!--block type="led_on"></block>-->
+    <!--<block type="led_off"></block>-->
+    <sep css-container="blocklyTreeSeparator categoryHr"></sep>
+    <label text="Advanced"></label>
+    <sep css-container="blocklyTreeSeparator categoryHr"></sep>
+    <!--<block type="PWMled_ready"></block>-->
+    <block type="led_blink_advance"><value name="on_time"><block type="math_number"><field name="NUM">1</field></block></value><value name="off_time"><block type="math_number"><field name="NUM">1</field></block></value><value name="n_cnt"><block type="math_number"><field name="NUM">1</field></block></value></block>
+    <block type="PWMled_blink_advance"><value name="on_time"><block type="math_number"><field name="NUM">1</field></block></value><value name="off_time"><block type="math_number"><field name="NUM">1</field></block></value><value name="fade_in_time"><block type="math_number"><field name="NUM">1</field></block></value><value name="fade_out_time"><block type="math_number"><field name="NUM">1</field></block></value><value name="n_cnt"><block type="math_number"><field name="NUM">1</field></block></value></block>
+    
+</category>
+
+<category name="ColorLED" css-icon="customIcon bi bi-lightbulb-fill" colour="%{BKY_LOOPS_HUE}" css-container="blocklyToolboxCategory depth2">
+    <!--<block type="RGBled_ready"></block>-->
+    <block type="RGBled_on"></block>
+    <block type="RGBled_off"></block>
+    <block type="RGBled_blink_advance"><value name="on_time"><block type="math_number"><field name="NUM">1</field></block></value><value name="off_time"><block type="math_number"><field name="NUM">1</field></block></value><value name="fade_in_time"><block type="math_number"><field name="NUM">1</field></block></value><value name="fade_out_time"><block type="math_number"><field name="NUM">1</field></block></value><value name="n_cnt"><block type="math_number"><field name="NUM">1</field></block></value></block>
+  </category>
+
+<category name="Button" css-icon="customIcon bi bi-hand-index" colour="%{BKY_LOOPS_HUE}" css-container="blocklyToolboxCategory depth2">
+    <!--<block type="button_ready"></block>-->
+    <block type="button_ispressed"></block>    
+    <!--<block type="switch_button"></block>-->
+    <!--<block type="buzzer_by_pin"></block>-->
+    <!--<block type="buzzer_beep"></block>-->
+    <!--<block type="current_time"></block>-->
+    <!--<block type="diff_time"></block>-->
+</category>
+<category name="Buzzer" css-icon="customIcon bi bi-bell" colour="%{BKY_LOOPS_HUE}" css-container="blocklyToolboxCategory depth2">
+    <label text="Basic"></label>
+    <sep></sep>
+    <!--<block type="buzzer_ready"></block>-->
+    <block type="buzzer_on"></block>
+    <block type="buzzer_off"></block>
+    <sep></sep>
+    <label text="Advanced"></label>
+    <sep></sep>
+    <block type="buzzer_beep_advance"><value name="on_time"><block type="math_number"><field name="NUM">1</field></block></value><value name="off_time"><block type="math_number"><field name="NUM">1</field></block></value><value name="n_cnt"><block type="math_number"><field name="NUM">1</field></block></value></block>
+</category>
+<category name="DistanceSensor" css-icon="customIcon bi bi-broadcast" colour="%{BKY_LOOPS_HUE}" css-container="blocklyToolboxCategory depth2">
+    <!--<block type="dcsensor_ready"></block>-->
+    <block type="distance"></block>
+    
+</category>
+<category name="Camera" css-icon="customIcon bi bi-camera" colour="%{BKY_LOOPS_HUE}" css-container="blocklyToolboxCategory depth2">
+    <variables>
+        <variable>image</variable>
+    </variables>
+    <!--<block type="camera_ready"></block>-->
+    <!--<block type="camera_picture"></block>-->
+    <block type="set_image_take_picture"><value name="obj_image"><block type="variables_get"><field name="VAR">image</field></block></value></block>
+    <block type="set_image_to_global_frame">
+        <value name="obj_image"><block type="variables_get"><field name="VAR">image</field></block></value>
+    </block>
+    <block type="save_image_to_file">
+        <value name="obj_image"><block type="variables_get"><field name="VAR">image</field></block></value>
+        <value name="obj_text"><block type="text"><field name="TEXT">picture1.jpg</field></block></value>
+    </block>
+    <block type="save_image_to_project_file">
+        <value name="obj_image"><block type="variables_get"><field name="VAR">image</field></block></value>
+        <value name="obj_text"><block type="text"><field name="TEXT">picture1.jpg</field></block></value>
+    </block>
+    <block type="camera_end"></block>
+</category>

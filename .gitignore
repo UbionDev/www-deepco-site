@@ -1,0 +1,14 @@
+# 외부 전달용 인계 묶음(내부 연락처 포함) — 저장소에 올리지 않는다
+/handoff/
+
+node_modules/
+
+# 비밀값 — 실행에는 필요하므로 디스크에만 둔다(*.example 파일 참고)
+/config/*/keycloak.json
+/config/*/keyclaok.json
+/config/temp-users.js
+
+# 대용량 · 백업 파일
+/public/media/deepcobot_making_guide.mp4
+/public/deepco/index.html.ori
+/public/deepco/index_bak.html

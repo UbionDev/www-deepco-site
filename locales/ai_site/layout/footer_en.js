@@ -1,0 +1,16 @@
+module.exports = {
+    "aisite.layout.footer.privacy_policy" : "Privacy Policy",
+    "aisite.layout.footer.terms_service" : "Terms Service",
+    "aisite.layout.footer.partnership_inquiry" : "Partnership Inquiry",
+    "aisite.layout.footer.service_introduction" : "Service Introduction",
+    "aisite.layout.footer.service_center" : "Service Center",
+    "aisite.layout.footer.ubion_co" : "Ubion Co., Ltd.",
+    "aisite.layout.footer.ceo" : "CEO",
+    "aisite.layout.footer.ceo_name" : "Im Jae-hwan",
+    "aisite.layout.footer.address" : "address",
+    "aisite.layout.footer.ubion_address" : "601, 6th Fl, DaeryungpostⅢ, 34Gil 27, Digital-ro, Guro-gu, Seoul, Republic of Korea",
+    "aisite.layout.footer.company_registration_number" : "Company Registration Number",
+    "aisite.layout.footer.business_report_number" : "Mail-order business report number",
+    "aisite.layout.footer.guroje" : "Guro No. 2005-02386",
+    "aisite.layout.footer.corporation" : "© COPYRIGHT 2022 Corporation AI CAR Corp. ALL RIHGTS RESERVED.",
+}

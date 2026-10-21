@@ -1,0 +1,142 @@
+<category name="Gathering Data" css-icon="customIcon bi bi-camera" colour="%{BKY_MATH_HUE}" css-container="blocklyToolboxCategory depth2">
+    <variables>
+      <variable>img_cnt</variable>
+      <variable>to_class</variable>
+    </variables>
+    <block type="set_save_img_cnt">
+        <value name="var1"><block type="variables_get"><field name="VAR">img_cnt</field></block></value>
+        <value name="val_img_cnt"><block type="math_number"><field name="NUM">1</field></block></value>
+    </block>
+    <block type="make_classes_for_driving">
+        <value name="obj_list">
+            <block type="lists_create_with" inline="true"><mutation items="3"></mutation><value name="ADD0"><block type="text"><field name="TEXT">Forward</field></block></value><value name="ADD1"><block type="text"><field name="TEXT">Left</field></block></value><value name="ADD2"><block type="text"><field name="TEXT">Right</field></block></value></block>
+        </value>
+    </block>
+    <block type="set_save_to_class">
+        <!--<value name="obj_class"><block type="variables_get"><field name="VAR">to_class</field></block></value>-->
+    </block>
+    <block type="save_image_to_class">
+        <value name="obj_image"><block type="variables_get"><field name="VAR">image</field></block></value>
+    </block>
+    <block type="get_forward_data"></block>
+    <block type="get_left_data"></block>
+    <block type="get_right_data"></block>
+    <block type="get_stop_data"></block>
+    <block type="save_data"></block>
+    <block type="stop_saving_data"></block>
+    <!--<block type="delete_all_data"></block>-->
+</category>
+<category name="Preprocessing" css-icon="customIcon bi bi-sliders" colour="%{BKY_MATH_HUE}" css-container="blocklyToolboxCategory depth2">
+    <block type="decalcom_of_data"></block>
+    <block type="create_data_csv">
+        <value name="csv_name">
+            <block type="text"><field name="TEXT">data.csv</field></block>
+        </value>
+    </block>
+    <block type="data_analysis_csv">
+        <value name="csv_name">
+            <block type="text"><field name="TEXT">data.csv</field></block>
+        </value>
+    </block>
+    <block type="data_upsampling_csv">
+        <value name="csv_name">
+            <block type="text"><field name="TEXT">data.csv</field></block>
+        </value>
+    </block>
+    <block type="image_slicing">
+        <value name="var1"><block type="variables_get"><field name="VAR">image</field></block></value>
+        <value name="var2"><block type="variables_get"><field name="VAR">image</field></block></value>
+        <value name="up_pos"><block type="math_number"><field name="NUM">10</field></block></value>
+        <value name="dw_pos"><block type="math_number"><field name="NUM">10</field></block></value>
+    </block>
+    <block type="set_image_to_imread_batchpointer">
+        <value name="var1"><block type="variables_get"><field name="VAR">image</field></block></value>
+        <value name="var2"><block type="variables_get"><field name="VAR">x_train</field></block></value>
+    </block>
+</category>
+<category name="Model" css-icon="customIcon bi bi-collection" colour="%{BKY_MATH_HUE}" css-container="blocklyToolboxCategory depth2">
+    <block type="save_model_design_python"></block>
+</category>
+<category name="Training" css-icon="customIcon bi bi-gear" colour="%{BKY_MATH_HUE}" css-container="blocklyToolboxCategory depth2">
+    <block type="train_batch_csv_data">
+        <value name="csv_name">
+            <block type="text"><field name="TEXT">data.csv</field></block>
+        </value>
+        <!--<value name="var1"><block type="variables_get"><field name="VAR">x_train</field></block></value>-->
+        <!--<value name="var2"><block type="variables_get"><field name="VAR">y_train</field></block></value>-->
+        <value name="var_epochs"><block type="math_number"><field name="NUM">20</field></block></value>
+        <value name="var_batch_size"><block type="math_number"><field name="NUM">100</field></block></value>
+        <!--<value name="var5"><block type="variables_get"><field name="VAR">x_test</field></block></value>-->
+        <!--<value name="var6"><block type="variables_get"><field name="VAR">y_test</field></block></value>-->
+    </block>
+    <block type="load_model_design">
+        <value name="var_model">
+            <block type="variables_get"><field name="VAR">model</field></block>
+        </value>
+    </block>
+    <block type="set_model_checkpoint">
+        <value name="var_model">
+            <block type="variables_get"><field name="VAR">model</field></block>
+        </value>
+    </block>
+    <block type="model_checkpoint_compile">
+        <value name="var1">
+            <block type="math_number"><field name="NUM">1</field></block>
+        </value>
+    </block>
+    <block type="load_train_batch_fn">
+        <value name="var_x_train"><block type="variables_get"><field name="VAR">x_train</field></block></value>
+        <value name="var_y_train"><block type="variables_get"><field name="VAR">y_train</field></block></value>
+        <value name="var_batch_size"><block type="math_number"><field name="NUM">100</field></block></value>
+        <!--<mutation><arg name="batch_size"></arg><arg name="idx"></arg></mutation><field name="NAME">LoadTrainBatch</field><comment pinned="false"></comment>-->
+        <!--<statement name="STACK">
+            <block type="controls_repeat_ext"><value name="TIMES"><block type="variables_get"><field name="VAR">batch_size</field></block></value>
+                <statement name="DO">
+                    <block type="image_slicing">
+                        <value name="var1"><block type="variables_get"><field name="VAR">image</field></block></value>
+                        <value name="var2"><block type="variables_get"><field name="VAR">image</field></block></value>
+                        <value name="up_pos"><block type="math_number"><field name="NUM">110</field></block></value>
+                        <value name="dw_pos"><block type="math_number"><field name="NUM">0</field></block></value>
+                    </block>
+                </statement>
+            </block>
+        </statement>-->
+    </block>
+    <block type="load_test_batch_fn">
+        <value name="var_x_test"><block type="variables_get"><field name="VAR">x_test</field></block></value>
+        <value name="var_y_test"><block type="variables_get"><field name="VAR">y_test</field></block></value>
+        <value name="var_batch_size"><block type="math_number"><field name="NUM">100</field></block></value>
+    </block>
+    <block type="set_sequence_get_train_data">
+        <value name="var_sequence"><block type="variables_get"><field name="VAR">sequence</field></block></value>
+        <value name="var_x_train"><block type="variables_get"><field name="VAR">x_train</field></block></value>
+        <value name="var_batch_size"><block type="math_number"><field name="NUM">100</field></block></value>
+    </block>
+    <block type="set_sequence_get_test_data">
+        <value name="var_sequence"><block type="variables_get"><field name="VAR">sequence_val</field></block></value>
+        <value name="var_x_test"><block type="variables_get"><field name="VAR">x_test</field></block></value>
+        <value name="var_batch_size"><block type="math_number"><field name="NUM">100</field></block></value>
+    </block>
+    <block type="train_batch_with_sequence">
+        <value name="var_sequence"><block type="variables_get"><field name="VAR">sequence</field></block></value>
+        <value name="var_sequence_val"><block type="variables_get"><field name="VAR">sequence_val</field></block></value>
+        <value name="var_epochs"><block type="math_number"><field name="NUM">10</field></block></value>
+    </block>
+    <block type="train_batch_with_sequence2">
+        <value name="var_sequence"><block type="variables_get"><field name="VAR">sequence</field></block></value>
+        <value name="var_sequence_val"><block type="variables_get"><field name="VAR">sequence_val</field></block></value>
+        <value name="var_epochs"><block type="math_number"><field name="NUM">10</field></block></value>
+    </block>2
+</category>
+<category name="Prediction" css-icon="customIcon bi bi-file-code" colour="%{BKY_MATH_HUE}" css-container="blocklyToolboxCategory depth2">
+    <block type="import_checkpoint_model"></block>
+    <block type="load_checkpoint_model"></block>
+    <block type="predict_checkpoint_model">
+        <value name="value">
+            <block type="variables_get"><field name="VAR">y_</field></block>
+        </value>
+        <value name="image">
+            <block type="variables_get"><field name="VAR">image</field></block>
+        </value>
+    </block>
+</category>

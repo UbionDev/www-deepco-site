@@ -1,0 +1,246 @@
+<% layout('../common/layout') -%>
+<!-- Page Wrapper -->
+<div id="wrapper" >
+
+    <!-- Topbar -->
+    <nav class="navbar navbar-dark topbar static-top">
+      <h1 class="navbar-brand">
+        <i class="logo"></i>
+        <span class="navbar-brand-text">WOW AI coding</span>
+    </h1>
+        <span class="navbar-tit"><%=lectureinfo.lecture_name%></span>
+        <span class="navbar-tit-s pl-1"><%=lectureinfo.course_id%>.<%=lectureinfo.course_name%></span>
+    </nav>
+    <!-- //Topbar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" >
+
+        <!-- 코딩실습 영역 -->
+        <div class="wrap codingview move">
+            <section class="container-fluid pt-3">
+                <%-content_data.content_desc%>
+            </section>
+
+            
+        </div>
+
+
+        
+        <!-- //코딩실습 영역 -->
+
+        <!-- 강의 영역 -->
+        <div class="wrap d-flex flex-column">
+            <!-- <div class="player">
+                <iframe src="https://www.youtube.com/embed/sxKw90OOKzU" frameborder="0" allowfullscreen></iframe>
+            </div> -->
+            <div class="player">
+                <div id="inputarea"></div>
+            </div>
+            <!-- Navbar -->
+            <div class="" >
+                <div class="d-flex nav">
+                    <a class="nav-link flex-fill active" href="#tab-mark"  data-toggle="tab" data-toggle="tooltip" data-placement="right" title="북마크">
+                        <i class="fab fa-readme"></i>
+                        <span>북마크</span>
+                    </a>
+                    <a class="nav-link flex-fill" href="#tab-list"  data-toggle="tab" >
+                        <i class="fas fa-list-alt" ></i>
+                    <span>학습목록</span>
+                    </a>
+                </div>
+            </div>
+            <!--// Navbar -->
+            <div class="tab-content course flex-grow-1 ">
+                <div class="bookmark tab-pane active" id="tab-mark" >
+                    <ul>
+                        <% 
+                            function addZero(num) {
+                                return ((num < 10) ? '0' : '') + num
+                            }
+
+                            bookmark_data.forEach(function(val) {
+                                var min = addZero(parseInt(val.bookmark_time/60));
+                                var sec = addZero(val.bookmark_time%60);
+                        %>
+                            <li class="<%= val.bookmark_seq %> bookmarkbtn" seq="<%= val.bookmark_seq %>"><a href="#"><%= val.bookmark_seq %>. (<%= min %>:<%= sec %>) <%= val.bookmark_title %></a></li>
+                        <%
+                            })
+                        %>
+                    </ul>
+                </div>
+                <div class="leclist tab-pane" id="tab-list">
+                    <ul>
+                        <% 
+                            course_list.forEach(function(val) {
+                        %>
+                            <li class="<%= course_id == val.course_id ? 'active' : ''%>"><a href="/learn?lecture_id=<%= val.lecture_id %>&course_id=<%= val.course_id %>&usr_id=<%= usr_id %>&site=<%= site %>"><%= val.course_id %>. <%= val.course_name %></a></li>
+                        <%
+                            })
+                        %>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- //강의 영역 -->
+
+    </div>
+    <!-- //Content Wrapper -->
+  </div>
+  <!-- //Page Wrapper -->
+  <!--채팅-->
+  <div id="chatDiv">
+
+  </div>
+  <!--//채팅-->
+<script src='https://www.youtube.com/iframe_api'></script>
+<script>
+
+    var player;
+    var timer;
+    var bookmark_time;
+    var offset = 0;
+
+    function onYouTubeIframeAPIReady() {
+
+        player = new YT.Player('inputarea', {
+            videoId: '<%=lectureinfo.course_link%>',
+            playerVars: {'autoplay': 1, 'showinfo': 0, 'rel':0, 'modestbranding':1,
+                'wmode':'transparent', 'autohide':1
+            },
+            events: {
+                'onReady': onPlayerReady,
+                'onStateChange': onPlayerStateChange
+            }
+
+        });
+
+    }
+
+    function onPlayerReady(event) {
+
+        event.target.setPlaybackQuality("hd720");
+
+        // 추가한 소스..
+        // console.log(player.getCurrentTime());
+        // console.log(player.getDuration());
+    }
+
+    function onPlayerStateChange(event) {
+
+        if (event.data == YT.PlayerState.PLAYING) {
+            event.target.setPlaybackQuality('hd720');
+            timer = setInterval(function(){
+                
+                for (var i = 0; i < bookmark_time.length; i++)
+                {
+                    if(bookmark_time[i] == Math.round(player.getCurrentTime()))
+                    {
+                        $('.bookmark').find('li').removeClass('active');
+                        $('.bookmark').find('li.'+(i+1)).addClass('active');
+
+                        offset = offset + $(".scroll"+i).offset().top;
+                        
+                        $('.move').animate({scrollTop : offset -80}, 400);
+                        
+                    }
+                }
+            },1000)
+        }
+        else if(event.data == YT.PlayerState.ENDED || event.data == YT.PlayerState.PAUSED){
+            clearInterval(timer)
+        }
+    }
+
+    $(document).ready(function () {
+
+        var paramObj = new Object();
+
+        paramObj.usr_key = '<%=usr_key%>';
+        paramObj.lecture_id = '<%=lecture_id%>';        
+
+        var stdntUrl = 'http://chat.coding.wowpass.com/chat/chatView';
+        $('#chatDiv').load(stdntUrl, paramObj);
+
+        var arr = [];
+        bookmark_time = [];
+
+        var content_len = "<%=content_data.content_len%>";
+
+        
+
+        for (var i = 0; i < Number(content_len); i++) {
+            var editor = CodeMirror.fromTextArea(document.getElementById("code" + i), {
+                lineNumbers: true,
+                matchBrackets: true,
+                theme: 'material-palenight',
+                viewportMargin: 100
+            });
+            arr.push(editor);
+
+            var Text = `
+            <div class='group-btn py-2'><button class='btn btn-danger submit' index='${i}' type='button'>실행</button></div>
+            <article class="result-zone">
+                        <h4>실행결과</h4>
+                            <pre id="result${i}">이 곳에 코드 결과가 출력됩니다.</pre>
+                    </article>
+            `
+            $("#code" + i).parent().after(Text);
+            
+        }
+
+        var data = JSON.parse('<%-JSON.stringify(bookmark_data)%>');
+
+        for(var i = 0; i < data.length; i++) {
+            bookmark_time.push(data[i].bookmark_time)
+        }
+
+        $(document).on("click", ".submit", function () {
+            var index = $(this).attr("index");
+
+            var code = arr[index].getValue();
+
+
+            code = code.replace("\n", "\r\n");
+
+            param = {
+                code: code
+            }
+
+            $.ajax({
+              url: "<%=_prop.Api.CodeExecuteUrl%>/test",
+              type: "GET",
+              dataType: 'json',
+              data: param,
+              success: function (data) {
+                  $("#result" + index).html(data.text.replace(/\n/gi, "<br/>"));
+              }
+
+          });
+        });
+
+        $(document).on("click", ".bookmarkbtn", function () {
+            
+            $('.bookmark').find('li').removeClass('active');
+            $(this).addClass('active');
+
+            var seq = $(this).attr("seq");
+            var index = parseInt(seq) - 1;
+
+            offset = offset + $(".scroll"+index).offset().top;
+
+            $('.move').animate({scrollTop : offset -80}, 400);
+
+        });
+
+        $(".move").scroll(function () {
+            offset = $(".move").scrollTop();
+        });
+
+    });
+
+    
+
+    
+
+  </script>

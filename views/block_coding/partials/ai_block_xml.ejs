@@ -1,0 +1,353 @@
+
+  <variables><variable>imgSize</variable>
+  <variable>x_train</variable>
+  <variable>y_train</variable>
+  <variable>x_test</variable>
+  <variable>y_test</variable>   
+  <variable>n_channel</variable> 
+  <variable>n_dense</variable> 
+  <variable>n_train_epoch</variable></variables> 
+  <category name="Basic" css-icon="customIcon bi bi-file-code" colour="%{BKY_MATH_HUE}" css-container="blocklyToolboxCategory depth2">
+    <block type="basic_data_processing"></block>
+    <block type="basic_classification_model"></block>
+    <block type="basic_train_model">
+      <value name="var_epochs"><block type="variables_get"><field name="VAR">epochs</field></block></value>
+      <value name="var_batch_size"><block type="variables_get"><field name="VAR">batch_size</field></block></value>
+    </block>
+    <block type="basic_load_model"></block>
+    <block type="basic_load_model_project">
+      <value name="modelname"><block type="text"><field name="TEXT">sample</field></block></value>
+    </block>
+    <block type="basic_load_checkpoint_model_project"></block>
+    <block type="basic_set_result_to_predict">
+      <value name="var_result">
+        <block type="variables_get"><field name="VAR">result</field></block>
+      </value>
+      <value name="image">
+        <block type="variables_get"><field name="VAR">image</field></block>
+      </value>
+    </block>
+    <block type="basic_predict_checkpoint_model_project">
+      <value name="value">
+        <!--<block type="variables_get"><field name="VAR">result</field></block>-->
+      </value>
+      <value name="image">
+        <block type="variables_get"><field name="VAR">image</field></block>
+      </value>
+    </block>
+    <block type="basic_set_predict_result_project">
+      <value name="value">
+        <!--<block type="variables_get"><field name="VAR">result</field></block>-->
+      </value>
+    </block>
+  </category>
+  <category name="Preprocessing" css-icon="customIcon bi bi-sliders" colour="%{BKY_MATH_HUE}" css-container="blocklyToolboxCategory depth2">
+  <!-- <block type="variables_set">
+      <field name="VAR">imgSize</field>
+      <value name="VALUE"><block type="math_number"><field name="NUM">100</field></block></value>
+      <next>
+      <block type="image_resize">
+          <value name="img_size">
+          <block type="variables_get"><field name="VAR">imgSize</field></block>
+          </value>
+      </block>
+      </next>
+  </block>
+  <block type="load_data_labeling">
+      <value name="x_train"><block type="variables_get"><field name="VAR">x_train</field></block></value>
+      <value name="y_train"><block type="variables_get"><field name="VAR">y_train</field></block></value>
+      <value name="x_test"><block type="variables_get"><field name="VAR">x_test</field></block></value>
+      <value name="y_test"><block type="variables_get"><field name="VAR">y_test</field></block></value>
+  </block>
+  <block type="shuffle">
+      <value name="x_train"><block type="variables_get"><field name="VAR">x_train</field></block></value>
+      <value name="y_train"><block type="variables_get"><field name="VAR">y_train</field></block></value>
+  </block> -->
+
+  <!-- <block type="variables_set">
+    <field name="VAR">img_WidthSize</field>
+    <value name="VALUE"><block type="math_number"><field name="NUM">100</field></block></value>
+    <next>
+        <block type="variables_set">
+            <field name="VAR">img_HeightSize</field>
+            <value name="VALUE"><block type="math_number"><field name="NUM">100</field></block></value>
+          </block>
+    </next>
+  </block> -->
+
+        
+  <block type="image_resize2">
+    <value name="img_size1">
+        <block type="math_number"><field name="NUM">100</field></block>
+    </value>
+    <value name="img_size2">
+        <block type="math_number"><field name="NUM">100</field></block>
+    </value>
+
+    <value name="npzname">
+        <block type="text"><field name="TEXT">sampleName</field></block>
+    </value>
+</block>
+
+<block type="image_resize4">
+  <value name="img_size1">
+      <block type="math_number"><field name="NUM">100</field></block>
+  </value>
+  <value name="img_size2">
+      <block type="math_number"><field name="NUM">100</field></block>
+  </value>
+
+  <value name="npzname">
+      <block type="text"><field name="TEXT">sampleName</field></block>
+  </value>
+</block>
+  <block type="load_data">
+    <value name="x_data"><block type="variables_get"><field name="VAR">x_data</field></block></value>
+    <value name="y_data"><block type="variables_get"><field name="VAR">y_data</field></block></value>
+    <value name="npzname"><block type="text"><field name="TEXT">sampleName</field></block></value>
+</block>
+
+<block type="load_data2">
+  <value name="x_train"><block type="variables_get"><field name="VAR">x_train</field></block></value>
+  <value name="y_train"><block type="variables_get"><field name="VAR">y_train</field></block></value>
+  <value name="x_test"><block type="variables_get"><field name="VAR">x_test</field></block></value>
+  <value name="y_test"><block type="variables_get"><field name="VAR">y_test</field></block></value>
+  <value name="npzname"><block type="text"><field name="TEXT">sampleName</field></block></value>
+</block>
+
+<block type="load_csv_data">
+  <value name="x_data"><block type="variables_get"><field name="VAR">x_data</field></block></value>
+  <value name="y_data"><block type="variables_get"><field name="VAR">y_data</field></block></value>
+  <value name="csv_name">
+    <block type="text"><field name="TEXT">data.csv</field></block>
+  </value>
+</block>
+
+<block type="save_data_img"></block>
+
+<block type="shuffle_data">
+    <value name="x_train"><block type="variables_get"><field name="VAR">x_train</field></block></value>
+    <value name="y_train"><block type="variables_get"><field name="VAR">y_train</field></block></value>
+    <value name="x_test"><block type="variables_get"><field name="VAR">x_test</field></block></value>
+    <value name="y_test"><block type="variables_get"><field name="VAR">y_test</field></block></value>
+    <value name="x_data"><block type="variables_get"><field name="VAR">x_data</field></block></value>
+    <value name="y_data"><block type="variables_get"><field name="VAR">y_data</field></block></value>
+    <value name="val_ratio"><block type="math_number"><field name="NUM">0.8</field></block></value>
+</block>
+
+<block type="shuffle_data2">
+  <value name="x_train1"><block type="variables_get"><field name="VAR">x_train</field></block></value>
+  <value name="y_train1"><block type="variables_get"><field name="VAR">y_train</field></block></value>
+  <value name="x_test1"><block type="variables_get"><field name="VAR">x_test</field></block></value>
+  <value name="y_test1"><block type="variables_get"><field name="VAR">y_test</field></block></value>
+  <value name="x_train2"><block type="variables_get"><field name="VAR">x_train</field></block></value>
+  <value name="y_train2"><block type="variables_get"><field name="VAR">y_train</field></block></value>
+  <value name="x_test2"><block type="variables_get"><field name="VAR">x_test</field></block></value>
+  <value name="y_test2"><block type="variables_get"><field name="VAR">y_test</field></block></value>
+</block>
+
+<!--<block type="image_upload"></block>-->
+
+<block type="image_resize3">
+  <value name="var1"></value>
+  <value name="var2"></value>
+  <value name="w_size"><block type="math_number"><field name="NUM">100</field></block></value>
+  <value name="h_size"><block type="math_number"><field name="NUM">100</field></block></value>
+</block>
+
+<block type="image_reshape">
+  <value name="var1"></value>
+  <value name="var2"></value>
+  <value name="shape_size1"><block type="math_number"><field name="NUM">100</field></block></value>
+  <value name="shape_size2"><block type="math_number"><field name="NUM">100</field></block></value>
+  <value name="shape_size3"><block type="math_number"><field name="NUM">3</field></block></value>
+</block>
+
+
+  
+  </category>
+  <category name="Model" css-icon="customIcon bi bi-collection" colour="%{BKY_MATH_HUE}" css-container="blocklyToolboxCategory depth2">
+  <block type="import_librarys"></block>
+  <block type="sequential"></block>
+  <block type="InputLayer">
+    <value name="var1"><block type="math_number"><field name="NUM">784</field></block></value>
+  </block>
+  <block type="model_set_with_input">
+      <value name="shape_size1"><block type="math_number"><field name="NUM">100</field></block></value>
+      <value name="shape_size2"><block type="math_number"><field name="NUM">100</field></block></value>
+      <value name="shape_size3"><block type="math_number"><field name="NUM">3</field></block></value>
+  </block>
+  
+
+  <block type="model_add_conv2d">
+    <field name="opt_activation">relu</field>
+    <value name="channel_num"><block type="math_number"><field name="NUM">32</field></block></value>
+    <value name="filter_size1"><block type="math_number"><field name="NUM">3</field></block></value>
+    <value name="filter_size2"><block type="math_number"><field name="NUM">3</field></block></value>
+    <value name="stride1"><block type="math_number"><field name="NUM">1</field></block></value>
+    <value name="stride2"><block type="math_number"><field name="NUM">1</field></block></value>
+  </block>
+
+  <block type="model_MaxPool">
+    <value name="pool_size1"><block type="math_number"><field name="NUM">2</field></block></value>
+    <value name="pool_size2"><block type="math_number"><field name="NUM">2</field></block></value>
+    <value name="stride_size1"><block type="math_number"><field name="NUM">2</field></block></value>
+    <value name="stride_size2"><block type="math_number"><field name="NUM">2</field></block></value>
+  </block>
+
+  <block type="model_Dropout">
+    <value name="dropout_size"><block type="math_number"><field name="NUM">0.5</field></block></value>
+  </block>
+  
+  <block type="BatchNormalization"></block>
+  <block type="model_add_flatten"></block>
+
+  <block type="model_add_dense">
+    <field name="opt_activation">relu</field>
+    <value name="dense_num"><block type="math_number"><field name="NUM">128</field></block></value>
+  </block>
+
+  <block type="model_summary"></block>
+  </category>
+  <category name="Training" css-icon="customIcon bi bi-gear" colour="%{BKY_MATH_HUE}" css-container="blocklyToolboxCategory depth2">
+  <block type="model_compile_fn"></block>
+  <block type="model_compile"><value name="var1"><block type="math_number"><field name="NUM">0.01</field></block></value></block>
+  <!--<block type="model_fit_fn">
+    <value name="epoch_num"><block type="math_number"><field name="NUM">5</field></block></value>
+</block>-->
+
+<block type="model_fit_fn2">
+  <value name="var1"><block type="variables_get"><field name="VAR">x_train</field></block></value>
+  <value name="var2"><block type="variables_get"><field name="VAR">y_train</field></block></value>
+  <value name="var3"><block type="math_number"><field name="NUM">20</field></block></value>
+  <value name="var4"><block type="math_number"><field name="NUM">100</field></block></value>
+  <value name="var5"><block type="math_number"><field name="NUM">20</field></block></value>
+</block>
+<block type="model_fit_fn3">
+  <value name="var1"><block type="variables_get"><field name="VAR">x_train</field></block></value>
+  <value name="var2"><block type="variables_get"><field name="VAR">y_train</field></block></value>
+  <value name="var3"><block type="math_number"><field name="NUM">20</field></block></value>
+  <value name="var4"><block type="math_number"><field name="NUM">100</field></block></value>
+  <value name="var5"><block type="variables_get"><field name="VAR">x_test</field></block></value>
+  <value name="var6"><block type="variables_get"><field name="VAR">y_test</field></block></value>
+
+</block>
+
+
+
+  </category>
+  <category name="Evaluation" css-icon="customIcon bi bi-columns" colour="%{BKY_MATH_HUE}" css-container="blocklyToolboxCategory depth2">
+      <block type="model_Evaluation_fn">
+          <value name="x_test"><block type="variables_get"><field name="VAR">x_test</field></block></value>
+          <value name="y_test"><block type="variables_get"><field name="VAR">y_test</field></block></value>
+          <value name="batch_size"><block type="math_number"><field name="NUM">100</field></block></value>
+      </block>
+      <!-- <block type="x_train_img_fn">
+          <value name="index"><block type="math_number"><field name="NUM">1</field></block></value>
+      </block> -->
+
+      <block type="model_save">
+        <value name="modelname"><block type="text"><field name="TEXT">sample</field></block></value>
+      </block>
+
+      <block type="model_load">
+        <value name="modelname"><block type="text"><field name="TEXT">sample</field></block></value>
+      </block>
+
+  </category>
+  <category name="Prediction" css-icon="customIcon bi bi-file-code" colour="%{BKY_MATH_HUE}" css-container="blocklyToolboxCategory depth2">
+      <!-- <block type="model_predict_fn2"> -->
+      <!-- <value name="path"><block type="text"><field name="TEXT">sample.jpg</field></block></value>
+      </block> -->
+      <!-- <block type="take_pridict_picture"></block> -->
+      
+      <block type="testmodel"></block>
+      <block type="load_model_predict"></block>
+      <block type="set_predict_result"></block>
+      <block type="direct_predict">
+        <value name="value">
+          <block type="variables_get"><field name="VAR">y_</field></block>
+        </value>
+        <value name="image">
+          <block type="variables_get"><field name="VAR">image</field></block>
+        </value>
+      </block>
+
+      <block type="frame_image_resize">
+        <value name="img_size1"><block type="math_number"><field name="NUM">100</field></block></value>
+        <value name="img_size2"><block type="math_number"><field name="NUM">100</field></block></value>
+    </block>
+
+    <block type="hand_detect">
+      <value name="img_size1"><block type="math_number"><field name="NUM">100</field></block></value>
+      <value name="img_size2"><block type="math_number"><field name="NUM">100</field></block></value>
+    </block>  
+
+    <block type="confidence"></block>
+
+  <!-- <block type="procedures_defreturn">
+    <field name="NAME">Get_Names</field>
+    <comment pinned="false" h="80" w="160">Describe this function...</comment>
+    <statement name="STACK">
+      <block type="testmodel"></block>
+    </statement>
+    <value name="RETURN">
+      <block type="variables_get">
+        <field name="VAR">names</field>
+      </block>
+    </value>
+  </block> -->
+
+  <!-- <block type="procedures_defreturn">
+    <mutation>
+      <arg name="model"></arg>
+      <arg name="image"></arg>
+    </mutation>
+    <field name="NAME">predict</field>
+    <comment pinned="false" h="80" w="160">Describe this function...</comment>
+    <statement name="STACK">
+      <block type="direct_predict">
+        <value name="image">
+          <block type="variables_get"><field name="VAR">image</field></block>
+        </value>
+      </block>
+    </statement>
+    <value name="RETURN">
+      <block type="variables_get">
+        <field name="VAR">y_</field>
+      </block>
+    </value>
+  </block> -->
+
+  
+  <!-- <block type="procedures_defreturn">
+    <mutation>
+      <arg name="names"></arg>
+      <arg name="y_"></arg>
+    </mutation>
+    <field name="NAME">confidence</field>
+    <comment pinned="false" h="80" w="160">Describe this function...</comment>
+    <statement name="STACK">
+      <block type="confidence"></block>
+    </statement>
+    <value name="RETURN">
+      <block type="variables_get">
+        <field name="VAR">confidence</field>
+      </block>
+    </value>
+  </block> -->
+
+ 
+  <!-- <block type="procedures_callreturn" inline="true"><mutation name="predict"><arg name="model"></arg><arg name="image"></arg></mutation></block>
+  <block type="procedures_callreturn" inline="true"><mutation name="confidence"><arg name="names"></arg><arg name="y_"></arg></mutation></block> -->
+
+  </category>
+
+  <!--<category name="level_A" colour="%{BKY_MATH_HUE}" css-container="blocklyToolboxCategory depth2">
+    <block type="Data_Processing"></block>
+    <block type="Model_Processing">
+        <value name="result_size"><block type="math_number"><field name="NUM">2</field></block></value>
+        <value name="epoch_size"><block type="math_number"><field name="NUM">5</field></block></value>
+    </block>
+    <block type="Predict_Processing"></block>
+</category>-->

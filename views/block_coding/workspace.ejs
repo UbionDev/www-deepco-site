@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Blockly Workspace</title>
+
+  <!-- 추가&수정  -->
+  <link rel="stylesheet" href="/vendor/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="/css/workspace.min.css">
+  <!-- //추가&수정  -->
+  
+  <script src="/js/blockly/blockly_compressed.js"></script>
+  <script src="/js/blockly/blocks_compressed.js"></script>
+  <script src="/js/blockly/msg/en.js"></script>
+    <!-- Language Code Generator -->
+  <script src="/js/blockly/javascript_compressed.js"></script>
+  <script src="/js/blockly/python_compressed.js"></script>
+
+    <!-- 추가&수정  -->
+    <!-- jQuery Core plugin scripts-->
+    <script src="/vendor/jquery/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            //* 블록코딩 코드보기
+            var toggled = false;
+            $(".output-panel").bind('click touch', function(){
+                $(this).css('right', '-600px');
+                $(this).toggleClass("show");
+                toggled = !toggled;
+                if(toggled) { $(this).css('right', '0px'); }
+                $(this).children().children('i').attr('class', toggled ? 'fa fa-angle-right': 'fa fa-angle-left');
+            });
+            // 블록코딩 코드보기 */
+            //* 블록코딩 코드복사
+            $("#btnCopy").bind('click touch', function(){
+                var editIndex = $("input[name=edit_index]").val();
+                parent.copyCodeToClipBoard(editIndex);
+            });
+            // 블록코딩 코드복사 */
+        });
+    </script>
+    <!-- //추가&수정  -->
+
+  <!-- Custom Block scripts -->
+  <script src="/js/custom_block/iot_block.js"></script>
+  <script src="/js/custom_block/driving_block.js"></script>
+  <script src="/js/custom_block/tensorflow_block.js"></script>
+  <script src="/js/custom_block/dnn_block.js"></script>
+  <script src="/js/custom_block/cnn_block.js"></script>
+  <script src="/js/custom_block/tts_block.js"></script>
+  <script src="/js/custom_block/etc_block.js"></script>
+  <!-- //Custom Block scripts -->
+
+</head>
+<body>
+
+    <form name="frm">
+        <input type="hidden" name="edit_index" value="<%=index %>" />
+        <input type="hidden" name="in_code" value="" />
+    </form>
+
+    <div class="app-container">
+        <div id="blocklyDiv" class="blockly-panel"></div>
+        <div id="codeDiv" class="output-panel" style="right: -600px; width: 600px;">
+            <!-- 추가&수정  -->
+            <button type="button"><i class="fa fa-angle-left"></i></button>
+            <!-- //추가&수정  -->
+            <textarea name="output" disabled="disabled" style="display: inline-block; width: 100%; height: 90%;"></textarea>
+            <!-- Copy Button  -->
+            <div id="btnCopy" style="margin: 2px; 
+            padding: 8px 1rem; 
+            cursor: pointer; 
+            text-align: center;
+            border-radius: 3px; 
+            background-color: antiquewhite;"
+            >
+                <span>
+                    <i class="fas fa-copy"></i>&nbsp;Copy
+                </span>
+            </div>
+            <!-- //Copy Button  -->
+        </div>
+    </div>
+
+    <!--<div class="button-div" style="display: none;">
+        <button class="button" id="btn_run">Run</button>
+    </div>-->
+
+    <!--<table>
+        <tr>
+            <td id="blocklyArea"></td>
+        </tr>
+    </table>-->
+
+    <!--<div id="blocklyDiv" style="position: absolute"></div>-->
+
+  <div id="toolbox" style="display: none"></div>
+  <!--<xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
+  </xml>-->
+
+  <script>
+    var blocklyArea = document.getElementById('blocklyArea');
+    var blocklyDiv = document.getElementById('blocklyDiv');
+    var workspace;
+    /*
+    var workspace = Blockly.inject(blocklyDiv,
+        {
+          toolbox: document.getElementById('toolbox')
+        });
+    //*/
+
+    //* workspace event listener
+    var testCodeGenerator = function(e) {
+        var defaultImportModule = getDefaultImportModule();
+        var code = Blockly.Python.workspaceToCode(workspace);
+        document.querySelector("#codeDiv textarea[name=output]").value = defaultImportModule + code;
+        var editIndex = document.querySelector("input[name=edit_index]").value;
+        var keyboardYN = "N", cameraYN = "N", recordYN = "N", pltImShowYN = "N";
+        if(parent) {
+          var xmlText = '<xml xmlns="https://developers.google.com/blockly/xml" id="xml_block_"'+editIndex+' style="display: none">';
+          var xmlDom = Blockly.Xml.workspaceToDom(workspace);
+          
+          if(workspace.getBlocksByType('keyboard_control').length > 0) { keyboardYN = "Y"; }
+          parent.blocksToCode(editIndex, defaultImportModule + code, xmlDom, keyboardYN);
+
+          if(workspace.getBlocksByType('camera_picture').length > 0) { cameraYN = "Y"; }
+          parent.setCameraPictures(editIndex, cameraYN);
+
+          if(workspace.getBlocksByType('save_data').length > 0) { recordYN = "Y"; }
+          parent.setDrivingPictures(editIndex, recordYN);
+
+          if(workspace.getBlocksByType('DNN_imshow_arr').length > 0
+            || workspace.getBlocksByType('DNN_imshow').length > 0
+            || workspace.getBlocksByType('DNN_img_upload_pc').length > 0
+            || workspace.getBlocksByType('DNN_img_upload_drive').length > 0) {
+              pltImShowYN = "Y";
+          }
+          parent.setPltImShow(editIndex, pltImShowYN);
+                    
+        }
+    }
+    //workspace.addChangeListener(testCodeGenerator);
+    //*/
+
+    //* check import module
+    var getDefaultImportModule = function() {
+        var defaultImportModule = "";
+        if(workspace.getBlocksByType('led_check').length > 0
+         || workspace.getBlocksByType('led_ready').length > 0
+         || workspace.getBlocksByType('led_by_pin').length > 0
+        ) { defaultImportModule += "from gpiozero import LED \r\n"; }
+        if(workspace.getBlocksByType('button_ready').length > 0)
+        { defaultImportModule += "from gpiozero import Button \r\n"; }
+        if(workspace.getBlocksByType('buzzer_ready').length > 0)
+        { defaultImportModule += "from gpiozero import Buzzer \r\n"; }
+        if(workspace.getBlocksByType('dcsensor_ready').length > 0)
+        { defaultImportModule += "from gpiozero import DistanceSensor \r\n"; 
+          defaultImportModule += "from gpiozero.pins.pigpio import PiGPIOFactory \r\n"; }
+        if(workspace.getBlocksByType('gpio_by_num').length > 0)
+        {   defaultImportModule += "import RPi.GPIO as GPIO \r\n";
+            defaultImportModule += "GPIO.setmode(GPIO.BCM) \r\n\n"; }
+        if(workspace.getBlocksByType('keyboard_control').length > 0)
+        { defaultImportModule += "import curses \r\n"; }
+        if(workspace.getBlocksByType('motor_ready').length > 0)
+        { defaultImportModule += "from gpiozero import Motor \r\n"; }
+        if(workspace.getBlocksByType('servo_ready').length > 0)
+        { defaultImportModule += "from gpiozero import AngularServo \r\n";
+          defaultImportModule += "from gpiozero.pins.pigpio import PiGPIOFactory \r\n"; }
+        if(workspace.getBlocksByType('tts_ready').length > 0)
+        { defaultImportModule += "import ttsHelper as tts \r\n"; }
+        if(workspace.getBlocksByType('set_curses_ready').length > 0)
+        { defaultImportModule += "import curses \r\n"; }
+        if(workspace.getBlocksByType('camera_ready').length > 0)
+        { defaultImportModule += "import cameralib as camera \r\n"; 
+          defaultImportModule += "import cv2 \r\n"}
+        return defaultImportModule;
+    }
+    //*/
+
+    //* Add Blocks to workspace after create workspace
+    var setWorkspaceBlocks = function() {
+        var editIndex = document.querySelector("input[name=edit_index]").value;
+        var loadXmlDom = parent.document.getElementById('default_xml_block_' + editIndex);
+        var codingXmlDom = parent.document.getElementById('coding_block_' + editIndex);
+        if(loadXmlDom) {
+          //Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(loadXmlDom.outerHTML), workspace);
+          document.querySelector("#toolbox").innerHTML = loadXmlDom.outerHTML;
+          loadXmlDom.remove();
+
+          workspace = Blockly.inject(blocklyDiv,
+                        {
+                          toolbox: document.getElementById('default_xml_block_' + editIndex),
+                          renderer: 'zelos'
+                        });
+          workspace.addChangeListener(testCodeGenerator);
+          
+          // Add Coding Desc Blocks to workspace
+          if(codingXmlDom) {
+            Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(codingXmlDom.outerHTML), workspace);
+          }
+
+        }
+    }
+    //*/
+    window.onload = setWorkspaceBlocks;
+
+    
+
+    /* Run button event listener
+    var moveCodeResultPopup = function() {
+        var codeResultPop = window.open("", "codePopup", "width=640, height=360, resizable=no, scrollbars=no, top=0, left=0");
+        
+        var codeForm = document.querySelector("form[name=frm]");
+        codeForm.action = "/common/codeResult/popup";
+        codeForm.method = "post";
+        codeForm.target = "codePopup";
+        codeForm.submit();
+    }
+    document.getElementById("btn_run").addEventListener("click", moveCodeResultPopup);
+    //*/
+
+  </script>
+
+</body>
+</html>

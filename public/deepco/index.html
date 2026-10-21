@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta https-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="naver-site-verification" content="027fcf12febf893551ba1cfc3c7c5baaf52fa9e0" />
+    <meta name="google-site-verification" content="cKXbCl-hOojAH9KP5A4Mte16HpfX50GJ07i5-N9FVzU" />
+    <meta name="description" content="딥러닝 개념원리부터 실전 코딩까지 인공지능 원리를 쉽게 교육하고 학습하세요!">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="딥코: 쉽지만 깊이 있는 딥러닝 교육 서비스">
+    <meta property="og:description" content="딥러닝 개념원리부터 실전 코딩까지 인공지능 원리를 쉽게 교육하고 학습하세요!">
+    <meta property="og:image" content="https://wdr.ubion.co.kr/deepco/assets/images/OG_Image.png">
+    <meta property="og:url" content="https://www.deepco.co.kr/">
+    <title>딥코: 쉽지만 깊이 있는 딥러닝 교육 서비스</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="https://wdr.ubion.co.kr/deepco/assets/images/favicon/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="https://wdr.ubion.co.kr/deepco/assets/images/favicon/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="https://wdr.ubion.co.kr/deepco/assets/simages/favicon/favicon-16x16.png" />
+    <link rel="stylesheet" href="https://wdr.ubion.co.kr/deepco/plugin/aos/dist/aos.css">
+    <link rel="stylesheet" href="https://wdr.ubion.co.kr/deepco/style.css?version=20250116" />
+  </head>
+
+  <body>
+    <header class="global-header">
+      <div class="gnb on-top" id="header">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="gnb-wrapper">
+                <div class="gnb-left">
+                  <h1 class="logo">
+                    <a href="/" >
+                      <img class="logo-blue" src="https://wdr.ubion.co.kr/deepco/assets/images/logo-deepco-blue.svg" alt="deepco" />
+                      <img class="logo-white" src="https://wdr.ubion.co.kr/deepco/assets/images/logo-deepco-white.svg" alt="deepco" />
+                    </a>
+                  </h1>
+
+                  <button
+                    class="gnb-icon-button is-menu sm-only"
+                    type="button"
+                    aria-label="메뉴 열기 버튼"
+                  >
+                    <i class="ic-menu"></i>
+                  </button>
+                </div>
+                <div class="content-tab sm-hidden">
+                  <ul class="content-tab-list">
+                    <li
+                      class="content-tab-item"
+                      aria-labelledby="content-what"
+                    >
+                      <button type="button">What Deepco?</button>
+                    </li>
+                    <li
+                      class="content-tab-item"
+                      aria-labelledby="content-product"
+                    >
+                      <button type="button">
+                        Products
+                      </button>
+                    </li>
+                    <li
+                      class="content-tab-item"
+                      aria-labelledby="content-activity"
+                    >
+                      <button type="button">
+                        Activity
+                      </button>
+                    </li>
+                    <li class="content-tab-item update" aria-labelledby="content-download">
+                      <button type="button" class="btn-modal">Download</button>
+                    </li>
+                    <li
+                      class="content-tab-item"
+                      aria-labelledby="content-faq"
+                    >
+                      <button type="button">
+                        FAQ
+                      </button>
+                    </li>
+                    <li
+                      class="content-tab-item"
+                      aria-labelledby="content-contact"
+                    >
+                      <button type="button">Contact</button>
+                    </li>
+                  </ul>
+                </div>
+                <div class="gnb-right">
+                  <div class="button-group">
+                    <div class="select-group is-active">
+                      <label for="lang-select"><span class="visually-hidden">언어 선택</span></label>
+                      <select class="form-select" name="lang-select" id="lang-select">
+                        <option value="1">한국어</option>
+                        <!-- <option value="2">English</option>
+                        <option value="3">简体中文</option> -->
+                      </select>
+                      <i class="ic-caret lang-caret" ></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="main-deepco">
+
+      <div class="deepco-video-wrap">
+        <video class="deepco-video" playsinline="" autoplay="" muted="" loop="">
+          <source src="https://wdr.ubion.co.kr/deepco/assets/video/deepco-4.mp4">
+        </video>
+
+        <div class="video-cont">
+          <div class="video-tit" data-aos="fade-up" data-aos-offset="200" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+            AI를 경험하며 배우는 즐거움<br>
+            DEEPCO와 함께하세요!
+          </div>
+          <div class="button-group">
+            <a class="btn-outlined" href="https://www.youtube.com/watch?v=YKZxW0C_-_Q" aria-label="영상 바로가기" target="_blank" data-aos="fade-up" data-aos-offset="200" data-aos-easing="ease-out-cubic" data-aos-duration="1000">
+              전체 영상 보기 <i class="ic-play"></i>
+            </a>
+            <button class="btn-primary" onclick="goToScroll('content-contact')" aria-label="구매 바로가기" type="button" data-aos="fade-up" data-aos-offset="200" data-aos-easing="ease-out-cubic" data-aos-duration="1000">
+              딥코 봇 구매하기
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-wrap">
+
+
+
+        <!-- WHAT -->
+        <section class="content-section content-what is-open" id="content-what" role="tabpanel">
+          <h1 class="visually-hidden">What DEEPCO?</h1>
+
+          <div class="container">
+
+            <div class="row">
+              <div class="col-sm-4">
+                <ul class="box-list">
+                  <li class="box-item ai" data-aos="fade-up" data-aos-offset="200" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+                    <img src="https://wdr.ubion.co.kr/deepco/assets/images/what-box-ai.png" alt=""/>
+                    <p>
+                      <strong>딥러닝 교육</strong> 어렵다고 느끼시나요?
+                    </p>
+                  </li>
+                  <li class="box-item edu" data-aos="fade-up" data-aos-offset="250" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+                    <img src="https://wdr.ubion.co.kr/deepco/assets/images/what-box-edu.png" alt=""/>
+                    <p>
+                    <strong>딥러닝 교육</strong> 감이 안오시나요?
+                    </p>
+                  </li>
+                  <li class="box-item cost" data-aos="fade-up" data-aos-offset="300" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+                    <img src="https://wdr.ubion.co.kr/deepco/assets/images/what-box-cost.png" alt=""/>
+                    <p>
+                    <strong>딥러닝 교육</strong> 부담스러우신가요?
+                    </p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-4">
+                <p class="txt">
+                  <span class="sub" data-aos="fade-up" data-aos-offset="200" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+                    DEEPCO는 글로벌 에듀테크 기업 유비온의 ‘딥러닝 교육 서비스’ 브랜드 입니다.
+                  </span>
+                  <span class="main" data-aos="fade-up" data-aos-offset="200" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+                    <em class="t-enter">
+                      딥러닝 개념원리부터 실전 코딩까지</em>
+                    인공지능 원리를 쉽게 교육하고 학습하세요!
+                  </span>
+                  <span class="cont" data-aos="fade-up" data-aos-offset="200" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+                    <em class="t-enter">
+                    딥러닝기반 자율주행자동차 딥코 봇과 딥코 블록을 토대로</em>
+                    쉽게 딥러닝 개념원리를 실습할 수 있습니다.
+                  </span>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="object">
+            <div class="object-list">
+
+              <div class="object-item object1">
+
+                <div class="txt-area">
+                  <div class="t-wrap">
+                    <p class="t1" data-aos="fade-up" data-aos-offset="200" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+                      <em class="t-enter">
+                      데이터 수집부터</em>
+                      모델링, 자율주행 프로그램까지
+                    </p>
+                    <p class="t2" data-aos="fade-up" data-aos-offset="200" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+                      <em class="t-enter">
+                      딥코 봇을 직접 만들고 배우면서</em>
+                      쉽게 딥러닝 원리를 습득할 수 있습니다.
+                    </p>
+                  </div>
+                </div>
+                <div class="img-area" data-aos="fade-up" data-aos-offset="200" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+                  <img src="https://wdr.ubion.co.kr/deepco/assets/images/child-photo1.jpg" alt=""/>
+                </div>
+              </div>
+
+              <div class="object-item object2">
+                <div class="img-area" data-aos="fade-up" data-aos-offset="200" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+                  <img src="https://wdr.ubion.co.kr/deepco/assets/images/child-photo2.jpg" alt=""/>
+                </div>
+                <div class="txt-area">
+                  <div class="t-wrap">
+                    <p class="t1" data-aos="fade-up" data-aos-offset="200" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+                      <em class="t-enter">
+                      초보자도 다루기 쉬운</em>
+                      딥코 블록으로
+                    </p>
+                    <p class="t2" data-aos="fade-up" data-aos-offset="200" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+                      <em class="t-enter">
+                      학년별, 수준별 맞춤형</em>
+                      딥러닝 교육을 제공합니다.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="deco">
+              <img class="deco-1" src="https://wdr.ubion.co.kr/deepco/assets/images/deco/deco-1.png" alt="" data-aos="fade-down" data-aos-offset="200" data-aos-easing="ease-out-cubic" data-aos-duration="2000"/>
+              <img class="deco-2" src="https://wdr.ubion.co.kr/deepco/assets/images/deco/deco-2.png" alt="" data-aos="fade-down" data-aos-offset="200" data-aos-easing="ease-out-cubic" data-aos-duration="2000"/>
+              <img class="deco-3" src="https://wdr.ubion.co.kr/deepco/assets/images/deco/deco-3.png" alt="" data-aos="fade-down" data-aos-offset="200" data-aos-easing="ease-out-cubic" data-aos-duration="2000"/>
+              <img class="deco-4" src="https://wdr.ubion.co.kr/deepco/assets/images/deco/deco-4.png" alt="" data-aos="fade-down" data-aos-offset="200" data-aos-easing="ease-out-cubic" data-aos-duration="2000"/>
+              <img class="deco-5" src="https://wdr.ubion.co.kr/deepco/assets/images/deco/deco-5.png" alt="" data-aos="fade-down" data-aos-offset="200" data-aos-easing="ease-out-cubic" data-aos-duration="2000"/>
+              <img class="deco-6" src="https://wdr.ubion.co.kr/deepco/assets/images/deco/deco-6.png" alt="" data-aos="fade-down" data-aos-offset="200" data-aos-easing="ease-out-cubic" data-aos-duration="2000"/>
+              <img class="deco-7" src="https://wdr.ubion.co.kr/deepco/assets/images/deco/deco-7.png" alt="" data-aos="fade-down" data-aos-offset="200" data-aos-easing="ease-out-cubic" data-aos-duration="2000"/>
+            </div>
+          </div>
+
+
+
+
+        </section>
+        <!--// WHAT -->
+
+
+        <div class="bg-wrap">
+          <!-- PRODUCT -->
+          <section class="content-section content-product" id="content-product" role="tabpanel">
+            <h1 class="visually-hidden">PRODUCTS</h1>
+
+            <div class="product-top">
+              <div class="container">
+                <div class="row">
+                  <div class="col-sm-4 col-md-6">
+                    <div class="product-txt">
+                      <p class="txt-sub" data-aos="fade-up" data-aos-offset="200" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+                        딥코 봇이란?
+                      </p>
+                      <p class="txt-main" data-aos="fade-up" data-aos-offset="200" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+                        <em class="d-enter">
+                        딥코 봇은 딥러닝을 기반으로</em>
+                        자율주행하는 자동차형 교구 입니다.
+                      </p>
+                      <p class="txt-cont" data-aos="fade-up" data-aos-offset="200" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+                        <em class="d-enter">
+                        딥코 블록을 기반으로 코딩에 대해 잘 모르는 초등학생부터</em>
+                        <em class="d-enter">
+                        비전공자 일반인까지 누구나 쉽게 딥러닝 및</em>
+                        인공지능 원리에 대해 습득할 수 있도록 도와줍니다.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 col-md-6">
+                    <div class="product-img" data-aos="fade-up" data-aos-offset="200" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+                      <img src="https://wdr.ubion.co.kr/deepco/assets/images/product-deepco.png" alt=""/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="product-list">
+              <div class="container">
+                <div class="row">
+                  <div class="col-sm-4 col-md-6">
+                    <div class="product-item" data-aos="fade-up" data-aos-offset="200" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+                      <div class="img-wrap">
+                        <img src="https://wdr.ubion.co.kr/deepco/assets/images/raspberry.png" alt="">
+                      </div>
+                      <div class="txt-wrap">
+                        <strong>라즈베리파이</strong>
+                        <p>
+                          라즈베리파이는 딥코 봇의 뇌와 같아요. 뇌의 기능처럼 여러 데이터를 측정하고 수집하는 역할을 수행해요.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 col-md-6">
+                    <div class="product-item" data-aos="fade-up" data-aos-offset="200" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+                      <div class="img-wrap">
+                        <img src="https://wdr.ubion.co.kr/deepco/assets/images/camera.png" alt="">
+                      </div>
+                      <div class="txt-wrap">
+                        <strong>파이카메라</strong>
+                        <p>
+                          파이카메라는 딥코 봇의 눈과 같아요. 딥코 봇은 파이카메라로 신호등과 같은 물체를 보면서 움직여요.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-4 col-md-6">
+                    <div class="product-item" data-aos="fade-up" data-aos-offset="200" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+                      <div class="img-wrap">
+                        <img src="https://wdr.ubion.co.kr/deepco/assets/images/servomotor.png" alt="">
+                      </div>
+                      <div class="txt-wrap">
+                        <strong>서보모터</strong>
+                        <p>
+                          서보모터는 딥코 봇이 좌, 우로 움직일 수 있도록 좌회전과 우회전을 담당해요.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 col-md-6">
+                    <div class="product-item" data-aos="fade-up" data-aos-offset="200" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+                      <div class="img-wrap">
+                        <img src="https://wdr.ubion.co.kr/deepco/assets/images/dcmotor.png" alt="">
+                      </div>
+                      <div class="txt-wrap">
+                        <strong>DC모터</strong>
+                        <p>
+                          DC모터는 딥코 봇이 앞, 뒤로 움직일 수 있도록 전진과 후진을 담당해요.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </section>
+          <!--// PRODUCT -->
+          <!-- DOWNLOAD -->
+          <section class="content-section content-download" id="content-download" role="tabpanel">
+            <h1 class="visually-hidden">download</h1>
+            <div class="banner-list">
+              <div class="container">
+                <div class="row">
+                  <div class="col-sm-4 col-md-4 col-lg-6">
+                    <div class="banner-item guide" data-aos="fade-up" data-aos-offset="200" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+                      <div class="tit-wrap">
+                        <span class="tit">조립가이드</span>
+                        <button type="button" class="btn-outlined btn-modal" onclick="playVideo(0);">
+                          바로가기 →
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 col-md-4 col-lg-3">
+                    <div class="banner-item book" data-aos="fade-up" data-aos-offset="250" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+                      <div class="tit-wrap">
+                        <span class="tit">워크북</span>
+                        <button type="button" class="btn-outlined btn-modal">
+                          바로가기 →
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 col-md-4 col-lg-3">
+                    <div class="banner-item update" data-aos="fade-up" data-aos-offset="300" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+                      <div class="tit-wrap">
+                        <span class="tit">Download</span>
+                        <button type="button" class="btn-outlined btn-modal">
+                          바로가기 →
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <!--// DOWNLOAD -->
+        </div>
+
+        <!-- IRO -->
+        <section class="content-section content-IRO" id="content-IRO" role="tabpanel">
+          <h1 class="visually-hidden">IROS</h1>
+
+          <div class="IRO-top">
+            <div class="container">
+              <div class="row">
+                <div class="col-sm-4 col-md-4">
+                  <div class="IRO-txt">
+                    <p class="txt-sub" data-aos="fade-up" data-aos-offset="200" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+                      InternationalRobot Olympiad: IRO
+                    </p>
+                    <p class="txt-main" data-aos="fade-up" data-aos-offset="200" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+                      국제로봇올림피아드
+                    </p>
+                    <p class="txt-cont" data-aos="fade-up" data-aos-offset="200" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+                      <img src="https://wdr.ubion.co.kr/deepco/assets/images/BI_IRO.svg" alt="국제로봇올림피아드 로고">
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="IRO-cont swiper" data-aos="fade-up" data-aos-offset="200" data-aos-easing="ease-out-cubic" data-aos-duration="1000">
+              <ul class="swiper-wrapper">
+                <li class="swiper-slide">
+                  <div class="IRO-item">
+                    <div class="img-wrap">
+                      <img src="https://wdr.ubion.co.kr/deepco/assets/images/IRO-photo03.jpg" alt="국제로봇올림피아드 세계대회 사진"/>
+                    </div>
+                    <p><strong>국제로봇올림피아드세계대회는 1999년 최초개최 이래로 매년 30여개의 회원국들이 함께 만들어 가는 국제 규모의 청소년 로봇 대회</strong>예요.</p>
+                    <p>
+                      IRO는 전 세계의 로봇 공학에 관심 있는 청소년들이 실력을 뽐내고국제적인 교류를 도모하는 중요한 행사로 자리매김하고 있어요!
+                    </p>
+                    <p>
+                      지난 <strong>25회 부산 IRO 대회에서는 딥코봇으로 출전한 학생들이 금·은·동메달을수상</strong>했어요!
+                    </p>
+                  </div>
+                </li>
+                <li class="swiper-slide">
+                  <div class="IRO-item">
+                    <div class="img-wrap">
+                      <img src="https://wdr.ubion.co.kr/deepco/assets/images/IRO-photo05.jpg" alt="AI자율주행 종목 사진"/>
+                    </div>
+                    <p><strong>IRO대회의여러 종목중 &ldquo;AI자율주행&rdquo; 종목</strong>은?</p>
+                    <p>
+                      24년도부터 정식종목으로 채택된 <strong>&ldquo;AI자율주행&rdquo; 종목은사륜형의 자동차형로봇을 경기장 위의 두개의 레인 사이를 벗어나지 않고 주행하며 신호등,차단바 등 여러미션을 수행하는 종목</strong>이예요. 카메라를 이용하여 레인을 벗어나지 않고 빠르고 안정적이게 주행해야 해요.
+                    </p>
+                    <p>
+                      <strong>AI자율주행종목을 통해서 데이터 수집및 처리, 모델링, 모델활용등 기술적 능력과 대회장환경에 맞춰 문제를 해결하는 능력을 평가</strong>할 수있어요.<br>
+                      <strong>초중고학생들 모두 직접 개발하고 제작한 로봇으로 AI자율주행종목에 참여</strong>할 수 있어요.
+                    </p>
+                  </div>
+                </li>
+                <li class="swiper-slide">
+                  <div class="IRO-item winner">
+                    <div class="img-wrap">
+                      <img src="https://wdr.ubion.co.kr/deepco/assets/images/IRO-photo01.jpg" alt="AI자율주행 종목 사진"/>
+                    </div>
+                    <p><strong>그리스 아테네에서 개최된 제25회 IRO 대회</strong>에서
+                      유비온의 딥러닝 기반자율주행 자동차형 교구 <strong>&ldquo;딥코봇&rdquo;이 &ldquo;AI자율주행&rdquo;종목 주니어 및 시니어 부문에서 각 1위로 수상</strong>하였고,  <strong>&ldquo;IRO AI자율주행 종목 첫 번째 우승 로봇&rdquo;이라는 타이틀을 획득</strong>하였어요.</p>
+                    <p>
+                      <strong>1위 수상을 토대로 딥코봇은 제26회 IRO 개최지로 선정된 부산 대회에도 참여 예정</strong>이예요!
+                    </p>
+                    <p class="notice">
+                      <strong>제25회 IRO 세계대회 AI 자율주행 종목<br> 주니어∙시니어 부문 우승자 인터뷰 보러가기</strong><br>
+                      <button type="button" class="btn-outlined btn-modal" onclick="playVideo(1);">
+                        영상보기 →
+                      </button>
+                    </p>
+                  </div>
+                </li>
+              </ul>
+              <!-- <div class="swiper-scrollbar"></div> -->
+            </div>
+            <div class="deco" data-aos="zoom-in" data-aos-offset="300" data-aos-easing="ease-out-cubic" data-aos-duration="1500">
+              <img class="deco-1" src="https://wdr.ubion.co.kr/deepco/assets/images/deco/IRO-object01.png" alt="" />
+              <img class="deco-2" src="https://wdr.ubion.co.kr/deepco/assets/images/deco/IRO-object02.png" alt="" />
+              <img class="deco-3" src="https://wdr.ubion.co.kr/deepco/assets/images/deco/IRO-object03.png" alt="" />
+              <img class="deco-4" src="https://wdr.ubion.co.kr/deepco/assets/images/deco/IRO-object04.png" alt="" />
+            </div>
+          </div>
+
+          <div class="IRO-map-list" data-aos="fade-up" data-aos-offset="200" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+            <div class="container">
+              <div class="row">
+                <div class="col-sm-4 col-md-12 col-lg-7">
+                  <div class="IRO-map-viewer swiper" >
+                    <ul class="swiper-wrapper">
+                      <li class="swiper-slide">
+                        <img src="https://wdr.ubion.co.kr/deepco/assets/images/IRO-map01.jpg" alt="">
+                      </li>
+                      <li class="swiper-slide">
+                        <img src="https://wdr.ubion.co.kr/deepco/assets/images/IRO-map02.jpg" alt="">
+                      </li>
+                      <li class="swiper-slide">
+                        <img src="https://wdr.ubion.co.kr/deepco/assets/images/IRO-map03.jpg" alt="">
+                      </li>
+                      <li class="swiper-slide">
+                        <img src="https://wdr.ubion.co.kr/deepco/assets/images/IRO-map04.jpg" alt="">
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-sm-4 col-md-12 col-lg-5">
+                  <div class="IRO-map-item">
+                    <div class="txt-wrap">
+                      <p>
+                        IRO 규격에 맞게 제작된
+                      </p>
+                      <strong>AI자율주행 종목용 맵 및 경기장</strong>
+                    </div>
+                    <div thumbsSlider=""  class="thumb-wrap swiper">
+                      <ul class="swiper-wrapper">
+                        <li class="swiper-slide">
+                          <img src="https://wdr.ubion.co.kr/deepco/assets/images/IRO-map01.jpg" alt="">
+                        </li>
+                        <li class="swiper-slide">
+                          <img src="https://wdr.ubion.co.kr/deepco/assets/images/IRO-map02.jpg" alt="">
+                        </li>
+                        <li class="swiper-slide">
+                          <img src="https://wdr.ubion.co.kr/deepco/assets/images/IRO-map03.jpg" alt="">
+                        </li>
+                        <li class="swiper-slide">
+                          <img src="https://wdr.ubion.co.kr/deepco/assets/images/IRO-map04.jpg" alt="">
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!--// IRO -->
+
+        <!-- ACTIVITY -->
+        <section class="content-section content-activity" id="content-activity" role="tabpanel">
+          <h1 class="visually-hidden">Activity</h1>
+          <div class="fixed-bg">
+          </div>
+          <div class="activity-cont">
+            <div class="container">
+              <div class="row">
+                <div class="col-sm-4 col-md-12 col-lg-4">
+                  <div class="activity-header">
+                    <p>
+                      <span>딥코 봇,</span><br>
+                      이렇게<br>
+                      활용되고 있어요!
+                    </p>
+                  </div>
+                </div>
+                <div class="col-sm-4 col-md-6 col-lg-4">
+                  <div class="activity-list left">
+                    <div class="activity-item" data-aos="fade-up" data-aos-offset="200" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+                      <div class="img-wrap">
+                        <img src="https://wdr.ubion.co.kr/deepco/assets/images/activity-photo1.jpg" alt="AI 선도학교"/>
+                      </div>
+                      <strong>AI 선도학교</strong>
+                      <p>
+                        딥코 봇과 실습 워크북을 바탕으로 AI 선도학교, AI 융합교실에서
+                        딥러닝 수업에 활용 가능 합니다. 수업 목적, 수업 대상, 시간 등에 따라
+                        다양하게 커리큘럼을 구성할 수 있습니다.
+                        AI 선도학교로 지정된 익산 가온초등학교와 전주 신동초등학교에서는
+                        초등학교 4~6학년 대상으로 자율주행자동차 소프트웨어 교육과정을
+                        진행합니다.
+                      </p>
+                    </div>
+                    <div class="activity-item" data-aos="fade-up" data-aos-offset="200" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+                      <div class="img-wrap">
+                        <img src="https://wdr.ubion.co.kr/deepco/assets/images/activity-photo2.jpg" alt="로봇경진대회"/>
+                      </div>
+                      <strong>로봇경진대회</strong>
+                      <p>
+                        매년 여러 국가의 회원국 파트너들이 함께 힘을 모아 만드는
+                        국제 규모의 청소년 로봇스포츠 대회인 국제로봇올림피아드
+                        (International Robot Olympiad)의 ‘AI자율주행’ 종목에
+                        딥코 봇이 출전 가능합니다. 딥코 봇은 제 25회 국제로봇올림피아드
+                        한국 본선 2차 대회에 출전 하여 금,은,동 메달 획득 했습니다.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4 col-md-6 col-lg-4">
+                  <div class="activity-list right">
+                    <div class="activity-item" data-aos="fade-up" data-aos-offset="200" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+                      <div class="img-wrap">
+                        <img src="https://wdr.ubion.co.kr/deepco/assets/images/activity-photo3.jpg" alt="디지털 새싹캠프"/>
+                      </div>
+                      <strong>디지털 새싹캠프</strong>
+                      <p>
+                        딥코 봇은 SW/AI 디지털새싹캠프의 인공지능 교육 프로그램에서
+                        활용할 수 있습니다. 미래 디지털 인재를 길러내기 위한 교육부의
+                        디지털새싹 사업은 소프트웨어 교육 및 인공지능 교육을 비롯한
+                        다양한 미래교육을 초·중·고 학생들에게 무료로 제공합니다.
+                      </p>
+                    </div>
+                    <div class="activity-item" data-aos="fade-up" data-aos-offset="200" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+                      <div class="img-wrap">
+                        <img src="https://wdr.ubion.co.kr/deepco/assets/images/activity-photo4.jpg" alt="SW/AI 교육기관 딥러닝 실습 교구"/>
+                      </div>
+                      <strong>SW/AI 교육기관 딥러닝 실습 교구</strong>
+                      <p>
+                        여러 소프트웨어 및 인공지능 교육기관에서 딥러닝 및 이미지 인식
+                        CNN 알고리즘, 블록코딩 등 인공지능을 실습하는데 딥코 봇이
+                        활용됩니다. 기존 소프트웨어 교육 커리큘럼에 더하여 인공지능 및
+                        딥러닝 교육으로까지 확장이 가능합니다.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </section>
+        <!--// ACTIVITY -->
+
+        <aside class="aside-promotion book">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="promotion-cont" data-aos="fade-up" data-aos-offset="200" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+                  <div class="txt-wrap">
+                    <strong data-aos="fade-up" data-aos-offset="200" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+                      <em class="d-enter">
+                      이미지 인식과 자율주행 교재로</em>
+                      딥코 봇과 더 친해져 보세요!
+                    </strong>
+                    <p data-aos="fade-up" data-aos-offset="200" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+                      <em class="d-enter">
+                      딥러닝 기반 자율주행자동차 딥코 봇을 통해 블록코딩으로</em>
+                      쉽게 인공지능 프로그래밍의 모든 단계를 실습해볼 수 있는 교재 입니다.
+                    </p>
+                    <a class="btn-white" href="https://search.shopping.naver.com/book/catalog/44350672620?cat_id=50010921&frm=PBOKMOD&query=%EC%9D%B4%EB%AF%B8%EC%A7%80+%EC%9D%B8%EC%8B%9D%EA%B3%BC+%EC%9E%90%EC%9C%A8%EC%A3%BC%ED%96%89%28Feat.+%EB%94%A5%EC%BD%94+%EB%B4%87%29&NaPm=ct%3Dlqq6i9e0%7Cci%3D94ec51ee2e7cf11de5299256844161eb4e3dffbe%7Ctr%3Dboknx%7Csn%3D95694%7Chk%3D4d4882d490e372dbf3d9e5b68c807a623d02a8b6 " target="_blank" data-aos="fade-up" data-aos-offset="200" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+                      구매하기 →
+                    </a>
+                  </div>
+                  <div class="img-wrap" data-aos="fade-up" data-aos-offset="200" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+                    <img src="https://wdr.ubion.co.kr/deepco/assets/images/promotion-book.png" alt=""/>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <aside class="aside-promotion magazine">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="promotion-cont" data-aos="fade-up" data-aos-offset="200" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+                  <div class="txt-wrap">
+                    <strong data-aos="fade-up" data-aos-offset="200" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+                      <em class="d-enter">
+                      메이커스: 어른의 과학 MAKERS Vol. 05</em>
+                      딥코 봇과 함께 재출시!
+                    </strong>
+                    <p data-aos="fade-up" data-aos-offset="200" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+                      <em class="d-enter">
+                      지난 2019년에 출간된 이후 큰 사랑을 받아왔던 AI자율주행자동차가
+                      새로운 키트, ‘딥코 봇’으로 돌아왔습니다.</em>
+                      <em class="d-enter">
+                      《메이커스》로 딥코 봇을 직접 조립하고 인공지능을 훈련시키면서 자율주행자동차에 대해 배워봅시다. </em>
+                      <em class="d-enter">
+                      인공지능이 딥러닝으로 배우는 과정을 눈으로 확인할 수 있습니다.</em>
+                      <em class="d-enter">
+                      《메이커스》 AI자율주행자동차 딥코 봇으로 미래의 자동차를 미리 경험하세요!</em>
+                    </p>
+                    <a class="btn-white" href="https://smartstore.naver.com/deepco" target="_blank" onMouseDown="javascript: _PL('https://deepco.co.kr/smartstore');" data-aos="fade-up" data-aos-offset="200" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+                      구매하기 →
+                    </a>
+                  </div>
+                  <div class="img-wrap" data-aos="fade-up" data-aos-offset="200" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+                    <img src="https://wdr.ubion.co.kr/deepco/assets/images/promotion-magazine.png" alt=""/>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <!-- FAQ -->
+        <section class="content-section content-faq is-open" id="content-faq" role="tabpanel">
+
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-4 col-lg-12">
+
+                <h1 class="h1-title">FAQ</h1>
+                <div class="faq-list">
+
+                  <div class="faq-item" data-aos="fade-up" data-aos-offset="200" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+                    <button class="faq-item-button" type="button">
+                      <span class="bullet-q">Q</span>
+                      <span class="tit">딥코에서 제공하는 AI 기능은 어떤 것이 있는지 알고 싶어요.</span>
+
+                      <i class="ic-chevron" ></i>
+                    </button>
+
+                    <div class="faq-item-content">
+                      <p>딥코는 이미지 인식 및 처리 기술을 사용하여 다양한 이미지 데이터를 분석, 분류할 수 있습니다.
+                        객체 인식, 객체 분류, 이미지 인식 등 다양한 이미지 분석 작업을 수행할 수 있습니다.
+                        딥코의 AI 기능은 계속적으로 업데이트되며, 다양한 분야에서 활용할 수 있습니다.
+                        추가적인 업데이트 사항은 딥코 사이트내 업데이트를 참고하실 수 있습니다.
+                        </p>
+                    </div>
+                  </div>
+
+                  <div class="faq-item" data-aos="fade-up" data-aos-offset="200" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+                    <button class="faq-item-button" type="button">
+                      <span class="bullet-q">Q</span>
+                      <span class="tit">딥코 서비스는 무료인가요?</span>
+
+                      <i class="ic-chevron" ></i>
+                    </button>
+
+                    <div class="faq-item-content">
+                      <p>현재 서비스중인 딥코 제품으로는 딥러닝 블록코딩 기반 자율주행자동차 딥코 봇이 있습니다.
+                        딥코 서비스의 정확한 가격 정책이나 이용 방법은 딥코 공식 번호나 이메일로 문의하여 확인하시면 정확한 정보를 얻을 수
+                        있습니다.
+                      </p>
+                      <br>
+                      <p>
+                        Tel. 1577-0111<br>
+                        Mail. <a href="mailto:sales@deepco.co.kr">sales@deepco.co.kr</a>
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="faq-item" data-aos="fade-up" data-aos-offset="200" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+                    <button class="faq-item-button" type="button">
+                      <span class="bullet-q">Q</span>
+                      <span class="tit">딥코를 활용하여 초등학생 대상으로 소프트웨어 교육체험을 열고 싶어요.</span>
+
+                      <i class="ic-chevron" ></i>
+                    </button>
+
+                    <div class="faq-item-content">
+                      <p>
+                        딥코를 활용한 초등학생 대상 소프트웨어 교육으로는 다음과 같은 방법이 있습니다.
+                      </p><br>
+                      <ul>
+                        <li>
+                          프로그래밍 학습: 딥코를 활용하여 초등학생들에게 프로그래밍 기초를 가르칠 수 있습니다.
+                          예를 들어, 대표적인 교육용 프로그래밍 언어인 블록클리를 기반으로 딥코 봇을 직접 작동시키는
+                          체험을 제공할 수 있습니다.
+                        </li>
+                        <li>
+                          딥코를 활용하여 초등학생들에게 코딩 챌린지나 프로젝트를 제안할 수 있습니다.
+                          예를 들어, 학생들에게 주어진 주제나 문제에 대해 딥코를 활용하여 문제 해결 방법을 제안하고
+                          구현해보는 프로젝트를 진행할 수 있습니다. 이를 통해 학생들은 문제해결능력과 프로그래밍
+                          능력을 기를 수 있습니다.
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div class="faq-item" data-aos="fade-up" data-aos-offset="200" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+                    <button class="faq-item-button" type="button">
+                      <span class="bullet-q">Q</span>
+                      <span class="tit">딥코 봇을 연동하거나 활용하는 교육 프로그램을 진행하거나 기술 제휴를 원해요. </span>
+
+                      <i class="ic-chevron" ></i>
+                    </button>
+
+                    <div class="faq-item-content">
+                      <p>Contact 의 <a href="https://forms.gle/71FkuhMFdSZYWy288" target="_blank" onMouseDown="javascript: _PL('https://deepco.co.kr/customerCS');">[문의 하기]</a> 클릭 후 등록하면 딥코 담당자가 확인하여 신속하게 회신드릴 것입니다.
+                        기술 제휴, 교육 문의, A/S 문의를 환영하며, 자세한 정보와 협업 방안을 제공드릴 것입니다.
+                        딥코는 학교, 학원, 기업, 연구기관, 개발자와의 협력을 추구하고 있으며, 새로운 기술 제품이나
+                        서비스를 개발하는데 관심이 있습니다.
+                        </p>
+                    </div>
+                  </div>
+
+                  <div class="faq-item" data-aos="fade-up" data-aos-offset="200" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+                    <button class="faq-item-button" type="button">
+                      <span class="bullet-q">Q</span>
+                      <span class="tit">딥코 봇을 구매하고 싶으면 어떻게 해야 하나요?</span>
+
+                      <i class="ic-chevron" ></i>
+                    </button>
+
+                    <div class="faq-item-content">
+                      <p> 온라인 스마트스토어에서 구매 가능합니다. <br>
+                        제휴, 교육, 기술지원 등 관련하여 Contact 의 <a href="https://forms.gle/71FkuhMFdSZYWy288" target="_blank" onMouseDown="javascript: _PL('https://deepco.co.kr/customerCS');">[문의 하기]</a> 클릭 후 글을 남기시면 딥코 담당자가 확인 후 연락드립니다.
+                      </p>
+                      <p>
+                        <a class="btn-outlined" href="https://smartstore.naver.com/deepco " target="_blank" onMouseDown="javascript: _PL('https://deepco.co.kr/smartstore');">스마트스토어 바로가기 →</a>
+                      </p>
+                      <br>
+                      <p>
+                        Tel. 1577-0111<br>
+                        Mail. <a href="mailto:sales@deepco.co.kr">sales@deepco.co.kr</a>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+          </div>
+        </section>
+        <!--// FAQ -->
+
+        <!-- Contact -->
+        <section class="content-section content-contact" id="content-contact" role="tabpanel">
+          <h1 class="visually-hidden">Contact</h1>
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-4 col-md-6">
+                <div class="contact-banner naver" data-aos="fade-up" data-aos-offset="200" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+                  <img src="https://wdr.ubion.co.kr/deepco/assets/images/Naver.png" alt=""/>
+                  <p>
+                    네이버스토어에서도<br>
+                    ‘딥코 봇’을 만나볼 수 있어요!
+                  </p>
+                  <a class="btn-primary naver" href="https://smartstore.naver.com/deepco" target="_blank" onMouseDown="javascript: _PL('https://deepco.co.kr/smartstore');">구매하기 →</a>
+                </div>
+              </div>
+              <div class="col-sm-4 col-md-6">
+                <div class="contact-banner google" data-aos="fade-up" data-aos-offset="200" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+                  <img src="https://wdr.ubion.co.kr/deepco/assets/images/google.png" alt=""/>
+                  <p>
+                    고객님의 소중한 문의<br>
+                    남겨 주시면 연락 드리겠습니다.
+                  </p>
+                  <a class="btn-primary google" href="https://forms.gle/71FkuhMFdSZYWy288" target="_blank" onMouseDown="javascript: _PL('https://deepco.co.kr/customerCS');">문의하기 →</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </section>
+        <!--// Contact -->
+
+      </div>
+
+    </main>
+
+    <footer class="global-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-4 col-md-6 col-lg-3">
+
+            <div class="global-footer-logo">
+              <a href="/" >
+                <img src="https://wdr.ubion.co.kr/deepco/assets/images/logo-deepco-blue.svg" alt="deepco" />
+              </a>
+              <p class="footer-comment">
+                DEEPCO란 다양한 교구를 활용하여 인공지능을
+                직접 체험하고 원리를 이해할 수 있도록 돕는
+                AI 학습 플랫폼 이예요.
+              </p>
+
+              <ul class="footer-sns-list">
+                <li class="footer-sns-item">
+                  <a href="https://m.blog.naver.com/ubion_corp?tab=1" target="_blank" aria-label="딥코 봇 blog">
+                    <img src="https://wdr.ubion.co.kr/deepco/assets/images/sns-blog.svg" alt="blog" />
+                  </a>
+                </li>
+                <li class="footer-sns-item">
+                  <a href="https://www.instagram.com/ubion_deepco/?igsh=MW84dTF5dW8ydmtlNA%3D%3D" target="_blank" aria-label="딥코 봇 instagram">
+                    <img src="https://wdr.ubion.co.kr/deepco/assets/images/sns-instargram.svg" alt="instargram" />
+                  </a>
+                </li>
+                <li class="footer-sns-item">
+                  <a href="https://www.youtube.com/@DEEPCO_" target="_blank" aria-label="딥코 봇 youtube">
+                    <img src="https://wdr.ubion.co.kr/deepco/assets/images/sns-youtube.svg" alt="youtube" />
+                  </a>
+                </li>
+              </ul>
+
+            </div>
+
+
+          </div>
+
+
+          <div class="col-sm-4 col-md-6 col-lg-3">
+
+            <div class="global-footer-contact">
+              <dl class="footer-contact-list">
+                <div class="footer-contact-item">
+                  <dt>전화문의</dt>
+                  <dd>
+                    <a class="footer-contact" href="tel:10041004">1577-0111</a>
+                    <p class="footer-time">
+                      09:00 ~ 18:00 주말 &amp; 공휴일 휴무
+                    </p>
+                  </dd>
+                </div>
+                <div class="footer-contact-item">
+                  <dt>이메일문의</dt>
+                  <dd>
+                    <address>
+                      <a href="mailto:sales@deepco.co.kr">sales@deepco.co.kr</a>
+                    </address>
+                  </dd>
+                </div>
+              </dl>
+            </div>
+
+          </div>
+
+
+
+          <div class="col-sm-4 col-md-12 col-lg-6">
+
+            <div class="global-footer-cont">
+
+              <ul class="footer-menu-list">
+                <li class="footer-menu-item privacy" style="display: none;">
+                  <button type="button" class="btn-modal" aria-label="개인정보처리방침">
+                    <strong>개인정보처리방침</strong>
+                  </button>
+                </li>
+                <!-- <li class="footer-menu-item">
+                  <a href="#" aria-label="이용약관">
+                    이용약관
+                  </a>
+                </li> -->
+                <li class="footer-menu-item">
+                  <a href="/deepcomini/privacy_policy.html" target="_blank" aria-label="DeepCoMini 앱 개인정보 처리방침">
+                    DeepCoMini 앱 개인정보 처리방침
+                  </a>
+                </li>
+                <li class="footer-menu-item">
+                  <a href="https://forms.gle/71FkuhMFdSZYWy288" target="_blank" onMouseDown="javascript: _PL('https://deepco.co.kr/customerCS');" aria-label="제휴문의">
+                    제휴문의
+                  </a>
+                </li>
+              </ul>
+
+              <dl class="footer-detail-list">
+
+                <div class="footer-detail-item">
+                  <dt>대표이사</dt>
+                  <dd>임재환</dd>
+                </div>
+
+                <div class="footer-detail-item">
+                  <dt>주소</dt>
+                  <dd>
+                    <address>
+                      08378 서울시 구로구 디지털로 34길 27 대륭포스트타워 3차 6층 601호
+                    </address>
+                  </dd>
+                </div>
+
+                <div class="footer-detail-item">
+                  <dt>개인정보보호책임자</dt>
+                  <dd>장봉진</dd>
+                </div>
+
+
+                <div class="footer-detail-item">
+                  <dt>통신판매업</dt>
+                  <dd>구로 2005-02386호</dd>
+                </div>
+
+                <div class="footer-detail-item">
+                  <dt>사업자등록번호</dt>
+                  <dd>119-81-34860</dd>
+                </div>
+
+              </dl>
+
+              <p class="copyright">
+                COPYRIGHT ⓒ 2024 by UBION CO LTD. All Rights Reserved.
+              </p>
+
+            </div>
+
+
+
+          </div>
+
+
+
+        </div>
+      </div>
+    </footer>
+
+    <aside class="sidebar sm-only">
+      <header class="sidebar-header">
+        <h1 class="logo">
+          <a href="javascript:goToScroll('main-deepco');">
+            <img src="https://wdr.ubion.co.kr/deepco/assets/images/logo-deepco-blue.svg" alt="deepco" />
+          </a>
+        </h1>
+      </header>
+
+      <nav class="sidebar-nav">
+        <h2 class="visually-hidden">메뉴</h2>
+
+        <div class="sidebar-tab-menu">
+          <ul class="tab-menu-list">
+            <li class="tab-menu-item" aria-labelledby="content-what">
+              <button type="button">What Deepco?</button>
+            </li>
+            <li class="tab-menu-item" aria-labelledby="content-product">
+              <button type="button" >Products</button>
+            </li>
+            <li class="tab-menu-item" aria-labelledby="content-activity">
+              <button type="button" >Activity</button>
+            </li>
+            <li class="tab-menu-item" aria-labelledby="content-download">
+              <button type="button">Download</button>
+            </li>
+            <li class="tab-menu-item" aria-labelledby="content-faq">
+              <button type="button" >FAQ</button>
+            </li>
+            <li class="tab-menu-item" aria-labelledby="content-contact">
+              <button type="button" >Contact</button>
+            </li>
+          </ul>
+        </div>
+
+      </nav>
+    </aside>
+
+    <aside class="popup-modal book">
+      <h1 class="visually-hidden">워크북 안내</h1>
+
+      <div class="popup-cont">
+
+        <p>여러 교육기관에서 사용되는 딥코 봇을 활용한 실습 워크북은 준비중입니다.</p>
+
+      </div>
+
+      <div class="button-group">
+        <button class="btn-primary btn-close" type="button">확인</button>
+      </div>
+    </aside>
+
+    <aside class="popup-modal update">
+      <h1 class="visually-hidden">업데이트 안내</h1>
+
+      <div class="popup-header">
+        Download
+      </div>
+
+      <div class="update-tab">
+
+        <div class="tab-header">
+          <div class="tab-button-list">
+            <button class="btn-outlined tab-button-item is-active" type="button">
+              펌웨어 버전
+            </button>
+            <button class="btn-outlined tab-button-item" type="button">
+              샘플 프로젝트 버전
+            </button>
+          </div>
+
+          <div class="pdf-button-list">
+            <a class="btn-secondary" href="https://wdr.ubion.co.kr/deepco/assets/pdf/brochure.zip" target="_blank">
+              <i class="ic-document"></i> 딥코 안내자료
+            </a>
+            <a class="btn-secondary" href="https://wdr.ubion.co.kr/deepco/assets/pdf/menual.pdf" target="_blank">
+              <i class="ic-document"></i> 업데이트 메뉴얼 보기
+            </a>
+          </div>
+        </div>
+
+        <div class="tab-content-wrap">
+          <div class="tab-content is-active">
+            <div class="update-list">
+              <!--최신버전에 recent-version 클래스 추가-->
+              <div class="update-item recent-version">
+                <div class="date">2024.04.18</div>
+                <div class="title">DeepCoBot_ver.1.11.0</div>
+                <a class="btn-secondary" href="https://deepco.co.kr/CodaCar/application/ver_1_11_0_20240418_firmware.zip">다운로드 <i class="ic-download"></i></a>
+              </div>
+              <div class="update-item">
+                <div class="date">2023.12.08</div>
+                <div class="title">DeepCoBot_ver.1.10.0</div>
+                <a class="btn-secondary" href="https://deepco.co.kr/CodaCar/application/ver_1_10_0_20231208_firmware.zip">다운로드 <i class="ic-download"></i></a>
+              </div>
+              <!--<div class="update-item">
+                <div class="date">2023.11.24</div>
+                <div class="title">DeepCoBot Chinese Firmware</div>
+                <a class="btn-secondary" href="https://deepco.co.kr/CodaCar/application/ver_1_9_2_ChineseOnly_firmware.zip">다운로드 <i class="ic-download"></i></a>
+              </div>-->
+              <div class="update-item">
+                <div class="date">2023.11.07</div>
+                <div class="title">DeepCoBot Full Version [ver.1.7.0 ~ ver.1.9.0]</div>
+                <a class="btn-secondary" href="https://deepco.co.kr/CodaCar/application/ver_1_9_1_FullVersion_firmware.zip">다운로드 <i class="ic-download"></i></a>
+              </div>
+              <!--<div class="update-item">
+                <div class="date">2023.11.07</div>
+                <div class="title">DeepCoBot_ver.1.9.0</div>
+                <a class="btn-secondary" href="https://deepco.co.kr/CodaCar/application/ver_1_9_0_20231107_firmware.zip">다운로드 <i class="ic-download"></i></a>
+              </div>-->
+              <!--<div class="update-item">
+                <div class="date">2023.11.01</div>
+                <div class="title">DeepCoBot_ver.1.8.0</div>
+                <a class="btn-secondary" href="https://deepco.co.kr/CodaCar/application/ver_1_8_0_20231101_firmware.zip">다운로드 <i class="ic-download"></i></a>
+              </div>-->
+              <!--<div class="update-item">
+                <div class="date">2023.10.13</div>
+                <div class="title">DeepCoBot_ver.1.7.0</div>
+                <a class="btn-secondary" href="https://deepco.co.kr/CodaCar/application/ver_1_7_0_20231013_firmware.zip">다운로드 <i class="ic-download"></i></a>
+              </div>-->
+            </div>
+          </div>
+          <div class="tab-content">
+            <div class="update-list">
+              <div class="update-item recent-version">
+                <div class="date">2024.03.26</div>
+                <div class="title">DeepCoBot_ver.1.11.0 (국문 샘플 프로젝트 업데이트)</div>
+                <a class="btn-secondary" href="https://deepco.co.kr/CodaCar/data/ver_1_11_0_20240326_Samples_new_ko.zip">다운로드 <i class="ic-download"></i></a>
+              </div>
+              <div class="update-item"> <!--최신버전에 recent-version 클래스 추가-->
+                <div class="date">2023.10.13</div>
+                <div class="title">DeepCoBot_ver.1.7.0 (샘플 교통표지판 인식)</div>
+                <a class="btn-secondary" href="https://deepco.co.kr/CodaCar/data/ver_1_7_0_20231013_TrafficSignDetection.zip">다운로드 <i class="ic-download"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="button-group">
+        <button class="btn-primary btn-close" type="button">확인</button>
+      </div>
+
+    </aside>
+
+    <aside class="popup-modal guide">
+      <h1 class="visually-hidden">조립가이드 안내</h1>
+
+      <div class="popup-cont">
+        <div class="ytPlayer" data-url="kmYaCmkD9uA"></div>
+      </div>
+
+      <div class="button-group">
+        <button class="btn-primary btn-close" type="button" onclick="stopVideo(0);">영상 닫기</button>
+      </div>
+    </aside>
+
+    <aside class="popup-modal privacy">
+      <h1 class="visually-hidden">개인정보처리방침</h1>
+
+      <div class="popup-cont">
+        <iframe src="https://wdr.ubion.co.kr/policies/html/ubion/privacy.html?version=20211118" border="0"></iframe>
+      </div>
+
+      <div class="button-group">
+        <button class="btn-primary btn-close" type="button">확인</button>
+      </div>
+    </aside>
+
+    <aside class="fixed-banner">
+      <div class="button-wrap">
+        <a class="btn-goto-buy" aria-label="구매 바로가기" href="https://smartstore.naver.com/deepco" target="_blank" onMouseDown="javascript: _PL('https://deepco.co.kr/smartstore');">
+          <i class="ic-cart"></i>
+          <span> 구매하기</span>
+        </a>
+        <button class="btn-goto-top" type="button" aria-label="상단 바로가기" onclick="goToScroll('main-deepco')">
+          <i class="ic-chevron"></i>
+        </button>
+      </div>
+    </aside>
+
+    <aside class="popup-modal studio is-active">
+      <h1 class="visually-hidden">딥코스튜디오 오픈</h1>
+      <div class="popup-cont">
+        <button type="button" class="img" onclick="window.open('https://studio.deepco.co.kr/', '_blank')">
+          <p class="visually-hidden">딥코스튜디오 바로가기</p>
+        </button>
+      </div>
+      <div class="button-group">
+        <button class="btn-close" type="button"><span class="visually-hidden">닫기</span></button>
+      </div>
+    </aside>
+
+    <aside class="popup-modal iro is-active">
+      <h1 class="visually-hidden">국제로봇올림피아드(IRO) 출전</h1>
+      <div class="popup-cont">
+        <button type="button" class="img" onclick="goToScroll('content-IRO')">
+          <p class="visually-hidden">각 국가의 지역예선과 각 국가별 예선을 거쳐 세계대회 출전권을 획득한 학생들이 출전하는 국제로봇올림피아드(IRO)에 딥코봇이 출전하여 활약중이에요!</p>
+        </button>
+      </div>
+      <div class="button-group">
+        <button class="btn-close" type="button"><span class="visually-hidden">닫기</span></button>
+      </div>
+    </aside>
+
+    <aside class="popup-modal winner">
+      <h1 class="visually-hidden">IRO 대회  수상자 인터뷰 영상</h1>
+
+      <div class="popup-cont">
+        <div class="ytPlayer" data-url="HHBAxLP9VLs"></div>
+      </div>
+
+      <div class="button-group">
+        <button class="btn-primary btn-close" type="button" onclick="stopVideo(1);">영상 닫기</button>
+      </div>
+    </aside>
+
+    <div class="overlay" ></div>
+
+    <!-- AceCounter eCommerce (Product_Detail) v8.0 Start -->
+    <script language='javascript'>
+      var _pd ="DEEPCOBOT";
+      var _ct ="DEEPCO";
+      var _amt ="395000";
+    </script>
+    <!-- AceCounter eCommerce (Product_Detail) v8.0 End -->
+    <!-- AceCounter Log Gathering Script V.8.0.2019080601 -->
+    <script language='javascript'>
+      var _AceGID=(function(){var Inf=['gtc8.acecounter.com','8080','BS1A476237100187','AW','0','NaPm,Ncisy','ALL','0']; var _CI=(!_AceGID)?[]:_AceGID.val;var _N=0;var _T=new Image(0,0);if(_CI.join('.').indexOf(Inf[3])<0){ _T.src ="https://"+Inf[0]+'/?cookie'; _CI.push(Inf);  _N=_CI.length; } return {o: _N,val:_CI}; })();
+      var _AceCounter=(function(){var G=_AceGID;var _sc=document.createElement('script');var _sm=document.getElementsByTagName('script')[0];if(G.o!=0){var _A=G.val[G.o-1];var _G=(_A[0]).substr(0,_A[0].indexOf('.'));var _C=(_A[7]!='0')?(_A[2]):_A[3];var _U=(_A[5]).replace(/\,/g,'_');_sc.src='https:'+'//cr.acecounter.com/Web/AceCounter_'+_C+'.js?gc='+_A[2]+'&py='+_A[4]+'&gd='+_G+'&gp='+_A[1]+'&up='+_U+'&rd='+(new Date().getTime());_sm.parentNode.insertBefore(_sc,_sm);return _sc.src;}})();
+    </script>
+    <!-- AceCounter Log Gathering Script End -->
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
+      integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <script src="/deepco/plugin/jquery/jquery-3.7.1.min.js"></script>
+    <script src="/deepco/plugin/aos/dist/aos.js"></script>
+    <script src="/deepco/plugin/swiper/swiper-bundle.min.js"></script>
+
+    <script src="/deepco/js/swiper-option.js"></script>
+    <script src="/deepco/js/content-tab.js"></script>
+    <script src="/deepco/js/sidebar.js"></script>
+    <script src="/deepco/js/popup-modal.js?version=20250116"></script>
+    <script src="/deepco/js/faq.js"></script>
+    <script src="/deepco/js/update-tab.js"></script>
+    <!-- <script src="/deepco/js/scroll-gnb.js"></script> -->
+    <script src="/deepco/js/goto-scroll.js"></script>
+    <script src="/deepco/js/youtube.js"></script>
+    <script>
+        AOS.init();
+    </script>
+
+  </body>
+</html>

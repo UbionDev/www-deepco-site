@@ -1,0 +1,16 @@
+module.exports = {
+    "aisite.layout.footer.privacy_policy" : "개인정보처리방침",
+    "aisite.layout.footer.terms_service" : "서비스이용약관",
+    "aisite.layout.footer.partnership_inquiry" : "제휴문의",
+    "aisite.layout.footer.service_introduction" : "서비스소개",
+    "aisite.layout.footer.service_center" : "고객센터",
+    "aisite.layout.footer.ubion_co" : "주식회사 유비온",
+    "aisite.layout.footer.ceo" : "대표이사",
+    "aisite.layout.footer.ceo_name" : "임재환",
+    "aisite.layout.footer.address" : "주소",
+    "aisite.layout.footer.ubion_address" : "08378 서울시 구로구 디지털로 34길 대륭포스트타워3차 6층 601호",
+    "aisite.layout.footer.company_registration_number" : "사업자 등록번호",
+    "aisite.layout.footer.business_report_number" : "통신판매업 신고번호",
+    "aisite.layout.footer.guroje" : "구로 제 2005-02386호",
+    "aisite.layout.footer.corporation" : "© COPYRIGHT 2022 주식회사 AI CAR Corp. ALL RIHGTS RESERVED.",
+}

@@ -1,0 +1,64 @@
+<head>
+    <%if(typeof csrfToken != 'undefined'){%>
+        <meta name="csrf-token" content="<%=csrfToken%>">
+    <%}%>
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=yes">
+    <meta http-equiv="ScreenOrientation" content="autoRotate:disabled">
+    <meta name="mobile-web-app-capable" content="no">
+
+
+    <title>유비온 AI Kit 실습</title>
+    <meta name="description" content="UBION AI Kit 실습사이트 입니다.">
+    <meta content="AI Kit, AI연구소,실습,유비온" name="keywords">
+
+    <!-- Favicons -->
+    <link rel="icon" href="/ai_site/static/images/favicons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/ai_site/static/images/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/ai_site/static/images/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/ai_site/static/images/favicons/favicon-16x16.png">
+    <link rel="manifest" href="/ai_site/static/images/favicons/site.webmanifest">
+    <link rel="mask-icon" href="/ai_site/static/images/favicons/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- styles -->
+    <link rel="stylesheet" href="/ai_site/static/vendor/jquery-ui-1.12.1/jquery-ui.css">
+    <link rel="stylesheet" href="/ai_site/static/vendor/kendo.splitter/kendo.common.min.css">
+    <link rel="stylesheet" href="/ai_site/static/vendor/kendo.splitter/kendo.default.min.css">
+    <link rel="stylesheet" href="/ai_site/static/vendor/codemirror/lib/codemirror.css">
+    <link rel="stylesheet" href="/ai_site/static/vendor/codemirror/theme/material-palenight.css">
+    <link rel="stylesheet" href="/ai_site/static/css/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="/ai_site/static/vendor/fontawesome-free/css/all.min.css">
+
+    <% if( locals.coding_type && locals.coding_type == "mycoding" ) { %>
+    <link rel="stylesheet" href="/ai_site/static/css/codeAi_v20220901.min.css"><!-- customize -->
+    <style>
+        .topbar .codingview-control {
+            width: auto;
+            display: flex;
+            -webkit-box-pack: end;
+            justify-content: flex-end;
+        }
+        .topbar h1.navbar-brand {
+            -webkit-box-flex: 1;
+            flex: 1;
+            display: inline-flex;
+            -webkit-box-align: center;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .gap-3 {
+            gap: 1rem !important;
+        }
+        .gap-2 {
+            gap: 0.5rem !important;
+        }
+    </style>
+    <% } else { %>
+    <link rel="stylesheet" href="/ai_site/static/css/coding_v2.min.css"><!-- customize -->
+    <% } %>
+
+    <script src="/js/aikit_common.js"></script>
+</head>

@@ -1,0 +1,284 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>유비온 WOW Ai Lab 실습</title>
+  <meta name="description" content="UBION AI LAB 실습사이트 입니다.">
+  <meta content="AI LAB, AI연구소,실습,유비온" name="keywords">
+
+  <!-- Favicons -->
+  <link rel="icon" href="http://wdr.ubion.co.kr/CodingExercise/img/favicons/favicon.ico" >
+  <link rel="apple-touch-icon" sizes="180x180" href="http://wdr.ubion.co.kr/CodingExercise/img/favicons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://wdr.ubion.co.kr/CodingExercise/img/favicons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://wdr.ubion.co.kr/CodingExercise/img/favicons/favicon-16x16.png">
+  <link rel="manifest" href="http://wdr.ubion.co.kr/CodingExercise/img/favicons/site.webmanifest">
+  <link rel="mask-icon" href="http://wdr.ubion.co.kr/CodingExercise/img/favicons/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="theme-color" content="#ffffff">
+
+
+    <link rel="stylesheet" href="https://codemirror.net/lib/codemirror.css">
+    <link rel="stylesheet" href="https://codemirror.net/theme/material-palenight.css">
+
+    <script src="https://codemirror.net/lib/codemirror.js"></script>
+    <script src="https://codemirror.net/mode/javascript/javascript.js"></script>
+    <script src="https://codemirror.net/addon/selection/active-line.js"></script>
+    <script src="https://codemirror.net/addon/edit/matchbrackets.js"></script>
+
+  <!-- fonts -->
+  <link href="http://wdr.ubion.co.kr/CodingExercise/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+
+  <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+  <!-- styles -->
+  <link href="http://wdr.ubion.co.kr/CodingExercise/vendor/jquery.splitter/jquery.splitter.css" rel="stylesheet" type="text/css">
+  <link href="http://wdr.ubion.co.kr/CodingExercise/css/main.min.css" rel="stylesheet">
+
+  <script>
+    $(document).ready(function(){
+
+      var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+          lineNumbers: true,
+          matchBrackets: true,
+          theme: 'material-palenight'
+      });
+
+      $("#codesubmit").click(function () {
+        var code = editor.getValue();
+
+        var usr_id = $("#usr_id").val();
+
+        code = code.replace("\n", "\r\n");
+
+        param = {
+          code: code,
+          usr_id : usr_id
+        }
+
+        $.ajax({
+          url: "<%=_prop.Api.CodeExecuteUrl%>/test",
+          type: "GET",
+          dataType: 'json',
+          data: param,
+          success: function (data) {
+            var type = data.type;
+            var text = data.text;
+            text = text.replace(/\>/gi, "&gt;")
+            text = text.replace(/\</gi, "&lt;")
+
+            if(type == "text"){
+              $("#result").html(text.replace(/\n/gi, "<br/>"));
+            }
+            else{
+              $("#result").html("<img src='"+text+"' />");
+            }
+
+            
+          }
+
+        });
+      });
+
+      $("#fileupload").click(function () {
+        
+        var usr_id = $("#usr_id").val();
+        var files = $("#file")[0].files;
+        var file = files[0];
+        var code = "";
+
+        var filetype = [];
+        filetype = file.name.split(".");
+
+        if(filetype[1] != "csv" && filetype[1] != "txt"){
+          alert("현재 CSV, TXT 타입의 파일만 업로드 가능합니다.")
+          return false;
+        } 
+
+        var reader = new FileReader();
+                        
+        reader.onload = function(readerEvt){
+
+            var binaryString = readerEvt.target.result;
+            
+            code = btoa(binaryString);
+
+            param = {
+              code: code,
+              usr_id : usr_id,
+              filename : file.name,
+              filetype : filetype[1]
+            }
+
+            console.log(param);
+
+            $.ajax({
+              url: "<%=_prop.Api.CodeExecuteUrl%>/upload",
+              type: "GET",
+              dataType: 'json',
+              data: param,
+              success: function (data) {
+                if(data){
+                  alert("업로드 완료");
+                }
+                else{
+                  alert("업로드 실패");
+                }
+              }
+
+            });
+
+        }
+        reader.readAsBinaryString(file); //여기서 reader.onload 실행.
+
+      });
+
+    });
+    
+  </script>
+</head>
+
+<body id="page-top">
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+
+    <!-- Topbar -->
+    <nav class="navbar navbar-dark topbar static-top">
+      <h1 class="navbar-brand">
+        <i class="logo"></i>실습 강의 제목
+        <span class="navbar-brand-text pl-1">01.실습 강의회차 제목</span>
+      </h1>
+    </nav>
+    <!-- //Topbar -->
+
+
+    <!-- Sidebar -->
+    <div class="sidebar sidebar-dark flex-column nav-pills nav navbar-nav" >
+      <a class="nav-link active" href="#tab-list"  data-toggle="tab" >
+        <i class="fas fa-list-alt" ></i>
+        <span>학습목록</span>
+      </a>
+      <a class="nav-link" href="#tab-view"  data-toggle="tab" data-toggle="tooltip" data-placement="right" title="실습내용">
+        <i class="fab fa-readme"></i>
+        <span>실습내용</span>
+      </a>
+    </div>
+    <!--// Sidebar -->
+
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper">
+      <div class="tab-content">
+        <div class="leclist tab-pane active" id="tab-list">
+          <ul>
+            <li class="active"><a href="#">01실습 강의회차 제목</a></li>
+            <li><a href="#">02실습 강의회차 제목</a></li>
+            <li><a href="#">03실습 강의회차 제목</a></li>
+            <li><a href="#">04실습 강의회차 제목</a></li>
+            <li><a href="#">05실습 강의회차 제목</a></li>
+            <li><a href="#">06실습 강의회차 제목</a></li>
+            <li><a href="#">07실습 강의회차 제목</a></li>
+            <li><a href="#">08실습 강의회차 제목</a></li>
+          </ul>
+        </div>
+        <div class="lecview tab-pane" id="tab-view" >
+            <div class="wrap">
+              <div class="player">
+                <iframe src="https://www.youtube.com/embed/sxKw90OOKzU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              </div>
+              <article class="container-fluid">
+                <div class="wrap">
+                  <div class="explain item  p-4">
+                    <h3 class="text-gray-800">프로젝트 폴더에 영상 BookMark 리스트 불러오기</h3>
+                    <h5 class="text-gray-800">시간의 흐름에 따라 자동으로 실습 코드를 >> 실습창에 보여주게 된다</h5>
+                    00:00:10 <a href="#">if문 예제</a> <br>
+                    00:03:40 <a href="#">for문 예제</a>
+
+                  </div>
+                  <div class="hint item  p-4">
+                    <h3 class="text-gray-800">Hint!</h3>
+                    이렇게 해 보세요.
+                  </div>
+                </div>
+              </article>
+            </div>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div id="content">
+
+        <!-- 코딩 입력 영역  -->
+        <section class="container-fluid run-zone">
+          <h3 class="text-hide">실습내용입력</h3>
+          <!-- Page Heading -->
+          <div class="wrap-tab">
+            <ul class="flex-column" id="run-tab">
+              <li class="dir"><button class="d-inline-block" type="button" onclick="javascript:;alert('준비중');"><i class="far fa-folder"></i></li>
+              <li class="active">
+                <a href="#run-01" class="d-inline-block nav-link active" data-toggle="tab">ubion_exercise.py</a>
+                <button class="d-inline-block" type="button"><i class="fas fa-times"></i></button>
+              </li>
+            </ul>
+          </div>
+          <div class="wrap-tabpanel">
+            <article class="tab-pane fade show active" id="run-01" >
+              <h4 class="text-hide">실습내용01</h4>
+              <input type="hidden" id="usr_id" value="test" />
+              <input type="file" id="file" />
+              <input type="button" id="fileupload" value="upload" />
+              <textarea id="code" name="code">
+test_list = ['one', 'two', 'three'] 
+for i in test_list: 
+    print(i)
+              </textarea>
+            </article>
+          </div>
+        </section>
+        <!-- //코딩 입력 영역 -->
+
+        <!-- 실행 영역  -->
+        <section class="container-fluid result-zone">
+          <h3 class="text-hide">실행결과</h3>
+          <!-- Page Heading -->
+          <div class="group-btn py-3">
+            <button class="ml-2 btn btn-info" id ="codesubmit" type="button">실행</button>
+            <button class="ml-1 btn btn-light" type="button">채점</button>
+            <button class="float-right mr-2 btn btn-danger" type="button">제출</button>
+          </div>
+          <article class="result-zone-out p-3">
+            <h4>실행결과</h4>
+            <pre id="result">이 곳에 코드 결과가 출력됩니다.
+            </pre>
+          </article>
+
+
+        </section>
+        <!-- //실행 영역 -->
+      </div>
+      <!-- //Main Content -->
+
+    </div>
+    <!-- //Content Wrapper -->
+  </div>
+  <!-- //Page Wrapper -->
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="http://wdr.ubion.co.kr/CodingExercise/vendor/jquery/jquery.min.js"></script>
+  <script src="http://wdr.ubion.co.kr/CodingExercise/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- Core plugin JavaScript-->
+  <script src="http://wdr.ubion.co.kr/CodingExercise/vendor/jquery-easing/jquery.easing.min.js"></script>
+  <!-- splitter scripts-->
+  <script src="http://wdr.ubion.co.kr/CodingExercise/vendor/jquery.splitter/jquery.splitter.js"></script>
+  <!-- Custom scripts -->
+  <script src="http://wdr.ubion.co.kr/CodingExercise/js/main.js"></script>
+</body>
+
+</html>

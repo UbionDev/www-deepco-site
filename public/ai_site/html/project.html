@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>과정소개│AI makers</title>
+  <link rel="stylesheet" href="./assets/vendor/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="./assets/css/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="./assets/css/aimakers.css"><!-- customize -->
+</head>
+
+<body>
+  <header>
+    <!-- 글로벌 네비게이션 -->
+    <div class="container-lg ms-auto d-block text-end" id="gnb">
+      <div class="btn-group">
+        <button class="btn btn-sm d-inline-block dropdown-toggle" type="button" id="lang-dropdown" data-bs-toggle="dropdown" aria-expanded="false" title="언어변경"><i class="bi bi-globe2 me-2"></i>한국어<i class="bi bi-chevron-down ms-1"></i></button>
+        <ul class="dropdown-menu" aria-labelledby="lang-dropdown">
+          <li><a class="dropdown-item" href="#">한국어</a></li>
+          <li><a class="dropdown-item" href="#">ENGLISH</a></li>
+        </ul>
+      </div>
+      <a class="btn btn-sm d-inline-block" href="http://wdr.ubion.co.kr/AiKit/codaCar/" target="_blank" title="페이지 이동(새창열림)"><i class="bi bi-car me-2"></i>CodaCar</a>
+      <a class="btn btn-sm d-inline-block" href="#" title="로그아웃합니다."><i class="bi bi-person-circle me-2"></i>로그아웃</a>
+    </div>
+    <!-- //글로벌 네비게이션 -->
+    <!-- 네비게이션 -->
+    <nav class="navbar navbar-light navbar-expand-lg d-flex flex-wrap justify-content-center bg-white border-bottom shadow-sm" aria-label="navbar">
+      <div class="container">
+        <!-- BI -->
+        <a href="index.html" class="navbar-brand my-lg-3">
+          <span class="visually-hidden">AI makers</span>
+          <img src="./assets/images/bi_AImakers.svg" alt="AImakers BI">
+        </a>
+        <!-- //BI -->
+        <!-- Toggle Button -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbars" aria-controls="navbars" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+      <!-- //Toggle Button -->
+      <div class="container my-lg-5">
+        <div class="navbar-collapse collapse justify-content-center" id="navbars">
+          <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link" href="introduce.html" title="페이지 이동">AI 학습소개</a></li>
+            <li class="nav-item"><a class="nav-link" href="lecture.html" title="페이지 이동">과정소개</a></li>
+            <li class="nav-item"><a class="nav-link" href="project.html" title="페이지 이동">내 작업실</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- //네비게이션 -->
+  </header>
+
+  <div id="main-content" class="container lecture pb-lg-8 pb-5" role="main">
+
+    <section>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-12 py-xl-3">
+            <h1 class="text-dark text-center pb-sm-3">작업목록</h1>
+          </div>
+          <!-- 카드 리스트 -->
+          <div class="col-12 row card-project-wrap">
+            <div class="col-lg-4 col-md-6 px-2 py-3">
+              <div class="card-project new-project">
+                <button type="button" class="card-body-wrap text-decoration-none" data-bs-toggle="modal" data-bs-target="#projectModal" title="새 프로젝트 만들기">
+                  <div class="card-body text-center">
+                    <span class="my-2"><i class="bi bi-plus"></i></span>
+                    <h5 class="">새 프로젝트 만들기</h5>
+                  </div>
+                </button>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6 px-2 py-3">
+              <div class="card-project">
+                <a href="../front_v2.html" target="_blank" class="card-body-wrap text-decoration-none" title="상세페이지로 이동">
+                  <div class="card-body">
+                    <h5 class="fw-bold text-dark">내 프로젝트1</h5>
+                    <p class="text-muted fs-9">내 프로젝트에 대한 설명1</p>
+                  </div>
+                  <div class="card-footer text-dark">
+                    <div class="d-flex justify-content-between px-2">
+                      <span class="fs-9 fw-normal mb-0">2022.07.04</span>
+                    </div>
+                  </div>
+                </a>
+                <button type="button" class="btn more my-2" title="프로젝트 수정,삭제"><i class="bi bi-three-dots-vertical"></i></button>
+                <div class="speech-bubble btn-group p-0 rounded-2 bg-dark">
+                  <button type="button" class="btn btn-sm btn-dark" data-bs-toggle="modal" data-bs-target="#projectModal1">수정</button>
+                  <button type="button" data-bs-dismiss="alert" class="btn btn-sm btn-dark">삭제</button>
+                </div>
+                <!-- 프로젝트 수정 팝업 -->
+                <div class="modal fade" id="projectModal1" tabindex="-1" aria-labelledby="projectModalLabel1" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content px-lg-5  pt-5">
+                      <div class="modal-header border-0 p-0">
+                        <h5 class="modal-title" id="projectModalLabel1">프로젝트 제목 수정</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body input-group input-group-sm px-0 py-1">
+                        <input type="text" class="form-control" maxlength="20" placeholder="내 프로젝트1">
+                      </div>
+                      <div class="modal-header border-0 p-0 pt-3">
+                        <h5 class="modal-title" id="projectModalLabel1">프로젝트 설명 수정</h5>
+                      </div>
+                      <div class="modal-body form-floating px-0 py-1">
+                        <textarea class="form-control" placeholder="내 프로젝트에 대한 설명1" id="floatingTextarea" maxlength="50" style="height: 80px"></textarea>
+                        <label for="floatingTextarea">내 프로젝트에 대한 설명1</label>
+                      </div>
+                      <div class="modal-footer py-3 border-0 justify-content-center">
+                        <button type="button" class="btn btn-dark px-5 rounded-3">수정하기</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- //프로젝트 수정 팝업 -->
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6 px-2 py-3">
+              <div class="card-project">
+                <a href="../front_v2.html" target="_blank" class="card-body-wrap text-decoration-none" title="상세페이지로 이동">
+                  <div class="card-body">
+                    <h5 class="fw-bold text-dark">내 프로젝트2</h5>
+                    <p class="text-muted fs-9">내 프로젝트에 대한 설명</p>
+                  </div>
+                  <div class="card-footer text-dark">
+                    <div class="d-flex justify-content-between px-2">
+                      <span class="fs-9 fw-normal mb-0">2022.07.04</span>
+                    </div>
+                  </div>
+                </a>
+                <button type="button" class="btn more my-2" title="프로젝트 수정,삭제"><i class="bi bi-three-dots-vertical"></i></button>
+                <div class="speech-bubble btn-group p-0 rounded-2 bg-dark">
+                  <button type="button" class="btn btn-sm btn-dark" data-bs-toggle="modal" data-bs-target="#projectModal2">수정</button>
+                  <button type="button" data-bs-dismiss="alert" class="btn btn-sm btn-dark">삭제</button>
+                </div>
+                <!-- 프로젝트 수정 팝업 -->
+                <div class="modal fade" id="projectModal2" tabindex="-1" aria-labelledby="projectModalLabel2" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content px-lg-5  pt-5">
+                      <div class="modal-header border-0 p-0">
+                        <h5 class="modal-title" id="projectModalLabel2">프로젝트 제목 수정</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body input-group input-group-sm px-0 py-1">
+                        <input type="text" class="form-control" maxlength="20" placeholder="내 프로젝트2">
+                      </div>
+                      <div class="modal-header border-0 p-0 pt-3">
+                        <h5 class="modal-title" id="projectModalLabel2">프로젝트 설명 수정</h5>
+                      </div>
+                      <div class="modal-body form-floating px-0 py-1">
+                        <textarea class="form-control" placeholder="내 프로젝트에 대한 설명2" id="floatingTextarea" maxlength="50" style="height: 80px"></textarea>
+                        <label for="floatingTextarea">내 프로젝트에 대한 설명2</label>
+                      </div>
+                      <div class="modal-footer py-3 border-0 justify-content-center">
+                        <button type="button" class="btn btn-dark px-5 rounded-3">수정하기</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- //프로젝트 수정 팝업 -->
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6 px-2 py-3">
+              <div class="card-project">
+                <a href="../front_v2.html" target="_blank" class="card-body-wrap text-decoration-none" title="상세페이지로 이동">
+                  <div class="card-body">
+                    <h5 class="fw-bold text-dark">내 프로젝트3</h5>
+                    <p class="text-muted fs-9">내 프로젝트에 대한 설명</p>
+                  </div>
+                  <div class="card-footer text-dark">
+                    <div class="d-flex justify-content-between px-2">
+                      <span class="fs-9 fw-normal mb-0">2022.07.04</span>
+                    </div>
+                  </div>
+                </a>
+                <button type="button" class="btn more my-2" title="프로젝트 수정,삭제"><i class="bi bi-three-dots-vertical"></i></button>
+                <div class="speech-bubble btn-group p-0 rounded-2 bg-dark">
+                  <button type="button" class="btn btn-sm btn-dark" data-bs-toggle="modal" data-bs-target="#projectModal3">수정</button>
+                  <button type="button" data-bs-dismiss="alert" class="btn btn-sm btn-dark">삭제</button>
+                </div>
+                <!-- 프로젝트 수정 팝업 -->
+                <div class="modal fade" id="projectModal3" tabindex="-1" aria-labelledby="projectModalLabel3" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content px-lg-5  pt-5">
+                      <div class="modal-header border-0 p-0">
+                        <h5 class="modal-title" id="projectModalLabel3">프로젝트 제목 수정</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body input-group input-group-sm px-0 py-1">
+                        <input type="text" class="form-control" maxlength="20" placeholder="내 프로젝트3">
+                      </div>
+                      <div class="modal-header border-0 p-0 pt-3">
+                        <h5 class="modal-title" id="projectModalLabel3">프로젝트 설명 수정</h5>
+                      </div>
+                      <div class="modal-body form-floating px-0 py-1">
+                        <textarea class="form-control" placeholder="내 프로젝트에 대한 설명3" id="floatingTextarea" maxlength="50" style="height: 80px"></textarea>
+                        <label for="floatingTextarea">내 프로젝트에 대한 설명3</label>
+                      </div>
+                      <div class="modal-footer py-3 border-0 justify-content-center">
+                        <button type="button" class="btn btn-dark px-5 rounded-3">수정하기</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- //프로젝트 수정 팝업 -->
+              </div>
+            </div>
+          </div>
+          <!-- //카드 리스트 -->
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- 새 프로젝트 팝업 -->
+  <div class="modal fade" id="projectModal" tabindex="-1" aria-labelledby="projectModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content px-lg-5  pt-5">
+        <div class="modal-header border-0 p-0">
+          <h5 class="modal-title" id="projectModalLabel">프로젝트 제목</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body input-group input-group-sm px-0 py-1">
+          <input type="text" class="form-control" maxlength="20" placeholder="프로젝트 제목을 입력하세요.(최대 20자)">
+        </div>
+        <div class="modal-header border-0 p-0 pt-3">
+          <h5 class="modal-title" id="projectModalLabel">프로젝트 설명</h5>
+        </div>
+        <div class="modal-body form-floating px-0 py-1">
+          <textarea class="form-control" placeholder="프로젝트 설명을 입력하세요" id="floatingTextarea" maxlength="50" style="height: 80px"></textarea>
+          <label for="floatingTextarea">프로젝트 설명을 입력하세요.(최대 50자)</label>
+        </div>
+        <div class="modal-footer py-3 border-0 justify-content-center">
+          <button type="button" class="btn btn-dark px-5 rounded-3">프로젝트 만들기</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- //새 프로젝트 팝업 -->
+
+  <div class="container-fulid my-0 bg-light">
+    <footer id="main-footer" class="container row row-cols-2 justify-content-center py-5 mx-auto">
+      <div class="col-md-3 col-12">
+        <!-- BI -->
+        <a href="../codaCar" class="navbar-brand d-flex align-items-center mb-3 link-dark text-decoration-none">
+          <span class="visually-hidden">AImakers</span>
+          <img src="./assets/images/bi_AImakers.svg" alt="AImakers BI">
+        </a>
+        <!-- //BI -->
+      </div>
+
+      <div class="col-md-8 col-12">
+        <p>
+          <button type="button" class="btn btn-sm px-0 me-lg-5 me-sm-2" title="개인정보처리방침 팝업열림">개인정보처리방침</button>
+          <button type="button" class="btn btn-sm px-0 me-lg-5 me-sm-2" title="서비스이용약관 팝업열림">서비스이용약관</button>
+          <a href="#" class="btn btn-sm px-0 me-lg-5 me-sm-2" title="제휴문의 페이지로 이동">제휴문의</a>
+          <a href="#" class="btn btn-sm px-0 me-lg-5 me-sm-2" title="서비스소개 페이지로 이동">서비스소개</a>
+          <a href="#" class="btn btn-sm px-0 me-lg-5 me-sm-2" title="고객센터 페이지로 이동">고객센터</a>
+        </p>
+
+        <h6>주식회사 유비온</h6>
+        <span class="text-muted">대표이사</span> 임재환 <adress class="ms-3"><span class="text-muted">주소</span> 08378 서울시 구로구 디지털로 34길 대륭포스트타워3차 6층 601호</adress>
+        <p>
+          <span class="d-md-inline-block d-block me-3"><span class="text-muted">사업자 등록번호</span> 119-81-34860</span>
+          <span class="d-md-inline-block d-block me-3"><span class="text-muted">통신판매업 신고번호</span> 구로 제 2005-02386호</span>
+        </p>
+        <p class="text-muted copyright">© COPYRIGHT 2022 주식회사 AI CAR Corp. ALL RIHGTS RESERVED.</p>
+      </div>
+    </footer>
+  </div>
+
+</body>
+
+<!-- jQuery Core plugin scripts-->
+<script src="./assets/vendor/jquery/jquery-2.1.1.min.js"></script>
+<script src="./assets/vendor/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+<script src="./assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Bootstrap core JavaScript-->
+<script src="./assets/vendor/bootstrap/bootstrap.bundle.min.js"></script>
+
+<script src="./assets/js/common.js"></script>
+
+</html>

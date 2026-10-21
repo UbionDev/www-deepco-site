@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Blockly Workspace</title>
+
+  <!-- 추가&수정  -->
+  <link rel="stylesheet" href="/ai_site/static/css/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="/ai_site/static/css/workspace_codeai.min.css">
+  <!-- //추가&수정  -->
+  
+  <script src="/js/blockly/blockly_compressed.js"></script>
+  <script src="/js/blockly/blocks_compressed.js"></script>
+  
+  <script src="/js/blockly/msg/en.js"></script>
+    <!-- Language Code Generator -->
+  <script src="/js/blockly/javascript_compressed.js"></script>
+  <script src="/js/blockly/python_compressed.js"></script>
+
+    <!-- 추가&수정  -->
+    <!-- jQuery Core plugin scripts-->
+    <script src="/vendor/jquery/jquery-2.1.1.min.js"></script>
+    <!-- Bootstrap core JavaScript-->
+    <script src="/ai_site/static/vendor/bootstrap/bootstrap.bundle.min.js"></script>
+    <!-- cors site msg -->
+    <script src="/ai_site/static/js/bypass_cors.js"></script>
+    <script src="/ai_site/static/js/event_listener.js"></script>
+
+    <script type="text/javascript">
+        $(function() {
+            //* 블록코딩 코드보기
+            var toggled = false;
+            $(".output-panel").bind('click touch', function(){
+                $(this).css('right', '-600px');
+                $(this).toggleClass("show");
+                toggled = !toggled;
+                if(toggled) { $(this).css('right', '0px'); }
+                if($(this).attr('id') == "codeDiv"){
+                    $(this).children('.openclose').children('i').attr('class', toggled ? 'bi bi-x': 'bi bi-code-slash');
+
+                }
+                if($(this).attr('id') == "folderDiv"){
+                    $(this).children('.openclose').children('i').attr('class', toggled ? 'bi bi-x': 'bi bi-folder');
+                }
+            });
+            // 블록코딩 코드보기 */
+            //* 블록코딩 코드복사
+            $("#btnCopy").bind('click touch', function(){
+                var editIndex = $("input[name=edit_index]").val();
+                parent.copyCodeToClipBoard(editIndex);
+            });
+            // 블록코딩 코드복사 */
+            //* Save Coding
+            $("#savecoding").bind('click touch', function(){
+                $('#savecoding').removeClass('active');
+                $('#rmcoding').addClass('active');
+                var editIndex = $("input[name=edit_index]").val();
+                parent.saveProjectContents(editIndex);
+            });
+            // Save Coding */
+            //* Remove Coding
+            $("#rmcoding").bind('click touch', function(){
+                var editIndex = $("input[name=edit_index]").val();
+                parent.removeProjectContents(editIndex);
+            });
+            // Remove Coding */
+            //* Run py
+            $("#runBtn").bind('click touch', function(){
+                var editIndex = $("input[name=edit_index]").val();
+                parent.runCodingShell(editIndex);
+                toggleRunButton();
+            });
+            // Run py */
+            //* Stop py
+            $("#stopBtn").bind('click touch', function(){
+                var editIndex = $("input[name=edit_index]").val();
+                parent.stopCodingShell(editIndex);
+                toggleRunButton();
+            });
+            // Stop py */
+
+            var toggleRunButton = function() {
+                $('#runBtn').toggleClass('active');
+                $('#stopBtn').toggleClass('active');
+            }
+
+            $("#projectname").val(parent.$("#folderList > option").eq(0).val());
+            
+        });
+
+        //* Kit folder data view
+        var viewDirFrameData =  function() {
+            var childFrame = document.getElementById("kitFrmDir").contentWindow;//window.frames[0];
+            var childKit = new ByPassCORS(childFrame);
+            childKit = getEventListener(childKit);
+
+            var data_fileter_list = [];
+            data_fileter_list.push({'directory' : ['cam', 'data', 'project']});
+            data_fileter_list.push({'picture' : ['jpg']});
+            data_fileter_list.push({'form' : ['npz', 'json', 'csv']});
+            data_fileter_list.push({'model' : ['h5']});
+
+            var project_folder = parent.$('#projectId').data('project_name');
+            data_fileter_list.push({'project_directory' : [ project_folder ]});
+
+            childKit.sendMessage("setDataFilters", data_fileter_list);
+        }
+        //*/
+
+        //* 폴더 보기 업데이트
+        var viewDataAfterRunCoding = function(sendInfoObj) {
+
+            var childFrame = document.getElementById("kitFrmDir").contentWindow;//window.frames[0];
+                childKit = new ByPassCORS(childFrame);
+                childKit = getEventListener(childKit);
+
+                childKit.sendMessage("viewDataAfterRunCoding", sendInfoObj);
+        }
+        //*/// viewDataAfterRunCoding
+
+    </script>
+    <!-- //추가&수정  -->
+
+  <!-- Custom Block scripts -->
+  <script src="/js/custom_block/iot_block.js"></script>
+  <script src="/js/custom_block/driving_block.js"></script>
+  <script src="/js/custom_block/tensorflow_block.js"></script>
+  <script src="/js/custom_block/dnn_block.js"></script>
+  <script src="/js/custom_block/cnn_block.js"></script>
+  <script src="/js/custom_block/tts_block.js"></script>
+  <script src="/js/custom_block/etc_block.js"></script>
+  <script src="/js/custom_block/ai_block.js"></script>
+  <!-- //Custom Block scripts -->
+
+</head>
+<body>
+    <input type="hidden" name="edit_index" value="<%=index %>" />
+    <input type="hidden" id="projectname"  />
+
+    <div class="app-container">
+        <div id="blocklyDiv" class="blockly-panel"></div>
+
+        <div id="folderDiv" class="output-panel" style="right: -600px; width: 600px;">
+          <button type="button" class="openclose btn btn-sm btn-dark rounded-circle opacity-75" data-bs-toggle="tooltip" data-bs-placement="left" title="폴더보기">
+            <i class="bi bi-folder"></i>
+          </button>
+
+          <div class="scrollbarLight overflow-auto" style="width: 100%;height: 100%;">
+            <iframe id="kitFrmDir" src="http://192.168.215.22/common/folder/dataviewTest" width="100%" height="100%" scrolling="no"></iframe>
+          </div>
+        </div>
+
+        <div id="codeDiv" class="output-panel" style="right: -600px; width: 600px;">
+          
+          <button type="button" class="openclose btn btn-sm btn-dark rounded-circle opacity-75" style="top:6.5rem;display:none;" data-bs-toggle="tooltip" data-bs-placement="left" title="코드내용">
+            <i class="bi bi-code-slash"></i>
+          </button>
+          
+          <textarea name="output" disabled="disabled" style="display: inline-block; width: 100%; height: 90%;"></textarea>
+          <!-- Copy Button  -->
+          <button type="button" id="btnCopy" class="btn btn-sm btn-outline-light ms-3 rounded-2">
+              <span>
+                  <i class="fas fa-copy me-2"></i>코드복사
+              </span>
+          </button>
+          <!-- //Copy Button  -->
+        </div>
+
+        <div class="btn-group position-absolute py-1">
+            <button type="button" class="btn btn-sm btn-primary rounded-circle text-white" id="savecoding" style="display: none;" data-bs-toggle="tooltip" data-bs-placement="left" title="블록코딩 저장/초기화">
+                <i class="bi bi-save2"></i><span class="visually-hidden">코딩저장</span>
+            </button>
+            <button type="button" class="btn btn-sm btn-dark rounded-circle text-white active" id="rmcoding" data-bs-toggle="tooltip" data-bs-placement="left" title="블록코딩 저장/초기화">
+                <i class="bi bi-arrow-repeat"></i><span class="visually-hidden">코딩초기화</span>
+            </button>
+            <button type="button" class="btn btn-sm btn-primary rounded-circle text-white active" id="runBtn" gubun="0" data-bs-toggle="tooltip" data-bs-placement="left" title="실행/멈춤">
+                <i class="bi bi-play-fill"></i><span class="visually-hidden">실행</span>
+            </button>
+            <button type="button" class="btn btn-sm btn-dark rounded-circle text-white" id="stopBtn" data-bs-toggle="tooltip" data-bs-placement="left" title="실행/멈춤">
+                <i class="bi bi-stop-fill"></i><span class="visually-hidden">멈춤</span>
+            </button>
+        </div>
+    </div>
+
+    <!--<table>
+        <tr>
+            <td id="blocklyArea"></td>
+        </tr>
+    </table>-->
+
+    <!--<div id="blocklyDiv" style="position: absolute"></div>-->
+
+  <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
+    <category name="Logic" colour="%{BKY_LOGIC_HUE}">
+      
+        <block type="controls_if">
+          <value name="IF0">
+            <block type="logic_boolean">
+              <field name="BOOL">TRUE</field>
+            </block>
+          </value>
+        </block>
+        <block type="controls_if">
+          <value name="IF0">
+            <block type="logic_boolean">
+              <field name="BOOL">TRUE</field>
+            </block>
+          </value>
+          <mutation else="1"></mutation>
+        </block>
+        <!-- <block type="controls_if">
+          <mutation elseif="1" else="1"></mutation>
+        </block> -->
+     
+        <block type="logic_compare">
+          <value name="A">
+            <block type="math_number">
+              <field name="NUM">10</field>
+            </block>
+          </value>
+          <field name="OP">EQ</field>
+          <value name="B">
+            <block type="math_number">
+              <field name="NUM">10</field>
+            </block>
+          </value>
+        </block>
+
+        <block type="logic_compare">
+          <value name="A">
+            <block type="math_number">
+              <field name="NUM">10</field>
+            </block>
+          </value>
+          <field name="OP">NEQ</field>
+          <value name="B">
+            <block type="math_number">
+              <field name="NUM">10</field>
+            </block>
+          </value>
+        </block>
+
+        <block type="logic_compare">
+          <value name="A">
+            <block type="math_number">
+              <field name="NUM">10</field>
+            </block>
+          </value>
+          <field name="OP">LT</field>
+          <value name="B">
+            <block type="math_number">
+              <field name="NUM">10</field>
+            </block>
+          </value>
+        </block>
+
+        <block type="logic_compare">
+          <value name="A">
+            <block type="math_number">
+              <field name="NUM">10</field>
+            </block>
+          </value>
+          <field name="OP">LTE</field>
+          <value name="B">
+            <block type="math_number">
+              <field name="NUM">10</field>
+            </block>
+          </value>
+        </block>
+
+        <block type="logic_compare">
+          <value name="A">
+            <block type="math_number">
+              <field name="NUM">10</field>
+            </block>
+          </value>
+          <field name="OP">GT</field>
+          <value name="B">
+            <block type="math_number">
+              <field name="NUM">10</field>
+            </block>
+          </value>
+        </block>
+
+        <block type="logic_compare">
+          <value name="A">
+            <block type="math_number">
+              <field name="NUM">10</field>
+            </block>
+          </value>
+          <field name="OP">GTE</field>
+          <value name="B">
+            <block type="math_number">
+              <field name="NUM">10</field>
+            </block>
+          </value>
+        </block>
+
+        <block type="logic_operation">
+          <value name="A">
+            <block type="logic_boolean">
+              <field name="BOOL">TRUE</field>
+            </block>
+          </value>
+          <field name="OP">AND</field>
+          <value name="B">
+              <block type="logic_boolean">
+                <field name="BOOL">TRUE</field>
+              </block>
+          </value>
+        </block>
+        <block type="logic_operation">
+          <value name="A">
+            <block type="logic_boolean">
+              <field name="BOOL">TRUE</field>
+            </block>
+          </value>
+          <field name="OP">OR</field>
+          <value name="B">
+              <block type="logic_boolean">
+                <field name="BOOL">FALSE</field>
+              </block>
+          </value>
+        </block>
+
+        <block type="logic_negate">
+          <value name="BOOL">
+            <block type="logic_boolean">
+              <field name="BOOL">TRUE</field>
+            </block>
+        </value>
+        </block>
+     
+    </category>
+    <category name="Loops" colour="%{BKY_LOOPS_HUE}">
+      <block type="controls_repeat_ext">
+        <value name="TIMES">
+          <block type="math_number">
+            <field name="NUM">10</field>
+          </block>
+        </value>
+      </block>
+      <block type="controls_whileUntil">
+        <value name="BOOL">
+          <block type="logic_boolean">
+            <field name="BOOL">TRUE</field>
+          </block>
+        </value>
+      </block>
+
+      <block type="controls_flow_statements"></block>
+      <!-- <block type="controls_for">
+        <field name="VAR">i</field>
+        <value name="FROM">
+          <block type="math_number">
+            <field name="NUM">1</field>
+          </block>
+        </value>
+        <value name="TO">
+          <block type="math_number">
+            <field name="NUM">10</field>
+          </block>
+        </value>
+        <value name="BY">
+          <block type="math_number">
+            <field name="NUM">1</field>
+          </block>
+        </value>
+      </block>
+      <block type="controls_forEach">
+        <value name="LIST">
+          <block type="lists_create_empty"></block>
+        </value>
+      </block>
+      <block type="controls_flow_statements"></block> -->
+    </category>
+    <!-- ADD Custom Block -->
+    <category name="Text" colour="160">
+        <block type="text_length">
+          <value name="VALUE">
+            <block type="text">
+              <field name="TEXT">안녕</field>
+            </block>
+          </value>
+        </block>
+        <!-- <block type="text_join"></block> -->
+        <!-- <block type="text_append">
+            <value name="TEXT">
+                <block type="text"></block>
+            </value>
+        </block> -->
+        <!-- <block type="text_isEmpty">
+            <value name="VALUE">
+                <block type="text">
+                    <field name="TEXT"></field>
+                </block>
+            </value>
+        </block> -->
+        <block type="text_indexOf">
+            <value name="VALUE">
+                <block type="text">
+                    <field name="TEXT">안녕 AI</field>
+                </block>
+            </value>
+            <value name="FIND">
+                <block type="text">
+                    <field name="TEXT">안녕</field>
+                </block>
+            </value>
+        </block>
+        <block type="text_charAt">
+            <value name="VALUE">
+                <block type="text">
+                    <field name="TEXT">안녕 AI</field>
+                </block>
+            </value>
+
+            <value name="WHERE">
+              <block type="math_number">
+                <field name="NUM">1</field>
+              </block>
+          </value>
+        </block>
+        <block type="text_getSubstring">
+            <value name="STRING">
+                <block type="text">
+                    <field name="TEXT">안녕 AI</field>
+                </block>
+            </value>
+
+            <value name="AT1">
+              <block type="math_number">
+                <field name="NUM">2</field>
+              </block>
+          </value>
+
+          <value name="AT2">
+            <block type="math_number">
+              <field name="NUM">5</field>
+            </block>
+        </value>
+        </block>
+        <block type="text_changeCase">
+            <value name="TEXT">
+                <block type="text">
+                    <field name="TEXT">abc</field>
+                </block>
+            </value>
+        </block>
+
+        <block type="text_print">
+          <value name="TEXT">
+              <block type="text">
+                  <field name="TEXT">abc</field>
+              </block>
+          </value>
+        </block>
+        <!-- <block type="text_trim">
+            <value name="TEXT">
+                <block type="text">
+                    <field name="TEXT">abc</field>
+                </block>
+            </value>
+        </block> -->
+        <!-- <block type="text_print">
+            <value name="TEXT">
+                <block type="text">
+                    <field name="TEXT">abc</field>
+                </block>
+            </value>
+        </block> -->
+        <!-- <block type="text_prompt_ext">
+            <value name="TEXT">
+                <block type="text">
+                    <field name="TEXT">abc</field>
+                </block>
+            </value>
+        </block> -->
+    </category>
+    <!-- ADD Custom Block -->
+    <category name="Math" colour="%{BKY_MATH_HUE}">
+      <block type="math_number">
+        <field name="NUM">123</field>
+      </block>
+      <block type="math_arithmetic">
+        <value name="A">
+          <block type="math_number">
+            <field name="NUM">10</field>
+          </block>
+        </value>
+        <field name="OP">ADD</field>
+        <value name="B">
+          <block type="math_number">
+            <field name="NUM">10</field>
+          </block>
+        </value>
+      </block>
+      <block type="math_arithmetic">
+        <value name="A">
+          <block type="math_number">
+            <field name="NUM">10</field>
+          </block>
+        </value>
+        <field name="OP">MINUS</field>
+        <value name="B">
+          <block type="math_number">
+            <field name="NUM">10</field>
+          </block>
+        </value>
+      </block>
+      <block type="math_arithmetic">
+        <value name="A">
+          <block type="math_number">
+            <field name="NUM">10</field>
+          </block>
+        </value>
+        <field name="OP">MULTIPLY</field>
+        <value name="B">
+          <block type="math_number">
+            <field name="NUM">10</field>
+          </block>
+        </value>
+      </block>
+      <block type="math_arithmetic">
+        <value name="A">
+          <block type="math_number">
+            <field name="NUM">10</field>
+          </block>
+        </value>
+        <field name="OP">DIVIDE</field>
+        <value name="B">
+          <block type="math_number">
+            <field name="NUM">10</field>
+          </block>
+        </value>
+      </block>
+
+      <block type="math_random_int">
+        <value name="FROM">
+          <block type="math_number">
+            <field name="NUM">1</field>
+          </block>
+        </value>
+        <value name="TO">
+          <block type="math_number">
+            <field name="NUM">100</field>
+          </block>
+        </value>
+      </block>
+      
+      <block type="math_single">
+        <value name="NUM">
+          <block type="math_number">
+            <field name="NUM">10</field>
+          </block>
+        </value>
+      </block>
+      <block type="math_modulo">
+        <value name="DIVIDEND">
+          <block type="math_number">
+            <field name="NUM">10</field>
+          </block>
+        </value>
+        <value name="DIVISOR">
+          <block type="math_number">
+            <field name="NUM">10</field>
+          </block>
+        </value>
+      </block>
+
+      <!-- <block type="math_trig"></block>
+      <block type="math_constant"></block>
+      <block type="math_number_property"></block>
+      <block type="math_round"></block>
+      <block type="math_on_list"></block>
+      <block type="math_constrain">
+        <value name="LOW">
+          <block type="math_number">
+            <field name="NUM">1</field>
+          </block>
+        </value>
+        <value name="HIGH">
+          <block type="math_number">
+            <field name="NUM">100</field>
+          </block>
+        </value>
+      </block>
+      <block type="math_random_float"></block>
+      <block type="math_atan2"></block> -->
+    </category>
+    <category name="Lists" colour="%{BKY_LISTS_HUE}">
+      <block type="lists_create_empty"></block>
+      <block type="lists_create_with"></block>
+      <block type="lists_repeat">
+        <value name="NUM">
+          <block type="math_number">
+            <field name="NUM">5</field>
+          </block>
+        </value>
+      </block>
+      <block type="lists_length"></block>
+      <block type="lists_isEmpty"></block>
+      <block type="lists_indexOf"></block>
+      <block type="lists_getIndex"></block>
+      <block type="lists_setIndex"></block>
+    </category>
+    
+    <category name="Variables" custom="VARIABLE" colour="%{BKY_VARIABLES_HUE}">
+    </category>
+    <category name="Functions" custom="PROCEDURE" colour="%{BKY_PROCEDURES_HUE}">
+    </category>
+    <sep></sep>
+    
+    <category name="KeyBoard">
+      <%- include('./partials/keyboard_block_xml') %>
+    </category>
+    
+    <category name="TTS">
+      <%- include('./partials/tts_block_xml') %>
+    </category>
+      
+    <category name="Etc">
+      <%- include('./partials/etc_block_xml') %>
+    </category>
+    <sep></sep>
+    <toolboxlabel name="IoT"></toolboxlabel>
+    <category name="gpiozero-basic">
+      <category name="LED">
+      <block type="led_check"></block>
+      <block type="led_ready"></block>
+      <block type="led_select_on"></block>
+      <block type="led_select_off"></block>
+      <block type="led_blink"></block>
+      <!--<block type="led_blink_advance"></block>-->
+      
+    </category>
+    <category name="ColorLED">
+      <block type="RGBled_ready"></block>
+      <block type="RGBled_on"></block>
+      <block type="RGBled_off"></block>
+    </category>
+    <category name="Button">
+      <block type="button_ready"></block>
+      <block type="button_ispressed"></block>    
+    </category>
+    <category name="Buzzer">
+      <block type="buzzer_ready"></block>
+      <block type="buzzer_on"></block>
+      <block type="buzzer_off"></block>
+    </category>
+    <category name="DistanceSensor">
+      <block type="dcsensor_ready"></block>
+      <block type="distance"></block>
+    </category>
+    <category name="Camera">
+      <block type="camera_ready"></block>
+      <!--<block type="camera_picture"></block>-->
+      <block type="set_image_take_picture"><value name="obj_image"><block type="variables_get"><field name="VAR">image</field></block></value></block>
+      <block type="save_image_to_file">
+          <value name="obj_image"><block type="variables_get"><field name="VAR">image</field></block></value>
+          <value name="obj_text"><block type="text"><field name="TEXT">picture1.jpg</field></block></value>
+      </block>
+      <block type="save_image_to_project_file">
+        <value name="obj_image">
+          <block type="variables_get">
+            <field name="VAR">image</field>
+          </block>
+        </value>
+        <value name="obj_text">
+          <block type="text">
+            <field name="TEXT">picture1.jpg</field>
+          </block>
+        </value>
+      </block>
+      <block type="camera_end"></block>
+    </category>
+      <category name="Motor">
+        <block type="motor_ready"></block>
+        <!-- <block type="motor_ready_advance"></block> -->
+        <block type="motor_speed"></block>
+        <block type="set_motor_forward"></block>
+        <block type="set_motor_backward"></block>
+        <block type="set_motor_stop"></block>
+    </category>
+      
+    <category name="Servo">
+      <variables>
+          <variable>middle</variable>
+      </variables>
+      <block type="servo_ready"></block>
+      <block type="servo_middle"></block>
+      <block type="set_servo_left"></block>
+      <block type="set_servo_right"></block>
+      <block type="set_servo_middle"></block>
+  </category>
+    </category>
+      <category name="gpiozero-advenced">
+        <%- include('./partials/iot_block_xml') %>
+
+        <%- include('./partials/driving_block_xml') %>
+      </category>
+
+      <category name="RPi.GPIO">
+        <%- include('./partials/rpigpio_block_xml') %>
+      </category>
+
+    <sep></sep>
+    
+    <!-- <toolboxbutton name="Set Project"></toolboxbutton>
+    <toolboxbutton name="Get Project"></toolboxbutton>
+    <toolboxbutton name="Upload Image"></toolboxbutton> -->
+    <category name="AI" expanded="true">
+      <category name="Project">
+        <block type="create_project"></block>
+        <block type="GetProject"></block>
+      </category>
+      <%- include('./partials/ai_block_xml') %>
+    </category>
+    <category name="AICAR">
+      <category name="Camera">
+        <block type="get_forward_data"></block>
+        <block type="get_left_data"></block>
+        <block type="get_right_data"></block>
+        <block type="get_stop_data"></block>
+        <block type="save_data"></block>
+        <block type="stop_saving_data"></block>
+        <block type="delete_all_data"></block>
+      </category>
+    </category>
+    <!--<category name="Model">
+      <variables>
+        <variable>predictResult</variable>
+      </variables>
+      <category name="test">
+        
+        <block type="variables_get"><field name="VAR"> rock</field></block>
+        <block type="variables_get"><field name="VAR"> scissor</field></block>
+        <block type="variables_get"><field name="VAR"> paper</field></block>
+        
+      </category>
+    </category>-->
+    
+  </xml>
+
+  <script>
+    class ToolboxButton extends Blockly.ToolboxItem {
+      constructor(toolboxItemDef, parentToolbox) {
+        super(toolboxItemDef, parentToolbox);
+      }
+
+      init() {
+        this.button = document.createElement('button');
+        this.button.textContent = this.toolboxItemDef_['name'];
+        if( this.toolboxItemDef_['name'] == 'Set Project' ) { this.button.setAttribute('id', 'btnSetProject'); }
+        if( this.toolboxItemDef_['name'] == 'Get Project' ) { this.button.setAttribute('id', 'btnGetProject'); }
+        if( this.toolboxItemDef_['name'] == 'Upload Image' ) { this.button.setAttribute('id', 'btnUploadImage'); }
+        this.button.onclick = function() { 
+          //console.log('Click.. ' + this.getAttribute('id'));
+          if( this.getAttribute('id') == 'btnSetProject' ) {  // 프로젝트 생성 관리
+            window.open("http://kit.ubion.co.kr/project/manageview", "imgUpload", "_blank");
+          }
+          if( this.getAttribute('id') == 'btnGetProject' ) {  // 프로젝트 가져오기
+            //parent.getFolderListToTerminal();
+            parent.getProjectJsonList();
+          }
+          if( this.getAttribute('id') == 'btnUploadImage' ) {  // 데이터 수집
+            window.open("http://kit.ubion.co.kr/common/img/uploadview", "imgUpload", "_blank");
+          }
+        }
+      }
+
+      getDiv() {
+        return this.button;
+      }
+    }
+
+    Blockly.registry.register(
+        Blockly.registry.Type.TOOLBOX_ITEM,
+        'toolboxbutton',
+        ToolboxButton
+      );
+
+    class ToolboxLabel extends Blockly.ToolboxItem {
+      constructor(toolboxItemDef, parentToolbox) {
+        super(toolboxItemDef, parentToolbox);
+      }
+
+      init() {
+        // Create the label.
+        this.label = document.createElement('label');
+        this.label.textContent = this.toolboxItemDef_['name'];
+        
+        // Set the name.
+        if( this.toolboxItemDef_['name'] == 'IoT' ) { this.label.textContent = 'IoT'; this.label.setAttribute('id', 'labIoT'); }
+        
+      }
+
+      getDiv() {
+        return this.label;
+      }
+    }
+
+  Blockly.registry.register(
+      Blockly.registry.Type.TOOLBOX_ITEM,
+      'toolboxlabel',
+      ToolboxLabel);
+
+    var blocklyArea = document.getElementById('blocklyArea');
+    var blocklyDiv = document.getElementById('blocklyDiv');
+    var workspace = Blockly.inject(blocklyDiv,
+        {
+            toolbox: document.getElementById('toolbox'),
+            renderer: 'zelos',
+            move: {
+                scrollbars: {
+                  horizontal: true,
+                  vertical: true
+                },
+                drag: true,
+                wheel: true
+            },
+            zoom: {
+                controls: true,
+                wheel: false,
+                startScale: 1.0,
+                maxScale: 3,
+                minScale: 0.3,
+                scaleSpeed: 1.2,
+                pinch: true
+            }
+        });
+
+    /*
+    var onresize = function(e) {
+      // Compute the absolute coordinates and dimensions of blocklyArea.
+      var element = blocklyArea;
+      var x = 0;
+      var y = 0;
+      do {
+        x += element.offsetLeft;
+        y += element.offsetTop;
+        element = element.offsetParent;
+      } while (element);
+      // Position blocklyDiv over blocklyArea.
+      blocklyDiv.style.left = x + 'px';
+      blocklyDiv.style.top = y + 'px';
+      blocklyDiv.style.width = blocklyArea.offsetWidth + 'px';
+      blocklyDiv.style.height = blocklyArea.offsetHeight + 'px';
+      Blockly.svgResize(workspace);
+
+      //console.log('resize');
+    };//*/
+    //window.addEventListener('resize', onresize, false);
+    //onresize();
+    //Blockly.svgResize(workspace);
+
+    //* custom context menu option to the workspace
+    var registerCustomContextMenuOptions = function() {
+        const blockItem = {
+          displayText: 'Copy',
+          preconditionFn: function(scope) {
+            if(scope.block.type == 'block_group') { return 'enabled'; }
+            else { return 'disabled'; }
+          },
+          callback: function(scope) {
+            //console.log(scope);
+            var copyGroupDom = Blockly.Xml.blockToDom(scope.block);
+            parent.copyBlocksToStorage(copyGroupDom);
+          },
+          scopeType: Blockly.ContextMenuRegistry.ScopeType.BLOCK,
+          id: 'custom_copy_menu',
+        }
+        Blockly.ContextMenuRegistry.registry.register(blockItem);
+        const workspaceItem = {
+          displayText: 'Paste',
+          preconditionFn: function(scope) {
+            return 'enabled';
+          },
+          callback: function(scope) {
+            //console.log(localStorage.getItem('groupBlocks'));
+            var pasteGroupDom = Blockly.Xml.textToDom(localStorage.getItem('groupBlocks'));
+            var rtn = Blockly.Xml.appendDomToWorkspace(pasteGroupDom, workspace);
+            localStorage.removeItem('groupBlocks');
+          },
+          scopeType: Blockly.ContextMenuRegistry.ScopeType.WORKSPACE,
+          id: 'custom_paste_menu',
+          weight: 100,
+        };
+        Blockly.ContextMenuRegistry.registry.register(workspaceItem);
+    }
+    //*/
+
+    //* Add Blocks to workspace after create workspace
+    var setWorkspaceBlocks = function() {
+        // right clicked context menu
+        registerCustomContextMenuOptions();
+
+        var editIndex = document.querySelector("input[name=edit_index]").value;
+        var loadXmlDom = parent.document.getElementById('default_xml_block_' + editIndex);
+        if(loadXmlDom) {
+          Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(loadXmlDom.outerHTML), workspace);
+          loadXmlDom.remove();
+        }
+    }
+    //*/
+    window.onload = setWorkspaceBlocks;
+
+    //* workspace event listener
+    var testCodeGenerator = function(e) {
+        var defaultImportModule = getDefaultImportModule();
+        var code = Blockly.Python.workspaceToCode(workspace);
+        document.querySelector("#codeDiv textarea[name=output]").value = defaultImportModule + code;
+        var editIndex = document.querySelector("input[name=edit_index]").value;
+        var keyboardYN = "N", cameraYN = "N", recordYN = "N", pltImShowYN = "N";
+        var saveNpzYN = "N", saveModelYN = "N";
+        if(parent) {
+          var xmlText = '<xml xmlns="https://developers.google.com/blockly/xml" id="xml_block_"'+editIndex+' style="display: none">';
+          var xmlDom = Blockly.Xml.workspaceToDom(workspace);
+          
+          if(workspace.getBlocksByType('keyboard_control').length > 0) { keyboardYN = "Y"; }
+          parent.blocksToCode(editIndex, defaultImportModule + code, xmlDom, keyboardYN);
+
+          if(workspace.getBlocksByType('camera_picture').length > 0
+            || workspace.getBlocksByType('set_image_take_picture').length > 0
+          ) { cameraYN = "Y"; }
+          parent.setCameraPictures(editIndex, cameraYN);
+
+          if(workspace.getBlocksByType('save_data').length > 0) { recordYN = "Y"; }
+          parent.setDrivingPictures(editIndex, recordYN);
+
+          if(workspace.getBlocksByType('image_resize2').length > 0) { 
+            saveNpzYN = "Y"; 
+            var resize2Block = workspace.getBlockById(workspace.getBlocksByType('image_resize2')[0].id);
+            var resize2FieldRows = resize2Block.childBlocks_[2].inputList[0].fieldRow;
+            //console.log(resize2FieldRows.length, resize2FieldRows);
+            var saveNpzName = "";
+            for(var row in resize2FieldRows) {
+              if(resize2FieldRows[row].name == "TEXT") {
+                saveNpzName = resize2FieldRows[row].getValue();
+              }
+            }
+            parent.setSaveNpz(editIndex, saveNpzYN, saveNpzName);
+          }
+
+          if(workspace.getBlocksByType('model_save').length > 0) { 
+            saveModelYN = "Y"; 
+            var saveModelBlock = workspace.getBlockById(workspace.getBlocksByType('model_save')[0].id);
+            var saveModelFieldRows = saveModelBlock.childBlocks_[0].inputList[0].fieldRow;
+            //console.log(saveModelFieldRows.length, saveModelFieldRows);
+            var saveModelName = "";
+            for(var row in saveModelFieldRows) {
+              if(saveModelFieldRows[row].name == "TEXT") {
+                saveModelName = saveModelFieldRows[row].getValue();
+              }
+            }
+            parent.setSaveModel(editIndex, saveModelYN, saveModelName);
+          }
+
+          if(workspace.getBlocksByType('DNN_imshow_arr').length > 0
+            || workspace.getBlocksByType('DNN_imshow').length > 0
+            || workspace.getBlocksByType('DNN_img_upload_pc').length > 0
+            || workspace.getBlocksByType('DNN_img_upload_drive').length > 0) {
+              pltImShowYN = "Y";
+          }
+          //parent.setPltImShow(editIndex, pltImShowYN);
+                    
+        }
+        
+        if ( e.type == 'click' && e.targetType == 'block' )
+        {
+            //console.log('block event click!');
+            var clickedBlock = workspace.getBlockById(e.blockId);
+            if( clickedBlock.type == 'image_upload' ) { 
+              //parent.imageUploadPopupShow(); 
+              //window.open("http://kit.ubion.co.kr/common/img/uploadview", "imgUpload", "_blank");
+              window.open("http://192.168.50.1/common/img/uploadview", "imgUpload", "_blank");
+            }
+
+            if( clickedBlock.type == 'create_project' ) { 
+              parent.projectMngPopupShow(); 
+              //window.open("http://kit.ubion.co.kr/project/manageview", "imgUpload", "_blank");
+            }
+        }
+
+        if(e.type == 'selected'){
+          var clickedBlock = workspace.getBlockById(e.newElementId);
+          //console.log('get project update', clickedBlock);
+          // 블럭 구성이 현재와 달라지게 되면 스크립트도 변경 되어야 함.
+          if(clickedBlock.type == 'GetProject'){
+            parent.getProjectJsonList();
+            var getProjectFieldRows = clickedBlock.inputList[0].fieldRow;
+            //console.log(getProjectFieldRows);
+            for(var row in getProjectFieldRows) {
+              if(getProjectFieldRows[row].name == "projectName") {
+                getProjectFieldRows[row].setValue(parent.$("#folderList").val());
+              }
+            }
+          }
+        }
+
+        if(e.type == 'change'){
+          var clickedBlock = workspace.getBlockById(e.blockId);
+          if(clickedBlock.type == 'GetProject'){
+            $("#projectname").val(e.newValue);
+          }
+        }
+
+        /*
+        if(e.type == 'drag'){
+          // 블럭 구성이 현재와 달라지게 되면 스크립트도 변경 되어야 함.
+          if(workspace.getBlocksByType('model_save').length > 0) {
+             
+            //console.log(workspace.getBlocksByType('model_save')[0].id);
+            var saveModelBlock = workspace.getBlockById(workspace.getBlocksByType('model_save')[0].id);
+            //console.log(saveModelBlock.childBlocks_[0].inputList);
+            var saveModelFieldRows = saveModelBlock.childBlocks_[0].inputList[0].fieldRow;
+            //console.log(saveModelFieldRows.length, saveModelFieldRows);
+            for(var row in saveModelFieldRows) {
+              if(saveModelFieldRows[row].name == "TEXT") {
+                saveModelFieldRows[row].setValue( $("#projectname").val() );
+                
+              }
+            }
+          }
+          // 블럭 구성이 현재와 달라지게 되면 스크립트도 변경 되어야 함.
+          if(workspace.getBlocksByType('image_resize2').length > 0) {
+             
+             //console.log(workspace.getBlocksByType('image_resize2'));
+             var resize2Block = workspace.getBlockById(workspace.getBlocksByType('image_resize2')[0].id);
+             //console.log(resize2Block.childBlocks_[2].inputList);
+             var resize2FieldRows = resize2Block.childBlocks_[2].inputList[0].fieldRow;
+             //console.log(resize2FieldRows.length, resize2FieldRows);
+             for(var row in resize2FieldRows) {
+              if(resize2FieldRows[row].name == "TEXT") {
+                resize2FieldRows[row].setValue( $("#projectname").val() );
+                
+              }
+            }
+             
+           }
+           // 블럭 구성이 현재와 달라지게 되면 스크립트도 변경 되어야 함.
+           if(workspace.getBlocksByType('load_data').length > 0) {
+             
+             //console.log(workspace.getBlocksByType('load_data'));
+             var loadDataBlock = workspace.getBlockById(workspace.getBlocksByType('load_data')[0].id);
+             //console.log(loadDataBlock.childBlocks_[2].inputList);
+             var loadDataFieldRows = loadDataBlock.childBlocks_[2].inputList[0].fieldRow;
+             //console.log(loadDataFieldRows.length, loadDataFieldRows);
+             for(var row in loadDataFieldRows) {
+              if(loadDataFieldRows[row].name == "TEXT") {
+                loadDataFieldRows[row].setValue( $("#projectname").val() );
+                
+              }
+            }
+
+           }
+           // 블럭 구성이 현재와 달라지게 되면 스크립트도 변경 되어야 함.
+           if(workspace.getBlocksByType('model_load').length > 0) {
+             
+             //console.log(workspace.getBlocksByType('model_load'));
+             var loadModelBlock = workspace.getBlockById(workspace.getBlocksByType('model_load')[0].id);
+             var loadModelFieldRows = loadModelBlock.childBlocks_[0].inputList[0].fieldRow;
+             //console.log(loadModelFieldRows.length, loadModelFieldRows);
+              for(var row in loadModelFieldRows) {
+                if(loadModelFieldRows[row].name == "TEXT") {
+                  loadModelFieldRows[row].setValue( $("#projectname").val() );
+                  
+                }
+              }
+           }
+
+           
+        }
+        //*/
+
+    }
+    workspace.addChangeListener(testCodeGenerator);
+    //*/
+
+    //* check import module
+    var getDefaultImportModule = function() {
+        var defaultImportModule = "";
+        if(workspace.getBlocksByType('led_check').length > 0
+         || workspace.getBlocksByType('led_ready').length > 0
+         || workspace.getBlocksByType('led_by_pin').length > 0
+        ) { defaultImportModule += "from gpiozero import LED \r\n"; }
+        if(workspace.getBlocksByType('PWMled_ready').length > 0)
+        { defaultImportModule += "from gpiozero import PWMLED \r\n"; }
+        if(workspace.getBlocksByType('button_ready').length > 0)
+        { defaultImportModule += "from gpiozero import Button \r\n"; }
+        if(workspace.getBlocksByType('buzzer_ready').length > 0)
+        { defaultImportModule += "from gpiozero import Buzzer \r\n"; }
+        if(workspace.getBlocksByType('dcsensor_ready').length > 0)
+        { defaultImportModule += "from gpiozero import DistanceSensor \r\n"; 
+          defaultImportModule += "from gpiozero.pins.pigpio import PiGPIOFactory \r\n"; }
+        if(workspace.getBlocksByType('gpio_by_num').length > 0)
+        {   defaultImportModule += "import RPi.GPIO as GPIO \r\n";
+            defaultImportModule += "GPIO.setmode(GPIO.BCM) \r\n\n"; }
+        if(workspace.getBlocksByType('keyboard_control').length > 0)
+        { defaultImportModule += "import curses \r\n"; }
+        if(workspace.getBlocksByType('motor_ready').length > 0
+         || workspace.getBlocksByType('motor_ready_advance').length > 0 )
+        { defaultImportModule += "from gpiozero import Motor \r\n"; }
+        if(workspace.getBlocksByType('servo_ready').length > 0
+         || workspace.getBlocksByType('servo_ready_advance').length > 0 )
+        { defaultImportModule += "from gpiozero import AngularServo \r\n";
+          defaultImportModule += "from gpiozero.pins.pigpio import PiGPIOFactory \r\n"; }
+        if(workspace.getBlocksByType('tts_ready').length > 0)
+        { defaultImportModule += "import ttsHelper as tts \r\n"; }
+        if(workspace.getBlocksByType('set_curses_ready').length > 0)
+        { defaultImportModule += "import curses \r\n"; }
+        if(workspace.getBlocksByType('camera_ready').length > 0)
+        { defaultImportModule += "import cameralib as camera \r\n"; 
+          defaultImportModule += "import cv2 \r\n"}
+        if(workspace.getBlocksByType('image_resize').length > 0
+          || workspace.getBlocksByType('load_data_labeling').length > 0
+          ) { defaultImportModule += "import ai_data_lib as dataLib \r\n" }
+          if(workspace.getBlocksByType('model_set_with_input').length > 0
+          || workspace.getBlocksByType('model_add_conv2d').length > 0
+          || workspace.getBlocksByType('model_add_dense').length > 0
+          || workspace.getBlocksByType('model_add_flatten').length > 0
+          || workspace.getBlocksByType('model_compile_fn').length > 0
+          || workspace.getBlocksByType('model_fit_fn').length > 0
+          ) { defaultImportModule += "import tensorflow as tf \r\n" 
+            defaultImportModule += "from tensorflow.keras.layers import * \r\n" }
+              if(workspace.getBlocksByType('x_train_img_fn').length > 0
+                || workspace.getBlocksByType('model_fit_fn').length > 0
+                || workspace.getBlocksByType('save_data_img').length > 0
+          ) { defaultImportModule += "import matplotlib.pyplot as plt \r\n" 
+          }
+              if(workspace.getBlocksByType('model_predict_fn').length > 0
+              || workspace.getBlocksByType('model_predict_fn2').length > 0
+              || workspace.getBlocksByType('model_predict_fn3').length > 0
+          ) { defaultImportModule += "import numpy as np \r\n"
+                  //defaultImportModule += "from keras.preprocessing import image \r\n" 
+                  defaultImportModule += "import matplotlib.pyplot as plt \r\n"
+          }
+          if(workspace.getBlocksByType('shuffle').length > 0
+          || workspace.getBlocksByType('save_data_img').length > 0
+          ) { defaultImportModule += "import numpy as np \r\n"
+                  defaultImportModule += "import random \r\n" 
+          }
+          if(workspace.getBlocksByType('model_load').length > 0
+          ) { defaultImportModule += "import ai_data_lib2 as dataLib2 \r\n"
+            defaultImportModule += "import tensorflow as tf \r\n" 
+            defaultImportModule += "from tensorflow.keras.layers import * \r\n"
+          }
+          if(workspace.getBlocksByType('load_model_predict').length > 0){
+            defaultImportModule += "import numpy as np \r\n"
+            defaultImportModule += "import ai_data_lib as dataLib \r\n"
+          }
+          if(workspace.getBlocksByType('wait').length > 0){
+            defaultImportModule += "import time \r\n"
+          }
+          if(workspace.getBlocksByType('image_resize2').length > 0 
+          || workspace.getBlocksByType('load_data').length > 0 
+          || workspace.getBlocksByType('shuffle_data').length > 0 
+          || workspace.getBlocksByType('model_save').length > 0 
+          || workspace.getBlocksByType('save_data_img').length > 0
+          ){
+            defaultImportModule += "import ai_data_lib2 as dataLib2 \r\n"
+          }
+          if(workspace.getBlocksByType('Keyboard_input').length > 0){
+            defaultImportModule += "import curses \r\n"
+            defaultImportModule += "from curses import wrapper \r\n"
+          }
+          if (workspace.getBlocksByType('image_reshape').length > 0) {
+            defaultImportModule += "import numpy as np \r\n"
+          }
+          if (workspace.getBlocksByType('save_data_img').length > 0) {
+            defaultImportModule += "import cv2 \r\n"
+          }
+          
+          
+          
+        return defaultImportModule;
+    }
+    //*/
+
+    var addCategoryCallName = function (e) {
+
+        var editIndex = document.querySelector("input[name=edit_index]").value;
+
+        var updateToolboxText = '<xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">';
+        updateToolboxText += $('#toolbox').html();
+        updateToolboxText += '<category name="Classes">';
+        for(var i = 0; i < e.length; i++){
+          updateToolboxText += '      <block type="text"><field name="TEXT">'+e[i]+'</field></block>';
+        }
+        updateToolboxText += '  </category>';
+        updateToolboxText += '</xml>';
+
+        var updateToolboxXml = Blockly.Xml.textToDom(updateToolboxText);
+        workspace.updateToolbox(updateToolboxXml);
+
+        //* ToolboxItem 중복 삭제
+        $('#btnGetProject').first().remove();
+        $('#labIoT').first().remove();
+        //*/
+    }
+
+    var updateCategoryCallBack = function() {
+      var editIndex = document.querySelector("input[name=edit_index]").value;
+      
+      var updateToolboxText = '<xml xmlns="https://developers.google.com/blockly/xml" id="xml_block_'+editIndex+'" style="display: none">';
+          updateToolboxText += $('#toolbox').html();
+          updateToolboxText += '<category name="Model">';
+          updateToolboxText += '  <variables>';
+          updateToolboxText += '  <variable>predictResult</variable>';
+          updateToolboxText += '  </variables>';
+          updateToolboxText += '  <category name="test">';
+          updateToolboxText += '  <block type="variables_get"><field name="VAR"> AAA</field></block>';
+          updateToolboxText += '  <block type="variables_get"><field name="VAR"> BBB</field></block>';
+          updateToolboxText += '  </category>';
+          updateToolboxText += '</category>';
+          updateToolboxText += '</xml>';
+
+        var updateToolboxXml = Blockly.Xml.textToDom(updateToolboxText);
+        workspace.updateToolbox(updateToolboxXml);
+        //* ToolboxItem 중복 삭제
+        $('#btnGetProject').first().remove();
+        $('#labIoT').first().remove();
+        //*/
+    }
+
+    $(document).ready(function(){
+        $('#kitFrmDir').on( 'load', function(){
+            console.log('kitFrmDir loaded.');
+            parent.callDirFrameData();
+        });
+    });
+
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,76 @@
+<% layout('../common/layout') -%>
+
+<div id="wrapper" style="padding-top: 5px;">
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" >
+        
+        <div class="wrap codingview" style="width: 100%;">
+            <section class="container-fluid pt-3" id="editor" style="height: 100%;">
+                <div>
+                    <h4>[Q]: quit  [W]: forward  [S]: stop  [A]: left  [D]: right  [R]: record</h4>
+                </div>
+                <article class="run-zone">
+                    <textarea id="key_code_area" name="key_code_area" autofocus></textarea>
+                </article>                                
+            </section>
+        </div>
+        
+    </div>
+    
+</div>
+<script type="text/javascript">
+    var isFirstDriving = 1, isRecordYN = 'N';
+    var callKeyboardDriving = function(keyCode) {
+        var param = {};
+        param.first_driving = isFirstDriving;
+        param.key_code = keyCode;
+        if(keyCode == 81) { isRecordYN = 'N'; }
+        if(keyCode == 82) { isRecordYN = 'Y'; }
+        param.record_yn = isRecordYN;
+        $.ajax({
+            url: "/common/keyboard/driving",
+            type: "GET",
+            dataType: 'json',
+            data: param,
+            success: function (res) {
+                //console.log(res);
+                isFirstDriving = 0;
+            },
+            error: function () {
+                console.log('Error..');
+            }
+        });
+    };
+    var drivingTimer, drivingCode = 83;  // W=87, A=65, S=83, D=68, R=82, Q=81
+    var setDrivingTimer = function() {
+        if(drivingTimer) { clearInterval(drivingTimer); }
+        drivingTimer = setInterval(function(){
+            callKeyboardDriving(drivingCode);
+        }, 300);
+    }
+    $(function(){
+        //*
+        $('#key_code_area').keydown(function(e){
+            //console.log('Key IN..', e.keyCode);
+            $(this).val(e.keyCode);
+            callKeyboardDriving(e.keyCode);
+            if(e.keyCode == 81) { parent.$('div.tempLayerPopWrap').hide(); }
+        });
+        //*/
+        /*
+        $('#key_code_area').keyup(function(e){
+            drivingCode = e.keyCode;
+            $(this).val(e.keyCode);
+            if(e.keyCode == 81) {
+                clearInterval(drivingTimer);
+            }
+            if(e.keyCode == 82) {
+                setDrivingTimer();
+            }
+        });
+        //*/
+    });
+    $(document).ready(function(){
+        $('#key_code_area').focus();
+    });
+</script>

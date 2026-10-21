@@ -1,0 +1,130 @@
+<% layout('../common/layout') -%>
+<script src="https://unpkg.com/blockly/blockly.min.js"></script>
+<script src="https://raw.githubusercontent.com/google/blockly/master/javascript_compressed.js"></script>
+<style>
+    #editor{
+        padding: 4px;
+    }
+    body{
+        background-color: beige;
+    }
+</style>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        var i = 0;
+        var arr = [];
+
+
+        $("#bold").click(function () {
+            var bool = document.execCommand("bold");
+        });
+
+        $("#addcoding").click(function () {
+            var editorText = "<br/><div><textarea id='code" + i + "' name='code" + i + "'></textarea></div><br/>"
+
+            $("#editor").append(editorText)
+
+            var editor = CodeMirror.fromTextArea(document.getElementById("code" + i), {
+                lineNumbers: true,
+                matchBrackets: true,
+                theme: 'material-palenight'
+            });
+
+            arr.push(editor);
+
+            i++;
+
+        });
+
+        $("#addbookmark").click(function () {
+            $("#bookmark").append("<input type='text' class='bookmark'><br>");
+        });
+
+        $("#save").click(function () {
+            $(".CodeMirror").remove();
+
+            for (var index = 0; index < arr.length; index++) {
+                var value = arr[index].getValue();
+                $("#code" + index).text(value);
+            }
+
+            var bookmark = [];
+
+            $(".bookmark").each(function(index, item){ 
+                var time = item.value;
+
+                time = time.split(":")
+
+                if(time.length > 1){
+                    bookmark.push((Number(time[0]) * 60) + Number(time[1]));
+                }
+                else{
+                    bookmark.push(Number(time[0]));
+                }
+
+            })
+
+            var editor = $("#editor").html().replace(/<div><textarea id/gi, "<article class='run-zone'><textarea id");
+                editor = editor.replace(/<\/textarea><\/div>/gi, "</textarea></article>");
+
+            var Param = {
+                lecture_id : 1,
+                course_id : 1,
+                content_title : "TEST1",
+                content_desc : editor,
+                content_len : arr.length,
+                bookmark : JSON.stringify(bookmark)
+            }
+
+            console.log(Param);
+
+            $.ajax({
+                url: '<%=_prop.Api.CodingContentUrl%>/codingcontent',
+                type: "POST",
+                dataType: 'json',
+                data: Param,
+                success: function (data) {
+                    console.log(data);
+                    //location.href = "/learn"
+                }
+            });
+
+        });
+
+        document.querySelector("#editor").addEventListener("keydown", actionEvent);
+        
+        function actionEvent(event) {
+            if (event.keyCode === 9) {
+                event.preventDefault();
+                var range = window.getSelection().getRangeAt(0);
+
+                var tabNode = document.createTextNode("\u00a0\u00a0\u00a0\u00a0");
+                range.insertNode(tabNode);
+
+                range.setStartAfter(tabNode);
+                range.setEndAfter(tabNode);
+            }
+
+
+        }
+
+
+    });
+
+</script>
+
+<div>
+    <button id="bold">B</button>
+    <button id="addcoding">C</button>
+    <button id="addbookmark">BM</button>
+</div>
+<div id="editor" contenteditable="true">
+</div>
+<div id="bookmark">
+
+</div>
+
+<button id="save">저장</button>
+
