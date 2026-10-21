@@ -129,6 +129,17 @@ module.exports = () => {
             app.use(express.json());
             app.use(express.urlencoded({ extended: false }));
             app.use(cookieParser());
+            // 딥코봇 펌웨어 — 펌웨어 센터로 이전(2026-10). 옮긴 파일만 새 주소로 보낸다.
+            // 이후 추가되는 펌웨어는 처음부터 펌웨어 센터 주소로 배포하므로 이 목록에 넣지 않는다.
+            const movedBotFirmwares = [
+              'ver_1_11_0_20240418_firmware.zip',
+              'ver_1_10_0_20231208_firmware.zip',
+              'ver_1_9_1_FullVersion_firmware.zip',
+            ];
+            app.get('/CodaCar/application/:file', (req, res, next) => {
+              if (!movedBotFirmwares.includes(req.params.file)) return next();
+              res.redirect(301, 'https://firmware.deepco.co.kr/Resource/firmware/' + req.params.file);
+            });
             // 개편 사이트(정적) — 기존 public보다 먼저 응답한다. 되돌릴 때는 이 줄만 뺀다.
             app.use(express.static(path.join(__dirname, 'public', 'www')));
             app.use(express.static(path.join(__dirname, 'public')));
