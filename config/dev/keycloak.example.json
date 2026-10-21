@@ -1,0 +1,10 @@
+{
+  "realm": "aikit",
+  "auth-server-url": "http://192.168.102.208:8080/auth/",
+  "ssl-required": "external",
+  "resource": "web.front",
+  "credentials": {
+    "secret": "<CLIENT_SECRET>"
+  },
+  "confidential-port": 0
+}

@@ -129,6 +129,8 @@ module.exports = () => {
             app.use(express.json());
             app.use(express.urlencoded({ extended: false }));
             app.use(cookieParser());
+            // 개편 사이트(정적) — 기존 public보다 먼저 응답한다. 되돌릴 때는 이 줄만 뺀다.
+            app.use(express.static(path.join(__dirname, 'public', 'www')));
             app.use(express.static(path.join(__dirname, 'public')));
             app.use(express.static(path.join(__dirname, 'assets')));
             app.use(express.static(_prop.Resources.codaUpdateDir));

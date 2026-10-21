@@ -1,0 +1,10 @@
+{
+  "realm": "Aikit",
+  "auth-server-url": "http://61.100.182.99:8080/auth/",
+  "ssl-required": "none",
+  "resource": "web.front",
+  "credentials": {
+    "secret": "<CLIENT_SECRET>"
+  },
+  "confidential-port": 0
+}
