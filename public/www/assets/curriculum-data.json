@@ -25,6 +25,20 @@
           "2차시 · 표지판 이미지 수집과 분류 모델 학습",
           "3차시 · 인식 결과와 딥코 미니 주행 명령 연결",
           "4차시 · 자율주행 미션 수행과 모델 개선"
+        ],
+        "standardsDetail": [
+          {
+            "code": "[9정04-02]",
+            "description": "인공지능 학습에서 데이터의 중요성을 이해하고, 학습에 필요한 데이터를 수집하여 분류합니다."
+          },
+          {
+            "code": "[9정04-03]",
+            "description": "다양한 데이터를 활용하여 인공지능 시스템을 구성하고 적용합니다."
+          },
+          {
+            "code": "[9정01-03]",
+            "description": "문제 해결 목적에 맞는 피지컬 컴퓨팅 구성요소를 선택하여 시스템을 구상합니다."
+          }
         ]
       },
       "en": {
@@ -47,6 +61,20 @@
           "AI Understanding & Critical Judgment",
           "Data & Model Learning",
           "Cognition & Physical Action"
+        ],
+        "standardsDetail": [
+          {
+            "code": "[9정04-02]",
+            "description": "Understand the importance of data in AI learning and collect and classify the data needed for training."
+          },
+          {
+            "code": "[9정04-03]",
+            "description": "Build and apply an AI system using multiple forms of data."
+          },
+          {
+            "code": "[9정01-03]",
+            "description": "Select Physical Computing components suited to the problem and design a system."
+          }
         ]
       }
     },
@@ -75,6 +103,20 @@
           "2차시 · 재활용품 이미지 데이터 수집과 학습",
           "3차시 · 딥코 보드의 센서·모터 연결과 제어",
           "4차시 · AI 분리수거기 완성, 테스트와 개선"
+        ],
+        "standardsDetail": [
+          {
+            "code": "[6실05-05]",
+            "description": "인공지능이 만들어지는 과정을 체험하고, 인공지능이 사회에 미치는 영향을 탐색합니다."
+          },
+          {
+            "code": "[6실05-03]",
+            "description": "실생활의 문제를 해결하는 프로그램을 협력하여 작성하고, 산출물을 타인과 공유합니다."
+          },
+          {
+            "code": "[9정01-03]",
+            "description": "문제 해결 목적에 맞는 피지컬 컴퓨팅 구성요소를 선택하여 시스템을 구상합니다."
+          }
         ]
       },
       "en": {
@@ -97,6 +139,20 @@
           "Data & Model Learning",
           "AI Creation & Collaboration",
           "System Design & Computing"
+        ],
+        "standardsDetail": [
+          {
+            "code": "[6실05-05]",
+            "description": "Experience how AI is created and explore its impact on society."
+          },
+          {
+            "code": "[6실05-03]",
+            "description": "Collaboratively create a program that solves a real-life problem and share the resulting work with others."
+          },
+          {
+            "code": "[9정01-03]",
+            "description": "Select Physical Computing components suited to the problem and design a system."
+          }
         ]
       }
     },
@@ -125,6 +181,20 @@
           "2차시 · 인식 데이터 수집과 AI 모델 학습",
           "3차시 · 딥코 이지로 LED·모터 동작 만들기",
           "4차시 · AI 저금통 조립과 발표"
+        ],
+        "standardsDetail": [
+          {
+            "code": "[6실05-04]",
+            "description": "디지털 데이터와 아날로그 데이터의 특징을 이해하고, 인공지능에 활용할 수 있는 데이터의 유형이나 형태를 탐색합니다."
+          },
+          {
+            "code": "[6실05-05]",
+            "description": "인공지능이 만들어지는 과정을 체험하고, 인공지능이 사회에 미치는 영향을 탐색합니다."
+          },
+          {
+            "code": "[9정01-02]",
+            "description": "피지컬 컴퓨팅의 개념을 이해하고, 생활 속 적용 사례를 통해 컴퓨팅 시스템의 필요성과 가치를 판단합니다."
+          }
         ]
       },
       "en": {
@@ -147,6 +217,20 @@
           "Data & Model Learning",
           "AI Creation & Collaboration",
           "Cognition & Physical Action"
+        ],
+        "standardsDetail": [
+          {
+            "code": "[6실05-04]",
+            "description": "Understand digital and analog data and explore the types and forms of data that can be used in AI."
+          },
+          {
+            "code": "[6실05-05]",
+            "description": "Experience how AI is created and explore its impact on society."
+          },
+          {
+            "code": "[9정01-02]",
+            "description": "Understand Physical Computing and judge the need and value of computing systems through real-life examples."
+          }
         ]
       }
     },
@@ -175,6 +259,20 @@
           "3–4차시 · 이미지 모델 학습",
           "5–6차시 · 장치 연결과 제어",
           "7–8차시 · 프로젝트 완성 및 발표"
+        ],
+        "standardsDetail": [
+          {
+            "code": "[6실05-04]",
+            "description": "디지털 데이터와 아날로그 데이터의 특징을 이해하고, 인공지능에 활용할 수 있는 데이터의 유형이나 형태를 탐색합니다."
+          },
+          {
+            "code": "[6실05-05]",
+            "description": "인공지능이 만들어지는 과정을 체험하고, 인공지능이 사회에 미치는 영향을 탐색합니다."
+          },
+          {
+            "code": "[9정01-02]",
+            "description": "피지컬 컴퓨팅의 개념을 이해하고, 생활 속 적용 사례를 통해 컴퓨팅 시스템의 필요성과 가치를 판단합니다."
+          }
         ]
       },
       "en": {
@@ -197,6 +295,20 @@
           "Data & Model Learning",
           "AI Creation & Collaboration",
           "Cognition & Physical Action"
+        ],
+        "standardsDetail": [
+          {
+            "code": "[6실05-04]",
+            "description": "Understand digital and analog data and explore the types and forms of data that can be used in AI."
+          },
+          {
+            "code": "[6실05-05]",
+            "description": "Experience how AI is created and explore its impact on society."
+          },
+          {
+            "code": "[9정01-02]",
+            "description": "Understand Physical Computing and judge the need and value of computing systems through real-life examples."
+          }
         ]
       }
     },
@@ -225,6 +337,20 @@
           "4–6차시 · AI 모델 학습과 평가",
           "7–9차시 · 블록코딩 주행 구현",
           "10–12차시 · 자율주행 미션과 성능 개선"
+        ],
+        "standardsDetail": [
+          {
+            "code": "[9정04-02]",
+            "description": "인공지능 학습에서 데이터의 중요성을 이해하고, 학습에 필요한 데이터를 수집하여 분류합니다."
+          },
+          {
+            "code": "[9정04-03]",
+            "description": "다양한 데이터를 활용하여 인공지능 시스템을 구성하고 적용합니다."
+          },
+          {
+            "code": "[12인기02-01~06]",
+            "description": "기계학습 문제 정의와 데이터 선정·가공, 알고리즘 선택, 모델 학습·평가, 딥러닝 활용까지의 전 과정을 수행합니다."
+          }
         ]
       },
       "en": {
@@ -247,6 +373,20 @@
           "Data & Model Learning",
           "System Design & Computing",
           "Cognition & Physical Action"
+        ],
+        "standardsDetail": [
+          {
+            "code": "[9정04-02]",
+            "description": "Understand the importance of data in AI learning and collect and classify the data needed for training."
+          },
+          {
+            "code": "[9정04-03]",
+            "description": "Build and apply an AI system using multiple forms of data."
+          },
+          {
+            "code": "[12인기02-01~06]",
+            "description": "Complete the machine-learning process from defining the problem and preparing data to choosing algorithms, training, evaluation, and deep-learning applications."
+          }
         ]
       }
     },
@@ -275,6 +415,16 @@
           "5–8차시 · 데이터와 모델 개발",
           "9–12차시 · 센서·장치 구현",
           "13–16차시 · 테스트, 개선과 발표"
+        ],
+        "standardsDetail": [
+          {
+            "code": "[9정04-04]",
+            "description": "인공지능 시스템으로 해결 가능한 문제를 발견하고, 문제 해결에 적합한 인공지능 시스템을 적용합니다."
+          },
+          {
+            "code": "[12인기04-01~04]",
+            "description": "지속가능발전목표에서 프로젝트 주제를 찾고, 계획 수립과 협업 개발을 거쳐 사회적 영향과 평가 결과를 반영해 성능을 개선합니다."
+          }
         ]
       },
       "en": {
@@ -297,6 +447,16 @@
           "AI Creation & Collaboration",
           "System Design & Computing",
           "Human-Centered Ethics & Problem Solving"
+        ],
+        "standardsDetail": [
+          {
+            "code": "[9정04-04]",
+            "description": "Identify a problem that can be solved with AI and apply a suitable AI system."
+          },
+          {
+            "code": "[12인기04-01~04]",
+            "description": "Choose an SDG-based topic, plan and develop collaboratively, then improve performance using evaluation results and consideration of social impact."
+          }
         ]
       }
     },
@@ -325,6 +485,16 @@
           "9–16차시 · 이미지·센서 모델 실험",
           "17–24차시 · 피지컬 AI 제작",
           "25–32차시 · AI PBL 캡스톤과 발표"
+        ],
+        "standardsDetail": [
+          {
+            "code": "[6실05-01~05]",
+            "description": "컴퓨터를 활용한 문제 해결과 알고리즘 표현, 프로그램 작성·협업, 데이터 유형 탐색, 인공지능의 제작 과정과 사회적 영향을 함께 다룹니다."
+          },
+          {
+            "code": "[9정04-01~05]",
+            "description": "인공지능의 개념과 특성, 학습 데이터의 수집·분류, 시스템 구성·적용, 문제 해결, 데이터 윤리까지 중학교 인공지능 영역 전반을 다룹니다."
+          }
         ]
       },
       "en": {
@@ -347,6 +517,16 @@
           "All Six Competency Axes",
           "AI Creation & Collaboration",
           "Human-Centered Ethics & Problem Solving"
+        ],
+        "standardsDetail": [
+          {
+            "code": "[6실05-01~05]",
+            "description": "Covers computer-based problem solving, algorithms, collaborative programming, data types, how AI is made, and its social impact."
+          },
+          {
+            "code": "[9정04-01~05]",
+            "description": "Covers AI concepts, collecting and classifying training data, building and applying AI systems, problem solving, and data ethics."
+          }
         ]
       }
     },
@@ -375,6 +555,20 @@
           "9–18차시 · 비전 AI 모델링",
           "19–28차시 · 로봇 제어와 자율주행",
           "29–36차시 · 연구 프로젝트와 결과 발표"
+        ],
+        "standardsDetail": [
+          {
+            "code": "[12인기02-01~06]",
+            "description": "기계학습 문제 정의와 데이터 선정·가공, 알고리즘 선택, 모델 학습·평가, 딥러닝 활용까지의 전 과정을 수행합니다."
+          },
+          {
+            "code": "[12정03-01~10]",
+            "description": "문제 분해와 모델링, 알고리즘·자료형·입출력·데이터 구조·제어 구조·객체 활용, 협력적 프로그램 구현과 성능 평가를 다룹니다."
+          },
+          {
+            "code": "[12인기04-01~04]",
+            "description": "지속가능발전목표에서 프로젝트 주제를 찾고, 계획 수립과 협업 개발을 거쳐 사회적 영향과 평가 결과를 반영해 성능을 개선합니다."
+          }
         ]
       },
       "en": {
@@ -397,6 +591,20 @@
           "Data & Model Learning",
           "System Design & Computing",
           "Cognition & Physical Action"
+        ],
+        "standardsDetail": [
+          {
+            "code": "[12인기02-01~06]",
+            "description": "Complete the machine-learning process from defining the problem and preparing data to choosing algorithms, training, evaluation, and deep-learning applications."
+          },
+          {
+            "code": "[12정03-01~10]",
+            "description": "Covers decomposition and modeling, algorithms, data types, input/output, data structures, control structures, objects, collaborative implementation, and performance evaluation."
+          },
+          {
+            "code": "[12인기04-01~04]",
+            "description": "Choose an SDG-based topic, plan and develop collaboratively, then improve performance using evaluation results and consideration of social impact."
+          }
         ]
       }
     }
